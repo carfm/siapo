@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RordeAuditada" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c0134fc3-8f42-429c-85bd-861ae7944b4e">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fecha1" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fecha2" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT * from temporal1]]>
+	</queryString>
+	<field name="agente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="total" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="conError" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="variable1" class="java.lang.Integer">
+		<variableExpression><![CDATA[$F{total}-$F{conError}]]></variableExpression>
+	</variable>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="77">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="10" backcolor="#FFFFFF" uuid="8613cd8d-6598-4ef1-bea5-fea42bf61471"/>
+			</frame>
+			<staticText>
+				<reportElement x="1" y="26" width="553" height="23" forecolor="#000000" uuid="fba58856-b93c-487b-8aba-0e4c2d9ceba3"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE  DE ORDENES AUDITADAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="0" width="554" height="26" forecolor="#000000" uuid="7350f62e-91a8-4d4e-a5e8-6a58422988de"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HMCR SOLUTIONS]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="1" y="49" width="553" height="20" uuid="d8e214f9-b368-4bc9-ac02-e0d4718b284f"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fecha1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band/>
+	</pageHeader>
+	<columnHeader>
+		<band height="34">
+			<staticText>
+				<reportElement x="0" y="0" width="117" height="34" uuid="9c20b347-3d9e-4c1c-8cac-a4388763fdee"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre Del Auditor]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="264" y="0" width="133" height="34" uuid="5095fdb8-dfe1-49c4-8989-8223ea47f01d"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ordenes Sin Errores]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="397" y="0" width="157" height="34" uuid="b5e1ba91-e3e6-4fa3-ba35-04b5fade7372"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ordenes Sin Errores]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="117" y="0" width="147" height="34" uuid="f883820b-6cd0-4569-94fb-f2aa9aec7494"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ordenes Auditadas]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30">
+			<line>
+				<reportElement x="117" y="0" width="1" height="28" uuid="f2a6de4e-9231-4c4d-aac1-2c94296ad2fb"/>
+			</line>
+			<line>
+				<reportElement x="264" y="1" width="1" height="28" uuid="7384769d-ee2f-4f68-89c4-f65ae37c71ad"/>
+			</line>
+			<line>
+				<reportElement x="396" y="1" width="1" height="28" uuid="e17e8c0c-6297-45cc-99d1-2788a8494a06"/>
+			</line>
+			<line>
+				<reportElement x="0" y="29" width="555" height="1" uuid="9e3c952d-1f77-4f17-aadd-f3d52a1b2c66"/>
+			</line>
+			<line>
+				<reportElement x="0" y="2" width="1" height="28" uuid="5ed653fa-5adb-41c8-a0a5-127cb81e9b62"/>
+			</line>
+			<line>
+				<reportElement x="554" y="0" width="1" height="28" uuid="e552b13e-2ec4-40cb-a987-a7c330a5563b"/>
+			</line>
+			<textField>
+				<reportElement x="1" y="0" width="116" height="20" uuid="7e2cdaaa-74ef-47e3-9b65-469c190c98b1"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{agente}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="118" y="0" width="146" height="20" uuid="5b876af7-8cff-4177-bb6f-4cd2bed4926b"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="397" y="0" width="157" height="20" uuid="22a23f91-6c5e-4cb8-9aa3-64161aa8e632"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{conError}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="265" y="0" width="131" height="20" uuid="c9bd89d3-69b4-4b31-ab99-56dc3672d8ea"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{variable1}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="00d8a575-4aad-4e0d-a89f-a6da7e9d710e"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="c982bb9d-c038-496f-aeee-b46d2c9d0603"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="7fbbbd72-1d89-4699-9420-993dd751b9cb"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

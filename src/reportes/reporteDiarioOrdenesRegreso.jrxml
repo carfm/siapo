@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteDiarioOrdenesRegreso" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e93bf675-f87f-4c38-830c-2422be488655">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="fecha" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="fechaFin" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select p.fecha as DATE,p.horaInicio,m.specimen as SPECIMEN,concat(nombre,' ',apellido) as AGENT, o.tipoOrden AS REGRESADA,SUBSTRING(m.codigoRazon,1,3) as AREA,SUBSTRING(m.codigoRazon,5) as REASON from procesa_audita p,orden o,mandada_por m,usuario where usuario.user = m.user and o.specimen = m.specimen  and p.specimen = o.specimen and m.specimen= p.specimen and m.user=p.user and p.fecha between  $P{fecha} and $P{fechaFin} and o.tipoOrden !=1 order by DATE asc]]>
+	</queryString>
+	<field name="DATE" class="java.sql.Date"/>
+	<field name="horaInicio" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SPECIMEN" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="AGENT" class="java.lang.String"/>
+	<field name="REGRESADA" class="java.lang.Integer"/>
+	<field name="AREA" class="java.lang.String"/>
+	<field name="REASON" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="91" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="572" height="30" uuid="d0359b93-ce9c-4ef0-ace0-d87125f14e05"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HMCR SOLUTIONS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="30" width="572" height="30" uuid="40a2e940-2bcb-4421-85b2-1020d5bfdcb5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[Reporte de razones de ordenes regresadas incompletas y sin hacer nada]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="183" y="60" width="77" height="31" uuid="b594a4f2-3343-44be-9f34-932fa43460b8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="142" y="60" width="41" height="31" uuid="bc0d1152-22d4-475d-9e43-b693af39807a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[Desde:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="260" y="60" width="41" height="31" uuid="1e37d0e2-7a42-45ba-acd3-2068217bb823"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<text><![CDATA[Hasta:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="301" y="60" width="80" height="31" uuid="00223190-bbda-4aaa-b9d3-aea178988cdb"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fechaFin}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="20" splitType="Prevent">
+			<textField>
+				<reportElement x="0" y="0" width="57" height="20" uuid="892e5426-d23e-46d2-85d9-e22c7fdc830b"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DATE} ]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="104" y="0" width="61" height="20" uuid="04abaa66-43b0-4959-8866-7051064de2d6"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SPECIMEN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="165" y="0" width="226" height="20" uuid="46364805-6b09-49bf-83f1-1cea2f48cfc0"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{AGENT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="391" y="0" width="52" height="20" uuid="90b28901-c766-4c2f-b49d-8f9b772fe733"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{REGRESADA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="443" y="0" width="57" height="20" uuid="ab1ecf8f-4c3d-41d2-8a73-23bb496eb928"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{AREA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="500" y="0" width="72" height="20" uuid="99672121-a0af-4f01-8783-f27df4315a72"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{REASON}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="57" y="0" width="47" height="20" uuid="08acfa1e-2f30-4343-84c5-286e7cfebbdf"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Times New Roman" size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{horaInicio}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
