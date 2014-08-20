@@ -110,8 +110,6 @@ public class Location extends Sistema {
 
     // funcion que retorna un array con las locations y llena un jtable
     public void llenarTablaLocations(JTable listaLocation) {
-//        int j = 0;
-        //ArrayList<Location> locations = new ArrayList();
         ResultSet r = seleccionar("nombreLocation,(SELECT CASE WHEN prioridad =1 THEN 'PRIORIDAD' WHEN prioridad =0 THEN 'NO PRIORIDAD' END),codigoLocationUSA,codigoLocation", "location", "LocationActivo=1");
         try {
             r.beforeFirst();
@@ -123,29 +121,6 @@ public class Location extends Sistema {
                 }
                 // Se añade al modelo la fila completa.
                 ((DefaultTableModel) listaLocation.getModel()).addRow(fila);
-//                ((DefaultTableModel) listaLocation.getModel()).setRowCount(listaLocation.getRowCount() + 1);
-//                listaLocation.setValueAt(r.getString("nombreLocation"), j, 0);
-//                if (r.getInt("prioridad") == 1) {
-//                    listaLocation.setValueAt("PRIORIDAD", j, 1);
-//                } else {
-//                    listaLocation.setValueAt("NO PRIORIDAD", j, 1);
-//                }
-//                listaLocation.setValueAt(r.getString("codigoLocationUSA"), j, 2);
-//                Location l = new Location();
-//                l.setNombreLocation(r.getString("nombreLocation"));
-//                l.setCodigoLocation(r.getString("codigoLocation")); // quitar despues
-//                l.setCodigoLocationUSA(Integer.parseInt(r.getString("codigoLocationUSA")));
-//                l.setPrioridad(Integer.parseInt(r.getString("prioridad")));
-//                locations.add(l);
-//                ((DefaultTableModel) listaLocation.getModel()).setRowCount(listaLocation.getRowCount() + 1);
-//                listaLocation.setValueAt(l.getNombreLocation(), j, 0);
-//                if (l.getPrioridad() == 1) {
-//                    listaLocation.setValueAt("PRIORIDAD", j, 1);
-//                } else {
-//                    listaLocation.setValueAt("NO PRIORIDAD", j, 1);
-//                }
-//                listaLocation.setValueAt(l.getCodigoLocationUSA(), j, 2);
-//                j++;
             }
             r.close();
             this.cerrarConexion();
@@ -153,20 +128,6 @@ public class Location extends Sistema {
         } catch (SQLException ex) {
             Logger.getLogger(Location.class.getName()).log(Level.SEVERE, null, ex);
         }
-        //ArrayList<Location> locations = obtenerLocations();
-//        while (j < locations.size()) {
-//            ((DefaultTableModel) listaLocation.getModel()).setRowCount(listaLocation.getRowCount() + 1);
-//            Location l = locations.get(j);
-//            listaLocation.setValueAt(l.getNombreLocation(), j, 0);
-//            if (l.getPrioridad() == 1) {
-//                listaLocation.setValueAt("PRIORIDAD", j, 1);
-//            } else {
-//                listaLocation.setValueAt("NO PRIORIDAD", j, 1);
-//            }
-//            listaLocation.setValueAt(l.getCodigoLocationUSA(), j, 2);
-//            j++;
-//        }
-        //return locations;
     }
 
     public void llenarComboBoxLocations(JComboBox lista, ArrayList<Location> locations) {
@@ -192,8 +153,6 @@ public class Location extends Sistema {
                 l.setPrioridad(Integer.parseInt(r.getString("prioridad")));
                 locations.add(l);
             }
-            r.close();
-            this.cerrarConexion();
             this.cerrarConexionBase();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No se pueden cargar las locations");

@@ -38,19 +38,19 @@ public class Hilo extends Thread {
     }
 
     public void agregarTexto(String msj, int tipoColor) {
-        ventana.agregarTexto(msj, tipoColor);
+        getVentana().agregarTexto(msj, tipoColor);
     }
 
     public void cambiarColor(int tipoColor) {
         switch(tipoColor){
             case 1:// normal no se ha tenido la automatizacion,orden completa
-                ventana.getTextoPane().setBackground(Color.white);
+                getVentana().getTextoPane().setBackground(Color.white);
                 break;
             case 2:// se ha detenido la automatizacion
-                ventana.getTextoPane().setBackground(new Color(203, 41, 41));
+                getVentana().getTextoPane().setBackground(new Color(203, 41, 41));
                 break;
             case 3:// se ha mandado un orden de regreso
-                ventana.getTextoPane().setBackground(Color.yellow);
+                getVentana().getTextoPane().setBackground(Color.yellow);
                 break;
                 
             
@@ -65,9 +65,16 @@ public class Hilo extends Thread {
     }
 
     public void cerrarVentana(){
-        ventana.dispose();
+        getVentana().dispose();
+    }
+    
+    public void abrirVentana(){
+        getVentana().setVisible(true);
     }
 
+    public boolean estaVisible(){
+        return getVentana().isVisible();
+    }
     @Override
     public void run() {
         try {
@@ -83,7 +90,7 @@ public class Hilo extends Thread {
     private void hacerVisible() throws InterruptedException {
         opacidad = 0.3f;
         while (opacidad < 1) {
-            AWTUtilities.setWindowOpacity(ventana, opacidad);
+            AWTUtilities.setWindowOpacity(getVentana(), opacidad);
             opacidad += 0.03f;
             Thread.sleep(20);
         }
@@ -92,21 +99,18 @@ public class Hilo extends Thread {
     private void desvanecer() throws InterruptedException {
         opacidad = 1.0f;
         while (opacidad > 0) {
-            AWTUtilities.setWindowOpacity(ventana, opacidad);
+            AWTUtilities.setWindowOpacity(getVentana(), opacidad);
             opacidad -= 0.03f;
             Thread.sleep(20);
         }
     }
 
-//    public static void main(String[] args) {
-//        Hilo hilo = new Hilo();
-//        hilo.agregarTexto("Specimen: \nLocation:  \nTipo de Orden: \nRazon de envio:", 3);
-//        hilo.cambiarColor(1);
-//        hilo.start();
-//        //hilo.cerrarVentana();
-////        hilo.agregarTexto(" Hola Taringa!", 1);
-////        hilo.agregarTexto(" Hola Taringa!", 2);
-//    }
+    /**
+     * @return the ventana
+     */
+    public Ventana getVentana() {
+        return ventana;
+    }
 
     class Ventana extends JDialog {
 
@@ -136,10 +140,10 @@ public class Hilo extends Thread {
             scrollPane = new JScrollPane();
             setTextoPane(new JTextPane());
             //btnCerrar = new JButton();
-
+            setResizable(true);
             setAlwaysOnTop(true);                          // siempre arriba
             setPreferredSize(new java.awt.Dimension(280, 120));           // tamaño de la ventana
-            setResizable(false);                             // no se puede modificar el tamaño
+            //setResizable(false);                             // no se puede modificar el tamaño
             setUndecorated(true);                           // no tiene los controles de estado
 
             scrollPane.setAutoscrolls(true);
@@ -159,6 +163,7 @@ public class Hilo extends Thread {
 //            });
 //            getContentPane().add(btnCerrar, BorderLayout.PAGE_END);
             pack();
+            
         }
 
         public void agregarTexto(String msj, int tipoColor) {

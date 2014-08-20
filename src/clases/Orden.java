@@ -481,8 +481,6 @@ public class Orden extends Sistema {
     }
 
     public void llenarTablaOrdenes(JTable listaOrdenes, String user, String fechaInicio, String fechaFin) {
-//        ArrayList<Orden> ordenes = new ArrayList();
-//        int j = 0;
         limpiarTabla(listaOrdenes);
         try {
             String periodo;
@@ -496,69 +494,15 @@ public class Orden extends Sistema {
                     + "' inner join location c  on c.codigoLocation = b.codigoLocation",
                     "  fecha " + periodo + " ORDER BY horaInicio desc");
             r.beforeFirst();
-//            Integer tipo;
             while (r.next()) {
                 // Se crea un array que será una de las filas de la tabla.
                 Object[] fila = new Object[6]; // Hay seis columnas en la tabla
                 // Se rellena cada posición del array con una de las columnas de la tabla en base de datos.
                 for (int i = 0; i < 6; i++) {
                     fila[i] = r.getObject(i + 1); // El primer indice en rs es el 1, no el cero, por eso se suma 1.
-//                    if(i==2){
-//                        tipo = (Integer)r.getObject(i+1);
-//                        if (tipo == 1) {
-//                            fila[2]="Completa";
-//                        } else {
-//                            if (tipo == 2) {
-//                                fila[2]="Regresada Incompleta";
-//                            } else {
-//                                fila[2]="Regresada sin hacer nada";
-//                            }
-//                        }
-//                    }
                 }
                 // Se añade al modelo la fila completa.
                 ((DefaultTableModel) listaOrdenes.getModel()).addRow(fila);
-//                ((DefaultTableModel) listaOrdenes.getModel()).setRowCount(listaOrdenes.getRowCount() + 1);
-//                listaOrdenes.setValueAt(r.getString("specimen"), j, 0);
-//                listaOrdenes.setValueAt(r.getString("nombreLocation"), j, 1);
-//                if (r.getInt("tipoOrden") == 1) {
-//                    listaOrdenes.setValueAt("Completa", j, 2);//completas
-//                } else {
-//                    if (r.getInt("tipoOrden") == 2) {
-//                        listaOrdenes.setValueAt("Regresada Incompleta", j, 2);//incompletas
-//                    } else {
-//                        listaOrdenes.setValueAt("Regresada sin hacer nada", j, 2);//sin hacer nada
-//                    }
-//                }
-//                listaOrdenes.setValueAt(r.getString("horaInicio"), j, 3);
-//                listaOrdenes.setValueAt(r.getString("horaFin"), j, 4);
-//                listaOrdenes.setValueAt(r.getString("comentarioAgente"), j, 5);
-//                Orden o = new Orden();
-//                o.setSpecimen(r.getString("specimen"));
-//                o.setCodigoLocation(r.getString("nombreLocation"));
-//                o.setTipoOrden(Integer.parseInt(r.getString("tipoOrden")));
-//                o.setComentarioAgente(r.getString("comentarioAgente"));
-//                o.setFecha(this.fechaReves(r.getString("fecha")));
-//                o.setHoraInicio(r.getString("horaInicio"));
-//                o.setHoraFin(r.getString("horaFin"));
-//                ordenes.add(o);
-//                ((DefaultTableModel) listaOrdenes.getModel()).setRowCount(listaOrdenes.getRowCount() + 1);
-//                o = ordenes.get(j);
-//                listaOrdenes.setValueAt(o.getSpecimen(), j, 0);
-//                listaOrdenes.setValueAt(o.getCodigoLocation(), j, 1);
-//                if (o.getTipoOrden() == 1) {
-//                    listaOrdenes.setValueAt("Completa", j, 2);//completas
-//                } else {
-//                    if (o.getTipoOrden() == 2) {
-//                        listaOrdenes.setValueAt("Regresada Incompleta", j, 2);//incompletas
-//                    } else {
-//                        listaOrdenes.setValueAt("Regresada sin hacer nada", j, 2);//sin hacer nada
-//                    }
-//                }
-//                listaOrdenes.setValueAt(o.getHoraInicio(), j, 3);
-//                listaOrdenes.setValueAt(o.getHoraFin(), j, 4);
-//                listaOrdenes.setValueAt(o.getComentarioAgente(), j, 5);
-//                j++;
             }
             ((DefaultTableModel) listaOrdenes.getModel()).fireTableDataChanged();
             this.cerrarConexionBase();
@@ -587,7 +531,6 @@ public class Orden extends Sistema {
             this.cerrarConexionBase();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No se pueden cargar las razones");
-            //System.exit(1);
         }
     }
 
@@ -598,7 +541,7 @@ public class Orden extends Sistema {
     public void borrarOrden(String user) {
         int cont = contadorFilas("procesa_audita", "specimen = '" + getSpecimen() + "' and tipoOperacion=1");
         if (cont > 1) {
-            //si tiene mas registros solo borramos el registro de el actual agente
+            //si tiene mas registros solo borramos el registro del actual agente
             borrar("procesa_audita", "user = '" + user + "' and specimen = '" + getSpecimen() + "' and tipoOperacion=1");
             if (this.getTipoOrden() != 1) {
                 borrar("mandada_por", "user = '" + user + "' and specimen = '" + getSpecimen() + "'");
@@ -620,8 +563,6 @@ public class Orden extends Sistema {
              orden ya almacenada
              Actualmente 
              */
-//            l.setNombreLocation(this.nombreLocation.getSelectedItem().toString());
-//            l.setCodigoLocation();
             actualizar("orden", "comentarioAgente='" + this.getComentarioAgente() + "',codigoLocation='" + getCodigoLocation() + "'", "specimen = '" + this.getSpecimen() + "'");
         }
         if (!this.razones.isEmpty()) {
@@ -631,7 +572,7 @@ public class Orden extends Sistema {
             mandadaPor(specimen, user);
             this.razones.clear();
         }
-        bien = actualizar("procesa_audita", "horaFin=CURTIME()", "specimen = '" + specimen + "'and user='" + user + "'");
+        bien = actualizar("procesa_audita", "horaFin=CURTIME()", "specimen = '" + specimen + "'and user='" + user + "' and tipoOperacion =1");
         return bien;
     }
 
@@ -647,8 +588,6 @@ public class Orden extends Sistema {
                 tipoOrden.setSelectedIndex(Integer.parseInt(r.getString("tipoOrden")) - 1);
                 DefaultTableModel modelo = (DefaultTableModel) historial.getModel();
                 int i;
-                //cerrarConexionBase();
-                //r = seleccionar("user,fecha,horaInicio", "procesa_audita", "specimen = '" + specimen + "'");
                 r.beforeFirst();
                 while (r.next()) {
                     Object[] fila = new Object[2];
@@ -656,12 +595,9 @@ public class Orden extends Sistema {
                         fila[i] = r.getObject(i + 3);
                     }
                     modelo.addRow(fila);
-                    //70000015
-                }
-                
+                }                
                 cerrarConexionBase();
-            }
-            
+            }           
             cerrarConexionBase();
         } catch (SQLException | NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "La orden no a podido ser procesada correctamente",

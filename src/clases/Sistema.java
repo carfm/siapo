@@ -137,14 +137,14 @@ public class Sistema {
             getSentencia().close();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
             bien = false;
-            JOptionPane.showMessageDialog(null, "Error codigo 1 " + ex);
+           // JOptionPane.showMessageDialog(null, "Error codigo 1 " + ex);
             //System.exit(1);
         } finally {
             if (conexion != null) {
                 try {
                     conexion.close();
                 } catch (SQLException ignore) {
-                    JOptionPane.showMessageDialog(null, ignore);
+                    JOptionPane.showMessageDialog(null, "Error con la base de datos contacte a su administrador de base de datos");
                 }
             }
         }
@@ -168,14 +168,14 @@ public class Sistema {
             getSentencia().close();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
             bien = false;
-            JOptionPane.showMessageDialog(null, "Error codigo 2 " + ex);
+          //  JOptionPane.showMessageDialog(null, "Error codigo 2 " + ex);
             //System.exit(1);
         } finally {
             if (conexion != null) {
                 try {
                     conexion.close();
                 } catch (SQLException ignore) {
-                    JOptionPane.showMessageDialog(null, ignore);
+                    JOptionPane.showMessageDialog(null, "Error con la base de datos contacte a su administrador de base de datos");
                 }
             }
         }
@@ -194,14 +194,14 @@ public class Sistema {
             getSentencia().close();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
             //bien = false;
-            JOptionPane.showMessageDialog(null, "Error codigo 3");
+         //   JOptionPane.showMessageDialog(null, "Error codigo 3");
             //System.exit(1);
         } finally {
             if (conexion != null) {
                 try {
                     conexion.close();
                 } catch (SQLException ignore) {
-                    JOptionPane.showMessageDialog(null, ignore);
+                    JOptionPane.showMessageDialog(null, "Error con la base de datos contacte a su administrador de base de datos");
                 }
             }
         }
@@ -221,12 +221,12 @@ public class Sistema {
             } else {
                 sql_str = "SELECT " + campo + " FROM " + tabla + " WHERE " + condicion;
             }
-            System.out.println(sql_str);
+            //System.out.println(sql_str);
             setSentencia(getConexion().createStatement());
             resultado = getSentencia().executeQuery(sql_str);
             resultado.next();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error codigo 4");
+            //JOptionPane.showMessageDialog(null, "Error codigo 4");
         }
         return resultado;
     }
@@ -240,7 +240,7 @@ public class Sistema {
             try {
                 conexion.close();
             } catch (SQLException ignore) {
-                JOptionPane.showMessageDialog(null, ignore);
+                JOptionPane.showMessageDialog(null, "Error con la base de datos contacte a su administrador de base de datos");
             }
         }
     }
@@ -652,7 +652,7 @@ public class Sistema {
         } catch (Exception ex) {
             //JOptionPane.showMessageDialog(null, "Error al inicializar portapapeles ,"Error", JOptionPane.ERROR_MESSAGE);
             System.out.println("Error al inicializar portapapeles " + ex);
-            return true;
+            return inicializarPortapapeles(cadena);
             //inicializarPortapapeles(noConservarN);
         }
     }

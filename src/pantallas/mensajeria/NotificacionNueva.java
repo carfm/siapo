@@ -158,13 +158,6 @@ public class NotificacionNueva extends javax.swing.JFrame implements Runnable {
         if (SystemTray.isSupported()) {
 
             setTray(SystemTray.getSystemTray());
-            ActionListener exitListener = new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    dispose();
-                    getTray().remove(getTrayIcon());
-                }
-            };
 
             MouseListener mouseListener = new MouseListener() {
                 @Override
@@ -305,9 +298,9 @@ public class NotificacionNueva extends javax.swing.JFrame implements Runnable {
                 getTrayIcon().removeActionListener(verMensajes);
                 getTrayIcon().addActionListener(verMensajes);
             }
-            // cada 30000 seg
+            // cada 2 min
             try {
-                Thread.sleep(500000);
+                Thread.sleep(120000);
             } catch (Exception e) {
                 return;
             }
