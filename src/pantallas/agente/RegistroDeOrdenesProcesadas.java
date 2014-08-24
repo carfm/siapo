@@ -1274,23 +1274,21 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
             if (resulta == JOptionPane.YES_OPTION) {
                 Orden o = new Orden();
                 o.setSpecimen(specAlmacenado);
-                o.setTipoOrden(this.tipoOrden.getSelectedIndex() + 1);
-                o.borrarOrden(u.getUser());
+                o.setTipoOrden(this.tipoOrden.getSelectedIndex() + 1);                
+                if(o.borrarOrden(u.getUser())){
+                    JOptionPane.showMessageDialog(null, "Se ha cancelado el registro",
+                        "Cancelar registro de orden", JOptionPane.INFORMATION_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(null, "No se pudo cancelar el registro",
+                        "Cancelar registro de orden", JOptionPane.ERROR_MESSAGE);
+                }
                 u.inicializarPortapapeles("00000000");
                 inicializarPortapapeles(true);
                 if (!h.isAlive()) {
                     JOptionPane.showMessageDialog(null, "No estaba vivo");
                     h.start();
                 }
-                llenarTotales();
-                limpiar();
-                trayIcon.setToolTip("PR:" + this.total.getText() + " CO:" + this.completas.getText() + " IN:" + this.incompletas.getText() + " SN:" + this.nada.getText());
-                ordenActual.limpiarTabla(historial);
-                JOptionPane.showMessageDialog(null, "Se ha cancelado el registro",
-                        "Cancelar registro de orden", JOptionPane.INFORMATION_MESSAGE);
-                if (this.listaDeOrdenes.isVisible()) {
-                    actualizarListaRegistro();
-                }
+                actualizarInformacion(false);               
             }
         }
     }//GEN-LAST:event_cancelarRegistroActionPerformed
@@ -1322,7 +1320,7 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
             cerrando = false;
             this.listaLocations.dispose(); // primero que se cierre la ventana
             if (primerIngreso) {
-                u.inicializarPortapapeles("00000000");                
+                u.inicializarPortapapeles("00000000");
                 //inicializa el protapapeles
                 inicializarPortapapeles(true);
                 //se inicializa hilo para grabar el primer numero de specimen ingresado
@@ -1334,7 +1332,7 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                 this.ventanaEmergente.agregarTexto("Se ha minimizado SIAPO."
                         + "\nPuede ver la lista de sus ordenes procesadas en la opcion "
                         + "de la lista de ordenes del icono de SIAPO (el de abajo clic derecho sobre el icono)"
-                        + " y puede cerrar la ventana de lista de ordenes sin ningun problema", 3);                
+                        + " y puede cerrar la ventana de lista de ordenes sin ningun problema", 3);
                 llenarTotales();
                 primerIngreso = false;
                 inicializar();
@@ -1486,7 +1484,7 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                         "Actualizar Ordenes", JOptionPane.INFORMATION_MESSAGE);
                 actualizarListaRegistro();
                 llenarTotales();
-                trayIcon.setToolTip("Orden actual: " + this.specAlmacenado + "\nPR:" + this.total.getText() + " CO:" + this.completas.getText() + " IN:" + this.incompletas.getText() + " SN:" + this.nada.getText());
+                trayIcon.setToolTip("PR:" + this.total.getText() + " CO:" + this.completas.getText() + " IN:" + this.incompletas.getText() + " SN:" + this.nada.getText());
             }
         } else {
             if (t.length == 1) {
@@ -2039,13 +2037,7 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                                                 Boolean comprobar = ordenActual.ingresarRegistro(u.getUser(), this.trayIcon);
                                                 if (comprobar != null) {
                                                     almacenado = comprobar;
-                                                    ordenActual.limpiarTabla(historial);
-                                                    obtenerInfoOrden();
-                                                    llenarTotales();                                                                                                       
-                                                    trayIcon.setToolTip("PR:" + this.total.getText() + " CO:" + this.completas.getText() + " IN:" + this.incompletas.getText() + " SN:" + this.nada.getText());                                                    
-                                                    if (this.listaDeOrdenes.isVisible()) {
-                                                        actualizarListaRegistro();
-                                                    }
+                                                    actualizarInformacion(true);
                                                     specimen.setText(texto);
                                                 } else {
                                                     inicializarPortapapeles(true);
@@ -2086,6 +2078,22 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
         this.detener = true;
     }
 
+    public void actualizarInformacion(boolean completo) {
+        ordenActual.limpiarTabla(historial);
+        if (completo) {
+            this.ordenActual.obtenerInfoOrden(historial, nombreLocation, tipoOrden);
+            //historial.repaint();       
+            actualizarVentanaEmergente();
+        }else{
+            limpiar();
+        }
+        llenarTotales();
+        trayIcon.setToolTip("Orden actual: " + specAlmacenado + "\nPR:" + this.total.getText() + " CO:" + this.completas.getText() + " IN:" + this.incompletas.getText() + " SN:" + this.nada.getText());        
+        if (this.listaDeOrdenes.isVisible()) {
+            actualizarListaRegistro();
+        }
+    }
+
     private void limpiar() {
         specimen.setText("");
         tipoOrden.setSelectedIndex(0);
@@ -2104,12 +2112,6 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                 this.cancelarRegistro.doClick();
             }
         }
-    }
-
-    private void obtenerInfoOrden() {
-        this.ordenActual.obtenerInfoOrden(historial, nombreLocation, tipoOrden);
-        //historial.repaint();
-        actualizarVentanaEmergente();
     }
 
     public void actualizarListaRegistro() {
@@ -2155,7 +2157,7 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
 
         ventanaEmergente.cambiarColor(1);
         String texto = "SPECIMEN ACTUAL: " + this.specAlmacenado
-                + " \nLOCATION: " + nombreLocation.getSelectedItem().toString() +" # "+ l.getCodigoLocationUSA()
+                + " \nLOCATION: " + nombreLocation.getSelectedItem().toString() + " # " + l.getCodigoLocationUSA()
                 + " \nTIPO DE ORDEN: " + tipoOrden.getSelectedItem().toString().toUpperCase()
                 + "\nFECHA Y HORA: " + this.historial.getValueAt(0, 1)
                 + " \nINGRESADA POR OTRA PERSONA: ";
@@ -2179,22 +2181,17 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
             boolean bien;
             bien = actualizarOrden();
             if (bien) {
+                if (!cambioLocation) {
+                    JOptionPane.showMessageDialog(null, "Orden ingresada exitosamente",
+                            "Registro de orden", JOptionPane.INFORMATION_MESSAGE);
+                }
                 inicializarPortapapeles(false);
                 if (!h.isAlive()) {
                     JOptionPane.showMessageDialog(null, "No estaba vivo");
                     h.start();
                 }
                 limpiar();
-                llenarTotales();
-                trayIcon.setToolTip("Orden actual: " + specAlmacenado + "\nPR:" + this.total.getText() + " CO:" + this.completas.getText() + " IN:" + this.incompletas.getText() + " SN:" + this.nada.getText());
-                ordenActual.limpiarTabla(historial);
-                if (!cambioLocation) {
-                    JOptionPane.showMessageDialog(null, "Orden ingresada exitosamente",
-                            "Registro de orden", JOptionPane.INFORMATION_MESSAGE);
-                }
-                if (this.listaDeOrdenes.isVisible()) {
-                    actualizarListaRegistro();
-                }
+                actualizarInformacion(false);
             } else {
                 JOptionPane.showMessageDialog(null, "La orden no pudo ser ingresada correctamente",
                         "Error en registro de orden", JOptionPane.INFORMATION_MESSAGE);

@@ -538,19 +538,21 @@ public class Orden extends Sistema {
         borrar("mandada_por", "user = '" + user + "' and specimen = '" + getSpecimen() + "'");
     }
 
-    public void borrarOrden(String user) {
+    public boolean borrarOrden(String user) {
         int cont = contadorFilas("procesa_audita", "specimen = '" + getSpecimen() + "' and tipoOperacion=1");
+        boolean bien;
         if (cont > 1) {
             //si tiene mas registros solo borramos el registro del actual agente
-            borrar("procesa_audita", "user = '" + user + "' and specimen = '" + getSpecimen() + "' and tipoOperacion=1");
+            bien =borrar("procesa_audita", "user = '" + user + "' and specimen = '" + getSpecimen() + "' and tipoOperacion=1");
             if (this.getTipoOrden() != 1) {
-                borrar("mandada_por", "user = '" + user + "' and specimen = '" + getSpecimen() + "'");
+                bien =borrar("mandada_por", "user = '" + user + "' and specimen = '" + getSpecimen() + "'");
             }
         } else {
             //sino borra la orden porq solo el la ha ingresado
-            borrar("orden", "specimen = '" + getSpecimen() + "'");
+            bien = borrar("orden", "specimen = '" + getSpecimen() + "'");
             //solo se borra el registro de manda por cuando es solamente de un agente
         }
+        return bien;
     }
 
     public boolean actualizarOrden(boolean almacenado, String user) {

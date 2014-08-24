@@ -140,7 +140,7 @@
 			<staticText>
 				<reportElement x="0" y="0" width="752" height="37" uuid="4dbb4b9f-71b7-4d03-9b3e-2601406a6e53"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Century Gothic" size="18"/>
+					<font fontName="Calibri" size="18" isBold="true"/>
 				</textElement>
 				<text><![CDATA[HMCR Solutions S.A. de C.V.]]></text>
 			</staticText>
