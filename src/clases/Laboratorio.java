@@ -43,8 +43,9 @@ public class Laboratorio extends Sistema {
             this.cerrarConexion();
             this.cerrarConexionBase();
         } catch (Exception e) {
+            ErroresSiapo.agregar(e, "codigo 18");
             JOptionPane.showMessageDialog(null, "No se pueden cargar los laboratorios");
-            System.exit(1);
+            //System.exit(1);
         }
         return laboratorios;
     }
@@ -71,7 +72,8 @@ public class Laboratorio extends Sistema {
             codigoLocationUSA = Integer.parseInt(r.getString("codigoLocationUSA"));
             this.cerrarConexionBase();
         } catch (Exception e) {
-            System.out.println(e);
+            ErroresSiapo.agregar(e, "codigo 19");
+            //System.out.println(e);
         }
     }
 

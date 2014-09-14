@@ -4,6 +4,7 @@
  */
 package pantallas.agente;
 
+import clases.ErroresSiapo;
 import clases.Location;
 import clases.Orden;
 import clases.Razon;
@@ -1697,13 +1698,15 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
 
     private void nombreLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreLocationActionPerformed
         // TODO add your handling code here: 12345616
-        if (almacenado) {
-            if (this.locations.getSelectedItem().equals(l.getNombreLocation())) {
-                l = l.buscarLocation(listaDeLocations, this.nombreLocation.getSelectedItem().toString()); // actualizar la nueva location o almacenar la location actual
-            }
-        } else {
-            l = l.buscarLocation(listaDeLocations, this.nombreLocation.getSelectedItem().toString()); // actualizar la nueva location o almacenar la location actual
-        }
+        l = l.buscarLocation(listaDeLocations, this.nombreLocation.getSelectedItem().toString());
+        System.out.println(l.getNombreLocation());
+//        if (almacenado) {
+//            if (this.locations.getSelectedItem().equals(l.getNombreLocation())) {
+//                l = l.buscarLocation(listaDeLocations, this.nombreLocation.getSelectedItem().toString()); // actualizar la nueva location o almacenar la location actual
+//            }
+//        } else {
+//            l = l.buscarLocation(listaDeLocations, this.nombreLocation.getSelectedItem().toString()); // actualizar la nueva location o almacenar la location actual
+//        }
 
     }//GEN-LAST:event_nombreLocationActionPerformed
 
@@ -2062,7 +2065,8 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                 if (h.isInterrupted()) {
                     ec();
                 } else {
-                    JOptionPane.showMessageDialog(null, "No interrumpido pero hay exception " + ex);
+                    ErroresSiapo.agregar(ex, "codigo 35");
+                    //JOptionPane.showMessageDialog(null, "No interrumpido pero hay exception " + ex);
                 }
             }
         }
@@ -2091,6 +2095,7 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
         trayIcon.setToolTip("Orden actual: " + specAlmacenado + "\nPR:" + this.total.getText() + " CO:" + this.completas.getText() + " IN:" + this.incompletas.getText() + " SN:" + this.nada.getText());        
         if (this.listaDeOrdenes.isVisible()) {
             actualizarListaRegistro();
+            
         }
     }
 
@@ -2160,12 +2165,12 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                 + " \nLOCATION: " + nombreLocation.getSelectedItem().toString() + " # " + l.getCodigoLocationUSA()
                 + " \nTIPO DE ORDEN: " + tipoOrden.getSelectedItem().toString().toUpperCase()
                 + "\nFECHA Y HORA: " + this.historial.getValueAt(0, 1)
-                + " \nINGRESADA POR OTRA PERSONA: ";
+                + " \n";
         if (this.almacenado) {
-            texto = texto + "SI";
+            texto = texto + "INGRESADA POR: "+ ordenActual.getUser().toUpperCase();
 
         } else {
-            texto = texto + "NO";
+            texto = texto + "NO INGRESADA";
         }
         if (tipoOrden.getSelectedIndex() > 0) {
             ventanaEmergente.cambiarColor(3);

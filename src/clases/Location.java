@@ -104,11 +104,12 @@ public class Location extends Sistema {
             setCodigoLocation(r.getString("codigoLocation"));
             this.cerrarConexionBase();
         } catch (Exception e) {
-            System.out.println(e);
+            ErroresSiapo.agregar(e, "codigo 20");
+            //System.out.println(e);
         }
     }
 
-    // funcion que retorna un array con las locations y llena un jtable
+    // funcion que llena un jtable con las locations
     public void llenarTablaLocations(JTable listaLocation) {
         ResultSet r = seleccionar("nombreLocation,(SELECT CASE WHEN prioridad =1 THEN 'PRIORIDAD' WHEN prioridad =0 THEN 'NO PRIORIDAD' END),codigoLocationUSA,codigoLocation", "location", "LocationActivo=1");
         try {
@@ -126,7 +127,8 @@ public class Location extends Sistema {
             this.cerrarConexion();
             this.cerrarConexionBase();
         } catch (SQLException ex) {
-            Logger.getLogger(Location.class.getName()).log(Level.SEVERE, null, ex);
+            ErroresSiapo.agregar(ex, "codigo 21");
+            //Logger.getLogger(Location.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -155,8 +157,9 @@ public class Location extends Sistema {
             }
             this.cerrarConexionBase();
         } catch (Exception e) {
+            ErroresSiapo.agregar(e, "codigo 22");
             JOptionPane.showMessageDialog(null, "No se pueden cargar las locations");
-            System.exit(1);
+            //System.exit(1);
         }
         return locations;
     }

@@ -82,7 +82,8 @@ public class Mensaje extends Sistema {
             num = Integer.parseInt(rs.getString("id"));
             this.cerrarConexionBase();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex.toString(), null, JOptionPane.ERROR_MESSAGE);
+            ErroresSiapo.agregar(ex, "codigo 24");
+            //JOptionPane.showMessageDialog(null, ex.toString(), null, JOptionPane.ERROR_MESSAGE);
         }
         return num;
     }
@@ -99,8 +100,11 @@ public class Mensaje extends Sistema {
      */
     public void enviarmensaje(String asunto, String mensaje) {     
         if(this.insertar("mensaje", "NULL,1,'"+mensaje+"','"+asunto+"',NOW()")){
-           difundirMsj(getCorrelativo());
-           JOptionPane.showConfirmDialog(null, "¡Mensaje enviado con exito!", null, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+           if(difundirMsj(getCorrelativo())){
+               JOptionPane.showConfirmDialog(null, "¡Mensaje enviado con exito!", null, JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+           }else{
+               JOptionPane.showConfirmDialog(null, "No se pudo enviar", null, JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+           }
         }else{
             JOptionPane.showConfirmDialog(null, "No se pudo enviar", null, JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
         }
@@ -118,14 +122,19 @@ public class Mensaje extends Sistema {
         /*Su funcion es eliminar un mensaje de la base de datos.
          * Esta funcion solo estara disponible para el usuario gerente
          */
-        query = "DELETE FROM mensaje WHERE idMensaje='" + id + "'";
-        try {
-            declaracion = conexion("root");
-            declaracion.executeUpdate(query);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error" + ex, "", JOptionPane.ERROR_MESSAGE);
+        if(this.borrar("mensaje", "idMensaje='" + id + "'")){
+            JOptionPane.showMessageDialog(null, "Eliminado con exito");
+        }else{
+            JOptionPane.showMessageDialog(null, "No se pudo borrar");
         }
-        JOptionPane.showMessageDialog(null, "Eliminado con exito");
+//        query = "DELETE FROM mensaje WHERE ;
+//        try {
+//            declaracion = conexion("root");
+//            declaracion.executeUpdate(query);
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(null, "Error" + ex, "", JOptionPane.ERROR_MESSAGE);
+//        }
+        
     }
 
     /**
@@ -137,16 +146,22 @@ public class Mensaje extends Sistema {
      * Mensaje*******************************
      */
     public void deleteAll() {
-        query = "DELETE FROM mensaje";
-        try {
-            declaracion = conexion("root");
-            declaracion.executeUpdate(query);
-            new Bandeja(u, tipoBand).setVisible(true);//cambiar los null
-            cerrarConexiones();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error" + ex, "", JOptionPane.ERROR_MESSAGE);
+        
+        if(this.borrar("mensaje", "")){
+            JOptionPane.showMessageDialog(null, "Eliminado con exito");
+        }else{
+            JOptionPane.showMessageDialog(null, "No se pudo borrar");
         }
-        JOptionPane.showMessageDialog(null, "Eliminado con exito");
+//        query = "DELETE FROM mensaje";
+//        try {
+//            declaracion = conexion("root");
+//            declaracion.executeUpdate(query);
+//            new Bandeja(u, tipoBand).setVisible(true);//cambiar los null
+//            cerrarConexiones();
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(null, "Error" + ex, "", JOptionPane.ERROR_MESSAGE);
+//        }
+//        JOptionPane.showMessageDialog(null, "Eliminado con exito");
 
     }
 
@@ -166,7 +181,7 @@ public class Mensaje extends Sistema {
         query = "";
     }
 
-    public void difundirMsj(int idMsj) {
+    public boolean difundirMsj(int idMsj) {
         ResultSet resultado;
         String consulta;
         resultado = seleccionar("DISTINCT es.user", "usuario,es", "(es.user=usuario.user AND (codigoTipoUser=1 OR codigoTipoUser=2))");
@@ -178,8 +193,12 @@ public class Mensaje extends Sistema {
             }
             this.cerrarConexion();
             this.cerrarConexionBase();
+            return true;
         } catch (SQLException ex) {
-            Logger.getLogger(Mensaje.class.getName()).log(Level.SEVERE, null, ex);
+            ErroresSiapo.agregar(ex, "codigo 25");
+            this.cerrarConexionBase();
+            return false;
+            //Logger.getLogger(Mensaje.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -192,14 +211,20 @@ public class Mensaje extends Sistema {
         /*Su funcion es ocultar un mensaje de la base de datos para el user especificado.
          * Esta funcion solo estara disponible para el usuario auditor y agente
          */
-        query = "UPDATE gestiona SET oculto=\"1\" WHERE user=\"" + user + "\" AND idMensaje='" + id + "'";
-        try {
-            declaracion = conexion("root");
-            declaracion.executeUpdate(query);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error" + ex, "", JOptionPane.ERROR_MESSAGE);
+        if(this.actualizar("gestiona", "oculto=1", "user='" + user + "' AND idMensaje='" + id + "'")){
+            JOptionPane.showMessageDialog(null, "Eliminado con exito");
+        }else{
+            JOptionPane.showMessageDialog(null, "No se pudo borrar");
         }
-        JOptionPane.showMessageDialog(null, "Eliminado con exito");
+        
+//        query = "UPDATE gestiona SET  WHERE user=\"" + user + "\" AND idMensaje='" + id + "'";
+//        try {
+//            declaracion = conexion("root");
+//            declaracion.executeUpdate(query);
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(null, "Error" + ex, "", JOptionPane.ERROR_MESSAGE);
+//        }
+//        JOptionPane.showMessageDialog(null, "Eliminado con exito");
     }
 
     /**
@@ -212,16 +237,22 @@ public class Mensaje extends Sistema {
      * @param user
      */
     public void ocultarAll(String user) {
-        query = "UPDATE gestiona SET oculto=\"1\" WHERE user=\"" + user + "\"";
-        try {
-            declaracion = conexion("root");
-            declaracion.executeUpdate(query);
-            new Bandeja(u, tipoBand).setVisible(true);//cambiar los parametros
-            cerrarConexiones();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error" + ex, "", JOptionPane.ERROR_MESSAGE);
+        
+        if(this.actualizar("gestiona", "oculto=1", "user='" + user + "'")){
+            JOptionPane.showMessageDialog(null, "Eliminado con exito");
+        }else{
+            JOptionPane.showMessageDialog(null, "No se pudo borrar");
         }
-        JOptionPane.showMessageDialog(null, "Eliminado con exito");
+//        query = "UPDATE gestiona SET oculto=\"1\" WHERE user=\"" + user + "\"";
+//        try {
+//            declaracion = conexion("root");
+//            declaracion.executeUpdate(query);
+//            new Bandeja(u, tipoBand).setVisible(true);//cambiar los parametros
+//            cerrarConexiones();
+//        } catch (SQLException ex) {
+//            JOptionPane.showMessageDialog(null, "Error" + ex, "", JOptionPane.ERROR_MESSAGE);
+//        }
+//        JOptionPane.showMessageDialog(null, "Eliminado con exito");
 
     }
 

@@ -128,6 +128,7 @@ public class Usuario extends Sistema {
             this.cerrarConexion();
             this.cerrarConexionBase();
         } catch (SQLException | HeadlessException e) {
+            ErroresSiapo.agregar(e, "codigo 34");
         }
 
         return error;

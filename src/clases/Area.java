@@ -52,8 +52,9 @@ public class Area extends Sistema{
             this.cerrarConexion();
             this.cerrarConexionBase();
         } catch (Exception e) {
+            ErroresSiapo.agregar(e, "codigo 15");
             JOptionPane.showMessageDialog(null, "No se pueden cargar las areas afectadas");
-            System.exit(1);
+            //System.exit(1);
         }
         return areas;
     }

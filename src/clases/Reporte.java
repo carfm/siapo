@@ -66,6 +66,7 @@ public class Reporte extends Sistema {
             this.cerrarConexionBase();
             System.out.println("finnnnn");
         } catch (Exception e) {
+            ErroresSiapo.agregar(e, "codigo 33");
             System.out.println(e);
         }
         return true;

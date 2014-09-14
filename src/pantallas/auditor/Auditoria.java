@@ -1104,7 +1104,7 @@ public final class Auditoria extends javax.swing.JFrame implements Runnable {
 
     private void enviarComentarioAud(String texto, String nSpecimen) {
         //El objetivo de este modulo es guardar el comentario hecho por el auditor hacia la orden que se ha auditado
-        u.actualizar("orden", "comentarioAuditor='" + texto + "'", "specimen like '" + nSpecimen + "'");
+        u.actualizar("orden", "comentarioAuditor='" + texto + "'", "specimen = '" + nSpecimen + "'");
     }
 
     private void ed_button_verAudiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ed_button_verAudiActionPerformed
@@ -1362,7 +1362,6 @@ public final class Auditoria extends javax.swing.JFrame implements Runnable {
 
     @Override
     public void run() {
-        boolean numero = true;
         while (!stop) {
             try {
                 Thread.sleep(2000);
@@ -1375,12 +1374,7 @@ public final class Auditoria extends javax.swing.JFrame implements Runnable {
                     if (!texto.equals("")) {
                         // validaciones del numero de specimen
                         if ((texto.length() == 7 || texto.length() == 8) && !texto.equals("00000000")) {
-                            try {
-                                Integer.parseInt(texto);
-                            } catch (Exception e) {
-                                numero = false;
-                            }
-                            if (numero) {
+                            if (u.esNumero(texto)) {
                                 if (!specAlmacenado.equalsIgnoreCase(texto)) {
                                     // PROCESO DE REGISTRO DE AUDITORIA
                                     if (primeraVez) {

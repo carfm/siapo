@@ -53,8 +53,9 @@ public class Error extends Sistema{
             }
             this.cerrarConexionBase();
         } catch (Exception e) {
+            ErroresSiapo.agregar(e, "codigo 16");
             JOptionPane.showMessageDialog(null, "No se pueden cargar los errores");
-            System.exit(1);
+            //System.exit(1);
         }
         return errores;
     }

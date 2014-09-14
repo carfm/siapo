@@ -49,8 +49,9 @@ public class Especificacion extends Sistema{
             this.cerrarConexion();
             this.cerrarConexionBase();
         } catch (Exception e) {
+            ErroresSiapo.agregar(e, "codigo 17");
             JOptionPane.showMessageDialog(null, "No se pueden cargar las especificaciones");
-            System.exit(1);
+            //System.exit(1);
         }
         return especificaciones;
     }

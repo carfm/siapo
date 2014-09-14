@@ -109,20 +109,10 @@ public class Sistema {
             }
 
         } catch (Exception e) { //Catch de excepciones
-            System.err.println("Ocurrio un error: " + e.getMessage());
+            ErroresSiapo.agregar(e, "codigo 6");
+
+            //System.err.println("Ocurrio un error: " + e.getMessage());
         }
-    }
-
-    public void setPara(String para) {
-        this.para = para;
-    }
-
-    public void setAsunto(String asunto) {
-        this.asunto = asunto;
-    }
-
-    public void setMensaje(String mensaje) {
-        this.mensaje = mensaje;
     }
 
     public boolean insertar(String tabla, String valores) {
@@ -137,16 +127,10 @@ public class Sistema {
             getSentencia().close();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
             bien = false;
-           // JOptionPane.showMessageDialog(null, "Error codigo 1 " + ex);
+            ErroresSiapo.agregar(ex, "codigo 1");
             //System.exit(1);
         } finally {
-            if (conexion != null) {
-                try {
-                    conexion.close();
-                } catch (SQLException ignore) {
-                    JOptionPane.showMessageDialog(null, "Error con la base de datos contacte a su administrador de base de datos");
-                }
-            }
+            cerrarConexionBase();
         }
         return bien;
     }
@@ -168,16 +152,9 @@ public class Sistema {
             getSentencia().close();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
             bien = false;
-          //  JOptionPane.showMessageDialog(null, "Error codigo 2 " + ex);
-            //System.exit(1);
+            ErroresSiapo.agregar(ex, "codigo 2");
         } finally {
-            if (conexion != null) {
-                try {
-                    conexion.close();
-                } catch (SQLException ignore) {
-                    JOptionPane.showMessageDialog(null, "Error con la base de datos contacte a su administrador de base de datos");
-                }
-            }
+            cerrarConexionBase();
         }
         return bien;
     }
@@ -187,23 +164,20 @@ public class Sistema {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             setConexion(DriverManager.getConnection(servidor, getUsu(), pass));//Crea la conexion
-            String modificar = "DELETE FROM " + tabla + " WHERE " + condicion;
+            String modificar;
+            if (condicion.isEmpty()) {
+                modificar = "DELETE FROM " + tabla;
+            } else {
+                modificar = "DELETE FROM " + tabla + " WHERE " + condicion;
+            }
             //System.out.println(modificar);
             setSentencia(getConexion().createStatement());
             getSentencia().executeUpdate(modificar);
             getSentencia().close();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
-            //bien = false;
-         //   JOptionPane.showMessageDialog(null, "Error codigo 3");
-            //System.exit(1);
+            ErroresSiapo.agregar(ex, "codigo 3");
         } finally {
-            if (conexion != null) {
-                try {
-                    conexion.close();
-                } catch (SQLException ignore) {
-                    JOptionPane.showMessageDialog(null, "Error con la base de datos contacte a su administrador de base de datos");
-                }
-            }
+            cerrarConexionBase();
         }
         return bien;
     }
@@ -221,12 +195,12 @@ public class Sistema {
             } else {
                 sql_str = "SELECT " + campo + " FROM " + tabla + " WHERE " + condicion;
             }
-            //System.out.println(sql_str);
+            System.out.println(sql_str);
             setSentencia(getConexion().createStatement());
             resultado = getSentencia().executeQuery(sql_str);
             resultado.next();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
-            //JOptionPane.showMessageDialog(null, "Error codigo 4");
+            ErroresSiapo.agregar(ex, "codigo 4");
         }
         return resultado;
     }
@@ -240,6 +214,7 @@ public class Sistema {
             try {
                 conexion.close();
             } catch (SQLException ignore) {
+                ErroresSiapo.agregar(ignore, "codigo 5");
                 JOptionPane.showMessageDialog(null, "Error con la base de datos contacte a su administrador de base de datos");
             }
         }
@@ -332,7 +307,6 @@ public class Sistema {
 
     public String fechaCorrecta(String d) {
         String c = "";
-        int i;
         c = c + d.substring(6, d.length());
         c = c + "-";
         c = c + d.substring(3, 5);
@@ -344,7 +318,6 @@ public class Sistema {
 
     public String fechaReves(String d) {
         String c = "";
-        int i;
         c = c + d.substring(8, d.length());
         c = c + "-";
         c = c + d.substring(5, 7);
@@ -353,45 +326,11 @@ public class Sistema {
         return c;
     }
 
-    /**
-     * @return the resultado
-     */
-    public ResultSet getResultado() {
-        return resultado;
-    }
-
-    /**
-     * @param resultado the resultado to set
-     */
-    public void setResultado(ResultSet resultado) {
-        this.resultado = resultado;
-    }
-
-    /**
-     * @return the sentencia
-     */
-    public Statement getSentencia() {
-        return sentencia;
-    }
-
-    /**
-     * @param sentencia the sentencia to set
-     */
-    public void setSentencia(Statement sentencia) {
-        this.sentencia = sentencia;
-    }
-
-    /**
-     * @param conexion the conexion to set
-     */
-    public void setConexion(Connection conexion) {
-        this.conexion = conexion;
-    }
-
     public void cerrarConexion() {
         try {
             getSentencia().close();
         } catch (SQLException ex) {
+            ErroresSiapo.agregar(ex, "codigo 7");
             System.out.println(ex);
         }
     }
@@ -404,6 +343,7 @@ public class Sistema {
             contador = Integer.parseInt(r.getString("filas"));
             this.cerrarConexionBase();
         } catch (SQLException ex) {
+            ErroresSiapo.agregar(ex, "codigo 8");
             Logger.getLogger(Sistema.class.getName()).log(Level.SEVERE, null, ex);
 
         }
@@ -427,15 +367,10 @@ public class Sistema {
             return v;
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException | JRException j) {
             System.out.println("er " + j.getMessage());
+            ErroresSiapo.agregar(j, "codigo 9");
             return null;
         } finally {
-            if (conexion != null) {
-                try {
-                    conexion.close();
-                } catch (SQLException ignore) {
-                    JOptionPane.showMessageDialog(null, ignore);
-                }
-            }
+            this.cerrarConexionBase();
         }
     }
 
@@ -450,15 +385,10 @@ public class Sistema {
             getSentencia().close();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
             bien = false;
-            JOptionPane.showMessageDialog(null, "Error en la ejecucion");
+            ErroresSiapo.agregar(ex, "codigo 10");
+            JOptionPane.showMessageDialog(null, "Error en la base de datos. Contacte a su administrador de base de datos.");
         } finally {
-            if (conexion != null) {
-                try {
-                    conexion.close();
-                } catch (SQLException ignore) {
-                    JOptionPane.showMessageDialog(null, ignore);
-                }
-            }
+            this.cerrarConexionBase();
         }
         return bien;
     }
@@ -473,15 +403,10 @@ public class Sistema {
             getSentencia().close();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
             bien = false;
-            JOptionPane.showMessageDialog(null, "Error en la ejecucion");
+            ErroresSiapo.agregar(ex, "codigo 11");
+            JOptionPane.showMessageDialog(null, "Error en la base de datos. Contacte a su administrador de base de datos.");
         } finally {
-            if (conexion != null) {
-                try {
-                    conexion.close();
-                } catch (SQLException ignore) {
-                    JOptionPane.showMessageDialog(null, ignore);
-                }
-            }
+            this.cerrarConexionBase();
         }
         return bien;
     }
@@ -567,48 +492,6 @@ public class Sistema {
         }
     }
 
-    /**
-     * @return the pass
-     */
-    public String getPass() {
-        return pass;
-    }
-
-    /**
-     * @param pass the pass to set
-     */
-    public void setPass(String pass) {
-        this.pass = pass;
-    }
-
-    /**
-     * @return the servidor
-     */
-    public String getServidor() {
-        return servidor;
-    }
-
-    /**
-     * @param servidor the servidor to set
-     */
-    public void setServidor(String servidor) {
-        this.servidor = servidor;
-    }
-
-    /**
-     * @return the usu
-     */
-    public String getUsu() {
-        return usu;
-    }
-
-    /**
-     * @param usu the usu to set
-     */
-    public void setUsu(String usu) {
-        this.usu = usu;
-    }
-
     public void limpiarTabla(JTable tabla) {
         try {
             DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
@@ -617,7 +500,8 @@ public class Sistema {
                 modelo.removeRow(i);
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
+            ErroresSiapo.agregar(e, "codigo 12");
+            //JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
         }
     }
 
@@ -635,9 +519,8 @@ public class Sistema {
                 texto = t.getTransferData(dataFlavorStringJava).toString();
             }
         } catch (Exception ex) {
-            Logger.getLogger(Sistema.class.getName()).log(Level.SEVERE, null, ex);
-            //JOptionPane.showMessageDialog(null, ex + "Portapapeles");
-            ///obtenerCadenaPortapapeles();
+            ErroresSiapo.agregar(ex, "codigo 13");
+
         }
         return texto;
     }
@@ -650,10 +533,8 @@ public class Sistema {
             cb.setContents(ss, null);
             return false;
         } catch (Exception ex) {
-            //JOptionPane.showMessageDialog(null, "Error al inicializar portapapeles ,"Error", JOptionPane.ERROR_MESSAGE);
-            System.out.println("Error al inicializar portapapeles " + ex);
+            ErroresSiapo.agregar(ex, "codigo 14");
             return inicializarPortapapeles(cadena);
-            //inicializarPortapapeles(noConservarN);
         }
     }
 
@@ -698,6 +579,7 @@ public class Sistema {
         return 0;
     }
 
+    // no c ocupa
     public void llenarTabla(ResultSet rs, DefaultTableModel modelo) {
         try {
             ResultSetMetaData metaDatos = rs.getMetaData();
@@ -714,5 +596,94 @@ public class Sistema {
         } catch (SQLException ex) {
             Logger.getLogger(Sistema.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    /**
+     * @return the resultado
+     */
+    public ResultSet getResultado() {
+        return resultado;
+    }
+
+    /**
+     * @param resultado the resultado to set
+     */
+    public void setResultado(ResultSet resultado) {
+        this.resultado = resultado;
+    }
+
+    /**
+     * @return the sentencia
+     */
+    public Statement getSentencia() {
+        return sentencia;
+    }
+
+    /**
+     * @param sentencia the sentencia to set
+     */
+    public void setSentencia(Statement sentencia) {
+        this.sentencia = sentencia;
+    }
+
+    /**
+     * @param conexion the conexion to set
+     */
+    public void setConexion(Connection conexion) {
+        this.conexion = conexion;
+    }
+
+    /**
+     * @return the pass
+     */
+    public String getPass() {
+        return pass;
+    }
+
+    /**
+     * @param pass the pass to set
+     */
+    public void setPass(String pass) {
+        this.pass = pass;
+    }
+
+    /**
+     * @return the servidor
+     */
+    public String getServidor() {
+        return servidor;
+    }
+
+    /**
+     * @param servidor the servidor to set
+     */
+    public void setServidor(String servidor) {
+        this.servidor = servidor;
+    }
+
+    /**
+     * @return the usu
+     */
+    public String getUsu() {
+        return usu;
+    }
+
+    /**
+     * @param usu the usu to set
+     */
+    public void setUsu(String usu) {
+        this.usu = usu;
+    }
+
+    public void setPara(String para) {
+        this.para = para;
+    }
+
+    public void setAsunto(String asunto) {
+        this.asunto = asunto;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
     }
 }

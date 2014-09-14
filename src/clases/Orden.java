@@ -47,6 +47,7 @@ public class Orden extends Sistema {
         this.user = user;
         this.codError = codError;
         this.nomError = nomError;
+        
     }
 
     public Orden() {
@@ -102,7 +103,8 @@ public class Orden extends Sistema {
                 trayIcon.displayMessage("Nuevo registro de specimen", this.getSpecimen(), TrayIcon.MessageType.INFO);
             }
         } catch (Exception ex) {
-            System.out.println(ex);
+            //System.out.println(ex);
+            ErroresSiapo.agregar(ex, "codigo 26");
             JOptionPane.showMessageDialog(null, "No se pudo procesar la orden ");
             registrada = null;
         }
@@ -121,7 +123,8 @@ public class Orden extends Sistema {
             r.close();
             this.cerrarConexionBase();
         } catch (SQLException ex) {
-            Logger.getLogger(Orden.class.getName()).log(Level.SEVERE, null, ex);
+            ErroresSiapo.agregar(ex, "codigo 26");
+            //Logger.getLogger(Orden.class.getName()).log(Level.SEVERE, null, ex);
         }
         return tiene;
     }
@@ -137,7 +140,7 @@ public class Orden extends Sistema {
             }
             this.cerrarConexionBase();
         } catch (SQLException ex) {
-            Logger.getLogger(Orden.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Orden.class.getName()).log(Level.SEVERE, null, ex);
             nomismo = null;
         }
         return nomismo;
@@ -261,6 +264,7 @@ public class Orden extends Sistema {
                     exito = insertar("puede_tener", "NULL, '" + codError + "', '" + specimen + "', '" + getUser() + "',(SELECT MAX(idMensaje) FROM mensaje), " + recurrencia + ", 0,'" + fecha + "'");
                 } else {
                     if (aproErrorlab) {
+                        // TRIGGER DE ACTUALIZACION
                         insertar("mensaje", "NULL,2,"
                                 + "'Se le ha encontrado el error: " + codError + ": " + nomError
                                 + "\nen el specimen: " + specimen + " ingresado el dia " + fechaDeOrden
@@ -279,7 +283,8 @@ public class Orden extends Sistema {
                 insertar("puede_tener", "NULL, '" + codError + "', '" + specimen + "', '" + getUser() + "',NULL, 0, 0,NULL");
             }
         } catch (Exception e) {
-            Logger.getLogger(Orden.class.getName()).log(Level.SEVERE, null, e);
+            ErroresSiapo.agregar(e, "codigo 28");
+            //Logger.getLogger(Orden.class.getName()).log(Level.SEVERE, null, e);
             exito = false;
         }
         return exito;
@@ -473,6 +478,7 @@ public class Orden extends Sistema {
             }
             this.cerrarConexionBase();
         } catch (Exception e) {
+            ErroresSiapo.agregar(e, "codigo 29");
             JOptionPane.showMessageDialog(null, "No se pueden cargar las ordenes");
             ordenes = null;
             //System.exit(1);
@@ -505,9 +511,11 @@ public class Orden extends Sistema {
                 ((DefaultTableModel) listaOrdenes.getModel()).addRow(fila);
             }
             ((DefaultTableModel) listaOrdenes.getModel()).fireTableDataChanged();
+            listaOrdenes.repaint();
             this.cerrarConexionBase();
         } catch (Exception e) {
-            System.out.println(e);
+            //System.out.println(e);
+            ErroresSiapo.agregar(e, "codigo 30");
         }
         // return ordenes;
     }
@@ -567,6 +575,7 @@ public class Orden extends Sistema {
              */
             actualizar("orden", "comentarioAgente='" + this.getComentarioAgente() + "',codigoLocation='" + getCodigoLocation() + "'", "specimen = '" + this.getSpecimen() + "'");
         }
+        // si se le ha cambiado el tipo de orden a regresada si se actualiza
         if (!this.razones.isEmpty()) {
             //actualizar concatenado
             actualizar("orden", "tipoOrden=" + this.getTipoOrden() + ",comentarioAgente='" + this.getComentarioAgente() + "'", "specimen = '" + this.getSpecimen() + "'");
@@ -581,13 +590,15 @@ public class Orden extends Sistema {
     public void obtenerInfoOrden(JTable historial, JComboBox nombreLocation, JComboBox tipoOrden) {
         try {
             ResultSet r;
-            r = seleccionar("nombrelocation, tipoOrden,user,concat(fecha,' ',horaInicio)",
+            r = seleccionar("nombrelocation, tipoOrden,user,concat(fecha,' ',horaInicio),comentarioAgente",
                     "procesa_audita a, orden b, location c",
                     "a.specimen = b.specimen AND a.specimen = '" + specimen + "' AND c.codigoLocation = b.codigoLocation and tipoOperacion=1 ORDER BY fecha ASC ");
             if (r.last()) {
                 r.first();
-                nombreLocation.setSelectedItem(r.getString("nombrelocation"));
+                //nombreLocation.setSelectedItem(r.getString("nombrelocation"));
                 tipoOrden.setSelectedIndex(Integer.parseInt(r.getString("tipoOrden")) - 1);
+                this.comentarioAgente= r.getString("comentarioAgente");
+                this.user = r.getString("user");
                 DefaultTableModel modelo = (DefaultTableModel) historial.getModel();
                 int i;
                 r.beforeFirst();
@@ -599,12 +610,14 @@ public class Orden extends Sistema {
                     modelo.addRow(fila);
                 }                
                 cerrarConexionBase();
-            }           
+            }     
+            historial.repaint();
             cerrarConexionBase();
         } catch (SQLException | NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "La orden no a podido ser procesada correctamente",
+            JOptionPane.showMessageDialog(null, "No se cargo la informacion de la orden",
                     "Error en registro de orden", JOptionPane.INFORMATION_MESSAGE);
-            System.out.println(ex);
+            ErroresSiapo.agregar(ex, "codigo 31");
+            //System.out.println(ex);
         }
     }
 
@@ -674,7 +687,8 @@ public class Orden extends Sistema {
             }
             this.cerrarConexionBase();
         } catch (Exception ex) {
-            System.out.println(ex);
+            ErroresSiapo.agregar(ex, "codigo 32");
+            //System.out.println(ex);
         }
     }
 

@@ -54,7 +54,6 @@ public class Razon extends Sistema {
     public ArrayList<Razon> obtenerRazones() {
         ArrayList<Razon> razones = new ArrayList();
         try {
-
             ResultSet r = seleccionar("codigoRazon,nombreRazon", "razon", "");
             r.beforeFirst();
             while (r.next()) {

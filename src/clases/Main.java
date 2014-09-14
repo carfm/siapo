@@ -20,9 +20,9 @@ public class Main {
            
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
         } catch (Exception e) {
-            System.out.println();
-        }
-        
+            ErroresSiapo.agregar(e, "codigo 23");
+            //System.out.println();
+        }        
         new PantallaLogin(0, "nouser").setVisible(true);
     }
 }
