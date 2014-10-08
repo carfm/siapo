@@ -787,7 +787,7 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Registro y Gestion de Ordenes Procesadas - Registro de Ordenes Procesadas - SIAPO");
+        setTitle("Registro y Gestión de Ordenes Procesadas - Registrar Ordenes - SIAPO");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -1114,7 +1114,7 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setText("Registro y Gestion de Ordenes Procesadas - Registrar Ordenes");
+        jLabel2.setText("Registro y Gestión de Ordenes Procesadas - Registrar Ordenes");
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);

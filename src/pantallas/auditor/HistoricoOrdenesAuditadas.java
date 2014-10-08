@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pantallas.agente;
+package pantallas.auditor;
 
 import clases.Orden;
 import clases.Usuario;
@@ -17,7 +17,7 @@ import pantallas.mensajeria.errorNuevo;
  *
  * @author joel flores
  */
-public class HistoricoOrdenes extends javax.swing.JFrame {
+public class HistoricoOrdenesAuditadas extends javax.swing.JFrame {
 
     /**
      * Creates new form HistoricoOrdenes
@@ -27,7 +27,7 @@ public class HistoricoOrdenes extends javax.swing.JFrame {
     public NotificacionNueva n;
     public errorNuevo e;
 
-    public HistoricoOrdenes(Usuario u, NotificacionNueva n, errorNuevo e) {
+    public HistoricoOrdenesAuditadas(Usuario u, NotificacionNueva n, errorNuevo e) {
         c = Calendar.getInstance();
         this.u = new Usuario();
         this.u.setUser(u.getUser());
@@ -50,8 +50,8 @@ public class HistoricoOrdenes extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel7 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        listaOrdenes = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        table_auditoria = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -72,47 +72,39 @@ public class HistoricoOrdenes extends javax.swing.JFrame {
         fin = new com.toedter.calendar.JDateChooser();
         jLabel28 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        mostrar = new javax.swing.JRadioButton();
         jPanel14 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         resultado = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Histórico - Histórico de ordenes procesadas - SIAPO");
+        setTitle("Histórico - Histórico de ordenes auditadas - SIAPO");
         setResizable(false);
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lista ordenes", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 18))); // NOI18N
 
-        listaOrdenes.setModel(new javax.swing.table.DefaultTableModel(
+        table_auditoria.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Specimen", "Location", "Tipo", "Inicio", "Fin", "Razones de envio"
+                "Specimen", "Agente", "Tipo", "Hora auditoria", "Comentario Auditor"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane3.setViewportView(listaOrdenes);
+        ));
+        jScrollPane4.setViewportView(table_auditoria);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 962, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 952, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
         );
 
         jPanel4.setBackground(new java.awt.Color(94, 112, 144));
@@ -187,7 +179,7 @@ public class HistoricoOrdenes extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setText("Histórico - Histórico de ordenes procesadas");
+        jLabel2.setText("Histórico - Histórico de ordenes auditadas");
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -298,29 +290,33 @@ public class HistoricoOrdenes extends javax.swing.JFrame {
             }
         });
 
+        mostrar.setText("Mostrar Ordenes");
+
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fin, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
             .addGroup(jPanel13Layout.createSequentialGroup()
-                .addGap(80, 80, 80)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
+                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fin, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel13Layout.createSequentialGroup()
+                        .addComponent(mostrar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel13Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(inicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel27))
@@ -328,23 +324,24 @@ public class HistoricoOrdenes extends javax.swing.JFrame {
                 .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(0, 0, 0))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(mostrar)
+                    .addComponent(jButton1)))
         );
 
-        jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Histórico de Ordenes Procesadas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 18))); // NOI18N
+        jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Histórico de Ordenes Auditadas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 18))); // NOI18N
 
         resultado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+                {null, null, null}
             },
             new String [] {
-                "Completas", "Incompletas", "Sin hacer nada", "Procesadas"
+                "Auditadas", "Sin error", "Con error"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -352,6 +349,9 @@ public class HistoricoOrdenes extends javax.swing.JFrame {
             }
         });
         jScrollPane2.setViewportView(resultado);
+        if (resultado.getColumnModel().getColumnCount() > 0) {
+            resultado.getColumnModel().getColumn(1).setResizable(false);
+        }
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
@@ -367,7 +367,7 @@ public class HistoricoOrdenes extends javax.swing.JFrame {
             .addGroup(jPanel14Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -392,11 +392,11 @@ public class HistoricoOrdenes extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(29, 29, 29)
                 .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(33, 33, 33)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -426,22 +426,23 @@ public class HistoricoOrdenes extends javax.swing.JFrame {
                 int totales[];
                 String userCRT = u.getUser();
                 Orden o = new Orden();
-                totales = o.cantidadTipoOrdenes(userCRT, " fecha between '" + fechainicio + "' and '" + fechafin + "'");
-                if (totales[3] == 0) {
+                totales = o.cantidadOrdenesAuditadas(userCRT, " a.fecha between '" + fechainicio + "' and '" + fechafin + "'");
+                if (totales[2] == 0) {
                     JOptionPane.showMessageDialog(this, "No se encontraron registros", "Mensaje", JOptionPane.PLAIN_MESSAGE);
                     resultado.setValueAt(0, 0, 0);
                     resultado.setValueAt(0, 0, 1);
                     resultado.setValueAt(0, 0, 2);
-                    resultado.setValueAt(0, 0, 3);
-                    o.limpiarTabla(listaOrdenes);
+                    //resultado.setValueAt(0, 0, 3);
+                    o.limpiarTabla(table_auditoria);
                 } else {
-                    for (int i = 0; i < 6; i++) {
-                        if (i < 4) {
-                            resultado.setValueAt(totales[i], 0, i);
-                        }
+                    resultado.setValueAt(totales[2], 0, 0);
+                    resultado.setValueAt(totales[0], 0, 1);
+                    resultado.setValueAt(totales[1], 0, 2);
+                    o.limpiarTabla(table_auditoria);
+                    if (this.mostrar.isSelected()) {                       
+                        o.llenarTablaOrdenesAuditadas(table_auditoria, userCRT, fechainicio, fechafin);
                     }
-                    o.limpiarTabla(listaOrdenes);
-                    o.llenarTablaOrdenes(listaOrdenes, userCRT, fechainicio, fechafin);
+                    //o.llenarTablaOrdenes(listaOrdenes, userCRT, fechainicio, fechafin);
                 }
             }
         } catch (Exception ex) {
@@ -474,9 +475,10 @@ public class HistoricoOrdenes extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable listaOrdenes;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JRadioButton mostrar;
     private javax.swing.JButton registro;
     private javax.swing.JTable resultado;
+    private javax.swing.JTable table_auditoria;
     // End of variables declaration//GEN-END:variables
 }

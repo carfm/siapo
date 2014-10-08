@@ -195,7 +195,7 @@ public class Sistema {
             } else {
                 sql_str = "SELECT " + campo + " FROM " + tabla + " WHERE " + condicion;
             }
-            System.out.println(sql_str);
+            //System.out.println(sql_str);
             setSentencia(getConexion().createStatement());
             resultado = getSentencia().executeQuery(sql_str);
             resultado.next();

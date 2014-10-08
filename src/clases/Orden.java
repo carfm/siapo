@@ -598,7 +598,7 @@ public class Orden extends Sistema {
                 //nombreLocation.setSelectedItem(r.getString("nombrelocation"));
                 tipoOrden.setSelectedIndex(Integer.parseInt(r.getString("tipoOrden")) - 1);
                 this.comentarioAgente= r.getString("comentarioAgente");
-                this.user = r.getString("user");
+                this.setUser(r.getString("user"));
                 DefaultTableModel modelo = (DefaultTableModel) historial.getModel();
                 int i;
                 r.beforeFirst();
@@ -823,5 +823,12 @@ public class Orden extends Sistema {
      */
     public void setErrores(ArrayList<Error> errores) {
         this.errores = errores;
+    }
+
+    /**
+     * @param user the user to set
+     */
+    public void setUser(String user) {
+        this.user = user;
     }
 }

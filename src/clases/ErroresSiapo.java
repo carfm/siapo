@@ -6,6 +6,7 @@
 
 package clases;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.Date;
@@ -19,6 +20,8 @@ public class ErroresSiapo {
         FileWriter fichero = null;
         PrintWriter pw;
         java.util.Date fecha = new Date();
+        File fi= new File("c:/prueba.txt");
+       
         try {
             fichero = new FileWriter("c:/prueba.txt", true);
             pw = new PrintWriter(fichero);

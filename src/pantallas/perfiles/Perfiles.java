@@ -106,7 +106,6 @@ public final class Perfiles extends javax.swing.JFrame {
         lbFoto = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         btHistorico = new javax.swing.JButton();
-        actualizarUsuario_carl2 = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
@@ -711,33 +710,21 @@ public final class Perfiles extends javax.swing.JFrame {
             }
         });
 
-        actualizarUsuario_carl2.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        actualizarUsuario_carl2.setText("Graficos individuales");
-        actualizarUsuario_carl2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                actualizarUsuario_carl2ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(actualizarUsuario_carl2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(432, 432, 432)
                 .addComponent(btHistorico)
-                .addGap(349, 349, 349))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btHistorico)
-                    .addComponent(actualizarUsuario_carl2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btHistorico)
+                .addContainerGap())
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos Generales", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 18))); // NOI18N
@@ -1270,11 +1257,6 @@ public final class Perfiles extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void actualizarUsuario_carl2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarUsuario_carl2ActionPerformed
-        // TODO add your handling code here:
-        new GenerarGraficas(u, n, e, true).setVisible(true);
-    }//GEN-LAST:event_actualizarUsuario_carl2ActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         Orden o = new Orden();
@@ -1346,7 +1328,6 @@ public final class Perfiles extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton actualizarUsuario_carl2;
     private javax.swing.JTextField agente;
     private javax.swing.JLabel apellido;
     private javax.swing.JButton btHistorico;

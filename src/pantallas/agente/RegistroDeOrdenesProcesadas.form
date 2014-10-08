@@ -960,7 +960,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="title" type="java.lang.String" value="Registro y Gestion de Ordenes Procesadas - Registro de Ordenes Procesadas - SIAPO"/>
+    <Property name="title" type="java.lang.String" value="Registro y Gesti&#xf3;n de Ordenes Procesadas - Registrar Ordenes - SIAPO"/>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
@@ -1652,7 +1652,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="2"/>
-                <Property name="text" type="java.lang.String" value="Registro y Gestion de Ordenes Procesadas - Registrar Ordenes"/>
+                <Property name="text" type="java.lang.String" value="Registro y Gesti&#xf3;n de Ordenes Procesadas - Registrar Ordenes"/>
               </Properties>
             </Component>
           </SubComponents>

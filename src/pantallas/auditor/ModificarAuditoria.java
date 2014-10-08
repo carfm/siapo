@@ -3,7 +3,7 @@ package pantallas.auditor;
 
 import pantallas.auditor.EliminarAuditoria;
 import pantallas.auditor.MostrarErrores;
-import pantallas.auditor.Auditoria;
+import pantallas.auditor.AuditoriaDeOrdenes;
 import clases.Orden;
 import clases.Usuario;
 import java.sql.ResultSet;
@@ -1015,7 +1015,7 @@ public class ModificarAuditoria extends javax.swing.JFrame {
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
        // new AgregarUsuario(u,this.n,this.e).setVisible(true);
         recordar();
-        new Auditoria(u,this.n,this.e).setVisible(true);
+        new AuditoriaDeOrdenes(u,this.n,this.e).setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton13ActionPerformed
 
