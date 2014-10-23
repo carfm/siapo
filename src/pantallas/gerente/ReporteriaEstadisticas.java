@@ -1,5 +1,6 @@
 package pantallas.gerente;
 
+import clases.ErroresSiapo;
 import clases.Reporte;
 import clases.Usuario;
 import java.text.SimpleDateFormat;
@@ -824,9 +825,9 @@ public class ReporteriaEstadisticas extends javax.swing.JFrame {
         Calendar cal = Calendar.getInstance();
         String dia = String.valueOf(cal.get(cal.DATE));
         String mes = String.valueOf(cal.get(cal.MONTH) + 1);
-        String año = "2014";//String.valueOf(cal.get(cal.YEAR));
+        String año = String.valueOf(cal.get(cal.YEAR));
         String fechainicio;
-                    String fechafin;
+        String fechafin;
         Map parametro = new HashMap();
         cargando.setVisible(true);
         try {
@@ -997,8 +998,9 @@ public class ReporteriaEstadisticas extends javax.swing.JFrame {
                         v = u.runReporte("reporte_errores_diarios", parametro);
                         v.setTitle("Reporte de Errores");
                         v.setVisible(true);
-                    } catch (Exception e) {
+                    } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, "No se pudo generar el reporte", "Reporte", JOptionPane.ERROR_MESSAGE);
+                        ErroresSiapo.agregar(ex, "codigo 39");
                     }
 //                    int mess = cb_mes.getSelectedIndex();
 //                    if (rb_mensual.isSelected()) {
@@ -1048,6 +1050,7 @@ public class ReporteriaEstadisticas extends javax.swing.JFrame {
                         v.setTitle("Reporte de Analisis de Eficiencia");
                         v.setVisible(true);
                     } else {
+                        ErroresSiapo.agregar(null, "codigo 39");
                         System.out.println("mal");
                     }
                     break;
@@ -1061,6 +1064,7 @@ public class ReporteriaEstadisticas extends javax.swing.JFrame {
                         v.setTitle("Reporte de Razones");
                         v.setVisible(true);
                     } catch (Exception e) {
+                        ErroresSiapo.agregar(e, "codigo 38");
                         JOptionPane.showMessageDialog(null, "No se pudo generar el reporte", "Reporte", JOptionPane.ERROR_MESSAGE);
                     }
                     break;

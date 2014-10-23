@@ -504,12 +504,12 @@ public final class ActualizarError extends javax.swing.JFrame {
                 try {
                     Error err = new Error();
                     ResultSet r;
-                    r = err.seleccionar("codigoTipo", "tipoerror", "nombreTipo LIKE '" + tipoError.getSelectedItem().toString() + "'");
-                    err.setCodigoTipo(r.getString("codigoTipo"));
+                    r = err.seleccionar("codigoCategoria", "categoriaError", "nombreCategoria = '" + tipoError.getSelectedItem().toString() + "'");
+                    err.setCodigoTipo(r.getString("codigoCategoria"));
                     err.setNombreError(nombreError.getText());
                     err.setDescripcion(jTextArea1.getText());
                     err.actualizar("error", "codigoTipo='" + err.getCodigoTipo() + "',nombreError='"
-                            + err.getNombreError() + "',descripcionError='" + err.getDescripcion() + "'", "codigoError like '" + codigoError.getText() + "'");
+                            + err.getNombreError() + "',descripcionError='" + err.getDescripcion() + "'", "codigoError = '" + codigoError.getText() + "'");
                     actualizarErrores(false);
                     JOptionPane.showMessageDialog(null, "El error ha sido actualizado", "Actualizar error", JOptionPane.INFORMATION_MESSAGE);
                     u.getSentencia().close();
@@ -530,14 +530,17 @@ public final class ActualizarError extends javax.swing.JFrame {
         try {
             ResultSet r;
             String codigo = listaErrores.getValueAt(listaErrores.getSelectedRow(), 0).toString();
-            r = u.seleccionar("codigoTipo,nombreError,descripcionError", "error", "codigoError like '" + codigo + "'");
+            System.out.println(codigo);
+            r = u.seleccionar("codigoCategoria,nombreError,descripcionError", "error", "codigoError = '" + codigo + "'");
             codigoError.setText(codigo);
             nombreError.setText(r.getString("nombreError"));
-            tipoError.setSelectedIndex(Integer.parseInt(r.getString("codigoTipo")) - 1);
+            System.out.println(r.getInt("codigoCategoria"));
+            tipoError.setSelectedIndex(r.getInt("codigoCategoria") - 1);
             jTextArea1.setText(r.getString("descripcionError"));
             u.cerrarConexion();
             u.cerrarConexionBase();
         } catch (SQLException | NumberFormatException e) {
+            System.out.println(e);
         }
     }//GEN-LAST:event_listaErroresMouseClicked
 
@@ -571,10 +574,11 @@ public final class ActualizarError extends javax.swing.JFrame {
         ResultSet r;
 
         try {
-            r = u.seleccionar("count(*) as filas", "error", "aprobado=1");
-            filas = Integer.parseInt(r.getString("filas"));
+            //r = u.seleccionar("count(*) as filas", "", "");
+            filas = u.contadorFilas("error", "aprobado=1");
+            
             r = u.seleccionar("codigoError,nombreError,nombreTipo", "error,tipoerror",
-                    "error.codigoTipo LIKE tipoerror.codigoTipo and aprobado=1 order by codigoError asc");
+                    "error.codigoTipo = tipoerror.codigoTipo and aprobado=1 order by codigoError asc");
             r.first();
 
             for (i = 0; i < filas; i++) {

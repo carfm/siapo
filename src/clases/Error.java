@@ -26,7 +26,7 @@ public class Error extends Sistema{
      */
     public boolean ingresarError() {
         String s = "'"+getCodigoError()+"',"+getCodigoCategoria()+",'"+getCodigoTipo()+"',"
-                + "'"+getNombreError()+"','"+getDescripcion()+"',0";
+                + "'"+getNombreError()+"','"+getDescripcion()+"',1";
         return insertar("error", s);
     }
 /**********************FIN ingresarError**************************/

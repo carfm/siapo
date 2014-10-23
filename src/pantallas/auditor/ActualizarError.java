@@ -1,13 +1,20 @@
-
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package pantallas.auditor;
 
+import pantallas.gerente.*;
 import clases.Usuario;
 import clases.Error;
+
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import pantallas.general.MenuPpal;
@@ -28,7 +35,7 @@ public final class ActualizarError extends javax.swing.JFrame {
     private Usuario u;
     public NotificacionNueva n;
     public errorNuevo e;
-    
+
     public ActualizarError(Usuario u, NotificacionNueva n, errorNuevo e) {
         c = Calendar.getInstance();
         ResultSet r;
@@ -43,6 +50,18 @@ public final class ActualizarError extends javax.swing.JFrame {
         actualizarErrores(true);
         setSize(1024, 680);
         setLocationRelativeTo(null);
+        /*try {
+            r = u.seleccionar("count(*) as filas", "tipoerror", "tipoActivo!=0");
+            filas = Integer.parseInt(r.getString("filas"));
+            r = u.seleccionar("nombreTipo", "tipoerror", "");
+            r.first();
+            for (i = 0; i < filas; i++) {
+                tipoError.addItem(r.getString("nombreTipo"));
+                r.next();
+            }
+        } catch (SQLException | NumberFormatException e) {
+            System.out.println(e);
+        }*/
     }
 
     /**
@@ -63,24 +82,26 @@ public final class ActualizarError extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jButton12 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
         jButton10 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
-        jLabel14 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
         nombreError = new javax.swing.JTextField();
-        jLabel25 = new javax.swing.JLabel();
-        tipoError = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jLabel23 = new javax.swing.JLabel();
         codigoError = new javax.swing.JLabel();
         aprobado = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        categoria = new javax.swing.JComboBox();
+        jLabel27 = new javax.swing.JLabel();
+        tipoError = new javax.swing.JComboBox();
         jPanel9 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         listaErrores = new javax.swing.JTable();
@@ -89,7 +110,7 @@ public final class ActualizarError extends javax.swing.JFrame {
         cancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Gestión de errores - Actualizar error no aprobado - SIAPO");
+        setTitle("Gestión de errores - Actualizar error - SIAPO");
         setBackground(new java.awt.Color(236, 236, 236));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
@@ -144,7 +165,7 @@ public final class ActualizarError extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setText("Gestión de errores - Actualizar error no aprobado");
+        jLabel2.setText("Gestión de errores - Actualizar error ");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -172,10 +193,25 @@ public final class ActualizarError extends javax.swing.JFrame {
             }
         });
 
+        jButton6.setBackground(new java.awt.Color(60, 117, 207));
+        jButton6.setForeground(new java.awt.Color(60, 117, 207));
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/1379322872_refresh.png"))); // NOI18N
+        jButton6.setBorderPainted(false);
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
         jLabel15.setBackground(new java.awt.Color(255, 255, 255));
         jLabel15.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("Menú principal");
+
+        jLabel14.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel14.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("Actualizar error");
 
         jButton10.setBackground(new java.awt.Color(60, 117, 207));
         jButton10.setForeground(new java.awt.Color(60, 117, 207));
@@ -191,16 +227,6 @@ public final class ActualizarError extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Crear nuevo error");
-
-        jButton6.setBackground(new java.awt.Color(60, 117, 207));
-        jButton6.setForeground(new java.awt.Color(60, 117, 207));
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/1379322872_refresh.png"))); // NOI18N
-        jButton6.setBorderPainted(false);
-
-        jLabel14.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel14.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("Actualizar error");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -221,12 +247,11 @@ public final class ActualizarError extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(16, 16, 16)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel14))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
+                        .addGap(11, 11, 11)
                         .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel13)
@@ -236,26 +261,23 @@ public final class ActualizarError extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel13)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -289,14 +311,8 @@ public final class ActualizarError extends javax.swing.JFrame {
 
         nombreError.setToolTipText("");
 
-        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel25.setText("Categoria:");
-
-        tipoError.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Grave", "Mediano", "Leve" }));
-
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel6.setText("Descripción:");
+        jLabel6.setText("Descripción del error:");
 
         jTextArea1.setColumns(20);
         jTextArea1.setLineWrap(true);
@@ -313,34 +329,46 @@ public final class ActualizarError extends javax.swing.JFrame {
         aprobado.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         aprobado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
+        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel26.setText("Categoria:");
+
+        categoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Grave", "Mediano", "Leve" }));
+
+        jLabel27.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel27.setText("Tipo:");
+
+        tipoError.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Diagnostico", "Doctor", "Examenes", "Hospital", "Informacion en la orden", "Muestras", "Paciente", "Otros" }));
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jLabel6)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel21)
+                            .addComponent(jLabel23))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(aprobado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addComponent(jLabel25)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                                .addComponent(tipoError, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel7Layout.createSequentialGroup()
-                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel21)
-                                    .addComponent(jLabel23))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(nombreError, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(codigoError, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(nombreError, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+                            .addComponent(codigoError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel26)
+                            .addComponent(jLabel27))
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tipoError, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(categoria, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(aprobado, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -353,35 +381,35 @@ public final class ActualizarError extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(nombreError, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel21))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel25)
+                    .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel27, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(tipoError, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addComponent(jLabel6)
-                        .addGap(45, 45, 45))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addComponent(aprobado, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(aprobado, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
-        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Errores no aprobados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 18))); // NOI18N
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lista de errores", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 18))); // NOI18N
 
         listaErrores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Codigo", "Nombre", "Tipo"
+                "Codigo", "Nombre", "Tipo", "codigoTipo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -397,6 +425,12 @@ public final class ActualizarError extends javax.swing.JFrame {
         if (listaErrores.getColumnModel().getColumnCount() > 0) {
             listaErrores.getColumnModel().getColumn(0).setPreferredWidth(20);
             listaErrores.getColumnModel().getColumn(1).setPreferredWidth(300);
+            listaErrores.getColumnModel().getColumn(2).setMinWidth(0);
+            listaErrores.getColumnModel().getColumn(2).setPreferredWidth(0);
+            listaErrores.getColumnModel().getColumn(2).setMaxWidth(0);
+            listaErrores.getColumnModel().getColumn(3).setMinWidth(0);
+            listaErrores.getColumnModel().getColumn(3).setPreferredWidth(0);
+            listaErrores.getColumnModel().getColumn(3).setMaxWidth(0);
         }
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
@@ -405,7 +439,7 @@ public final class ActualizarError extends javax.swing.JFrame {
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
@@ -460,13 +494,13 @@ public final class ActualizarError extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 342, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(66, 66, 66))
+                .addContainerGap(56, Short.MAX_VALUE)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -476,13 +510,14 @@ public final class ActualizarError extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void actualizarErrorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarErrorActionPerformed
@@ -491,18 +526,21 @@ public final class ActualizarError extends javax.swing.JFrame {
                 try {
                     Error err = new Error();
                     ResultSet r;
-                    r = err.seleccionar("codigoTipo", "tipoerror", "nombreTipo LIKE '" + tipoError.getSelectedItem().toString() + "'");
+                    r = err.seleccionar("codigoCategoria", "categoriaError", "nombreCategoria = '" + categoria.getSelectedItem().toString() + "'");
+                    err.setCodigoCategoria(r.getInt("codigoCategoria"));
+                    u.cerrarConexionBase();
+                    r = err.seleccionar("codigoTipo", "tipoError", "nombreTipo = '" + tipoError.getSelectedItem().toString() + "'");
                     err.setCodigoTipo(r.getString("codigoTipo"));
                     err.setNombreError(nombreError.getText());
                     err.setDescripcion(jTextArea1.getText());
                     err.actualizar("error", "codigoTipo='" + err.getCodigoTipo() + "',nombreError='"
-                            + err.getNombreError() + "',descripcionError='" + err.getDescripcion() + "'", "codigoError like '" + codigoError.getText() + "'");
+                            + err.getNombreError() + "',descripcionError='" + err.getDescripcion() + "',categoriaError="+err.getCodigoCategoria(), "codigoError = '" + codigoError.getText() + "'");
                     actualizarErrores(false);
-                    JOptionPane.showMessageDialog(null, "El error ha sido actualizado", "Actualizar nuevo error", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "El error ha sido actualizado", "Actualizar error", JOptionPane.INFORMATION_MESSAGE);
                     u.getSentencia().close();
                     u.cerrarConexionBase();
                 } catch (SQLException ex) {
-                    Logger.getLogger(pantallas.gerente.ActualizarError.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ActualizarError.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }else{
                 JOptionPane.showMessageDialog(null, "El error tiene que tener un nombre", "Error", JOptionPane.ERROR_MESSAGE);
@@ -512,28 +550,29 @@ public final class ActualizarError extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_actualizarErrorActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
-        new AgregarError(u,this.n,this.e).setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jButton10ActionPerformed
-
     private void listaErroresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaErroresMouseClicked
         // TODO add your handling code here:
         try {
             ResultSet r;
             String codigo = listaErrores.getValueAt(listaErrores.getSelectedRow(), 0).toString();
-            r = u.seleccionar("codigoTipo,codigoCategoria,nombreError,descripcionError,aprobado", "error", "codigoError like '" + codigo + "'");
+            System.out.println(codigo);
+            r = u.seleccionar("codigoCategoria,nombreError,descripcionError", "error", "codigoError = '" + codigo + "'");
             codigoError.setText(codigo);
             nombreError.setText(r.getString("nombreError"));
-            tipoError.setSelectedIndex(Integer.parseInt(r.getString("codigoTipo")) - 1);
+            categoria.setSelectedIndex(r.getInt("codigoCategoria") - 1);            
             jTextArea1.setText(r.getString("descripcionError"));
             u.cerrarConexion();
             u.cerrarConexionBase();
-        } catch (Exception ex) {
-            System.out.println(ex);
+        } catch (SQLException | NumberFormatException e) {
+            System.out.println(e);
         }
     }//GEN-LAST:event_listaErroresMouseClicked
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        new ActualizarError(u,this.n,this.e).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         new MenuPpal(u,false,this.n,this.e).setVisible(true);
@@ -548,16 +587,24 @@ public final class ActualizarError extends javax.swing.JFrame {
         jTextArea1.setText("");
     }//GEN-LAST:event_cancelarActionPerformed
 
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+        new AgregarError(u, this.n, this.e).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton10ActionPerformed
+
     public void actualizarErrores(boolean primeraVez) {
         int i, j, filas;//i fila j colummna        
         ResultSet r;
-        String condicion="aprobado=0";
+
         try {
-            r = u.seleccionar("count(*) as filas", "error", condicion);
-            filas = Integer.parseInt(r.getString("filas"));
-            r = u.seleccionar("codigoError,nombreError,nombreTipo", "error,tipoerror", 
-                    "error.codigoTipo LIKE tipoerror.codigoTipo and "+condicion+" order by codigoError asc");
+            //r = u.seleccionar("count(*) as filas", "", "");
+            filas = u.contadorFilas("error", "aprobado=1");
+            
+            r = u.seleccionar("codigoError,nombreError,nombreTipo", "error,tipoerror",
+                    "error.codigoTipo = tipoerror.codigoTipo and aprobado=1 order by codigoError asc");
             r.first();
+
             for (i = 0; i < filas; i++) {
                 if (primeraVez) {
                     ((DefaultTableModel) listaErrores.getModel()).
@@ -578,10 +625,10 @@ public final class ActualizarError extends javax.swing.JFrame {
                     }
                 }
                 r.next();
-            }           
+            }
             u.getSentencia().close();
             u.cerrarConexionBase();
-        } catch (SQLException | NumberFormatException ex) {
+        } catch (SQLException | NumberFormatException e) {
         }
     }
     /**
@@ -591,6 +638,7 @@ public final class ActualizarError extends javax.swing.JFrame {
     private javax.swing.JButton actualizarError;
     private javax.swing.JLabel aprobado;
     private javax.swing.JButton cancelar;
+    private javax.swing.JComboBox categoria;
     private javax.swing.JLabel codigoError;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton12;
@@ -605,7 +653,8 @@ public final class ActualizarError extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;

@@ -1,16 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package pantallas.auditor;
 
+package pantallas.auditor;
 
 import clases.Usuario;
 import clases.Error;
-import java.awt.HeadlessException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import pantallas.general.MenuPpal;
@@ -21,7 +18,7 @@ import pantallas.mensajeria.errorNuevo;
  *
  * @author Administrador
  */
-public final class AgregarError extends javax.swing.JFrame {
+public final class ActualizarError_1 extends javax.swing.JFrame {
 
     /**
      * Creates new form AgregarUsuario
@@ -29,20 +26,21 @@ public final class AgregarError extends javax.swing.JFrame {
      */
     public Calendar c;
     private Usuario u;
-    private boolean primeraVez;
     public NotificacionNueva n;
     public errorNuevo e;
-
-    public AgregarError(Usuario u, NotificacionNueva n, errorNuevo e) {
+    
+    public ActualizarError_1(Usuario u, NotificacionNueva n, errorNuevo e) {
         c = Calendar.getInstance();
-        primeraVez = true;
+        ResultSet r;
+        int filas, i;
         this.u = new Usuario();
-        this.u.setNombreUsuario(u.getNombreUsuario());
         this.u.setUser(u.getUser());
+        this.u.setNombreUsuario(u.getNombreUsuario());
         this.u.setListaTiposUsuario(u.getListaTiposUsuario());
         this.e = e;
         this.n = n;
         initComponents();
+        actualizarErrores(true);
         setSize(1024, 680);
         setLocationRelativeTo(null);
     }
@@ -56,15 +54,6 @@ public final class AgregarError extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lista = new javax.swing.JFrame();
-        jPanel6 = new javax.swing.JPanel();
-        jPanel8 = new javax.swing.JPanel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jPanel11 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
@@ -83,136 +72,24 @@ public final class AgregarError extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
-        nombre = new javax.swing.JTextField();
+        nombreError = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
         tipoError = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jLabel26 = new javax.swing.JLabel();
-        areas = new javax.swing.JComboBox();
+        jLabel23 = new javax.swing.JLabel();
+        codigoError = new javax.swing.JLabel();
+        aprobado = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        listaErrores = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
-        crearError = new javax.swing.JButton();
-        listaErr = new javax.swing.JButton();
-        limpiarCampos = new javax.swing.JButton();
-
-        lista.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        lista.setTitle("Lista de Errores");
-
-        jPanel6.setBackground(new java.awt.Color(60, 117, 207));
-
-        jPanel8.setBackground(new java.awt.Color(47, 63, 79));
-
-        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
-                .addComponent(jLabel18))
-        );
-
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Lista de errores almacenados en el sistema");
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel4)
-                .addContainerGap())
-        );
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Codigo", "Nombre", "Tipo", "Descripcion"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(50);
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(150);
-            jTable1.getColumnModel().getColumn(2).setPreferredWidth(60);
-            jTable1.getColumnModel().getColumn(3).setPreferredWidth(420);
-        }
-
-        jPanel11.setBackground(new java.awt.Color(94, 112, 144));
-        jPanel11.setForeground(new java.awt.Color(94, 112, 144));
-
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Universidad de El Salvador ©Copyright 2013 ");
-
-        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
-        jPanel11.setLayout(jPanel11Layout);
-        jPanel11Layout.setHorizontalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        jPanel11Layout.setVerticalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel11Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel7)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout listaLayout = new javax.swing.GroupLayout(lista.getContentPane());
-        lista.getContentPane().setLayout(listaLayout);
-        listaLayout.setHorizontalGroup(
-            listaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(listaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addContainerGap())
-            .addComponent(jPanel11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        listaLayout.setVerticalGroup(
-            listaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(listaLayout.createSequentialGroup()
-                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        actualizarError = new javax.swing.JButton();
+        cancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Gestión de errores - Crear nuevo error - SIAPO");
+        setTitle("Gestión de errores - Actualizar error no aprobado - SIAPO");
         setBackground(new java.awt.Color(236, 236, 236));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setResizable(false);
@@ -267,7 +144,7 @@ public final class AgregarError extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel2.setText("Gestión de errores - Crear nuevo error ");
+        jLabel2.setText("Gestión de errores - Actualizar error no aprobado");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -319,11 +196,6 @@ public final class AgregarError extends javax.swing.JFrame {
         jButton6.setForeground(new java.awt.Color(60, 117, 207));
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/1379322872_refresh.png"))); // NOI18N
         jButton6.setBorderPainted(false);
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
 
         jLabel14.setBackground(new java.awt.Color(255, 255, 255));
         jLabel14.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -409,101 +281,153 @@ public final class AgregarError extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del nuevo error", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 18))); // NOI18N
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del error", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 18))); // NOI18N
 
         jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel21.setText("Nombre:");
 
-        nombre.setToolTipText("");
+        nombreError.setToolTipText("");
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel25.setText("Categoria error:");
+        jLabel25.setText("Categoria:");
 
         tipoError.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Grave", "Mediano", "Leve" }));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel6.setText("Descripción del error:");
+        jLabel6.setText("Descripción:");
 
         jTextArea1.setColumns(20);
+        jTextArea1.setLineWrap(true);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel26.setText("Tipo de error:");
+        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel23.setText("Codigo:");
 
-        areas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Diagnostico", "Doctor", "Examenes", "Hospital", "Informacion en la orden", "Muestras", "Paciente", "Otros" }));
+        codigoError.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        codigoError.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        aprobado.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        aprobado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(19, 19, 19)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(aprobado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addComponent(jLabel25)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                                .addComponent(tipoError, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel7Layout.createSequentialGroup()
                                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel21)
-                                    .addComponent(jLabel25)
-                                    .addComponent(jLabel26))
-                                .addGap(18, 34, Short.MAX_VALUE)
-                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(nombre)
-                                    .addComponent(tipoError, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(areas, 0, 171, Short.MAX_VALUE))))
-                        .addGap(20, 20, 20))))
+                                    .addComponent(jLabel23))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(nombreError, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(codigoError, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(codigoError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nombreError, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel21))
-                .addGap(25, 25, 25)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel25, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel25)
                     .addComponent(tipoError, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(areas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addGap(93, 93, 93)
+                        .addComponent(jLabel6)
+                        .addGap(45, 45, 45))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addComponent(aprobado, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(31, Short.MAX_VALUE))
+        );
+
+        jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Errores no aprobados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 18))); // NOI18N
+
+        listaErrores.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Codigo", "Nombre", "Tipo"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        listaErrores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listaErroresMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(listaErrores);
+        if (listaErrores.getColumnModel().getColumnCount() > 0) {
+            listaErrores.getColumnModel().getColumn(0).setPreferredWidth(20);
+            listaErrores.getColumnModel().getColumn(1).setPreferredWidth(300);
+        }
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3)
+                .addContainerGap())
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        crearError.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        crearError.setText("Crear error");
-        crearError.addActionListener(new java.awt.event.ActionListener() {
+        actualizarError.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        actualizarError.setText("Actualizar error");
+        actualizarError.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                crearErrorActionPerformed(evt);
+                actualizarErrorActionPerformed(evt);
             }
         });
 
-        listaErr.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        listaErr.setText("Lista de errores");
-        listaErr.addActionListener(new java.awt.event.ActionListener() {
+        cancelar.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        cancelar.setText("Cancelar operación");
+        cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listaErrActionPerformed(evt);
-            }
-        });
-
-        limpiarCampos.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        limpiarCampos.setText("Limpiar campos");
-        limpiarCampos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                limpiarCamposActionPerformed(evt);
+                cancelarActionPerformed(evt);
             }
         });
 
@@ -512,22 +436,19 @@ public final class AgregarError extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(278, 278, 278)
-                .addComponent(crearError, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(352, 352, 352)
+                .addComponent(actualizarError, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(listaErr, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(limpiarCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(279, Short.MAX_VALUE))
+                .addComponent(cancelar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(crearError)
-                    .addComponent(listaErr)
-                    .addComponent(limpiarCampos))
+                    .addComponent(cancelar)
+                    .addComponent(actualizarError))
                 .addContainerGap())
         );
 
@@ -537,185 +458,140 @@ public final class AgregarError extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(345, 345, 345)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 342, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(66, 66, 66)
+                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(66, 66, 66))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
-        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-        new ActualizarError(u, this.n, this.e).setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void crearErrorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearErrorActionPerformed
-
-        //Formato de el codigo de error AAA00-ZZZ99
-        // tomas las 3 primeras letras del nombre del error
-        /*Areas afectadas por el error
-         Diagnostico                DGN 100 0
-         Doctor                     DOC 200 1
-         Examenes                   EXA 300 2
-         Hospital                   HOS 400 3
-         Informacion en la orden    IOR 500 4
-         Muestras                   MUS 600 5
-         Paciente                   PAC 700 6
-         Otros                      OTR 800 7
-         * */
-        // VALIDAR ****************************************************************************************
-        ResultSet r;
-        String codigo = "";
-        Error err = new Error();
-        int valor;
-        try {
-            if (!nombre.getText().isEmpty()) {
-                switch (areas.getSelectedIndex()) {
-                    case 0:
-                        codigo = "DGN";
-                        break;
-                    case 1:
-                        codigo = "DOC";
-                        break;
-                    case 2:
-                        codigo = "EXA";
-                        break;
-                    case 3:
-                        codigo = "HOS";
-                        break;
-                    case 4:
-                        codigo = "IOR";
-                        break;
-                    case 5:
-                        codigo = "MUS";
-                        break;
-                    case 6:
-                        codigo = "PAC";
-                        break;
-                    case 7:
-                        codigo = "OTR";
-                        break;
+    private void actualizarErrorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarErrorActionPerformed
+        if (!codigoError.getText().isEmpty()) {
+            if (!nombreError.getText().isEmpty()) {
+                try {
+                    Error err = new Error();
+                    ResultSet r;
+                    r = err.seleccionar("codigoTipo", "tipoerror", "nombreTipo LIKE '" + tipoError.getSelectedItem().toString() + "'");
+                    err.setCodigoTipo(r.getString("codigoTipo"));
+                    err.setNombreError(nombreError.getText());
+                    err.setDescripcion(jTextArea1.getText());
+                    err.actualizar("error", "codigoTipo='" + err.getCodigoTipo() + "',nombreError='"
+                            + err.getNombreError() + "',descripcionError='" + err.getDescripcion() + "'", "codigoError like '" + codigoError.getText() + "'");
+                    actualizarErrores(false);
+                    JOptionPane.showMessageDialog(null, "El error ha sido actualizado", "Actualizar nuevo error", JOptionPane.INFORMATION_MESSAGE);
+                    u.getSentencia().close();
+                    u.cerrarConexionBase();
+                } catch (SQLException ex) {
+                    Logger.getLogger(pantallas.gerente.ActualizarError.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                r = err.seleccionar("codigoError", "error", "codigoError LIKE '" + codigo + "__' order by codigoError asc");
-                if (!r.last()) {
-                    err.setCodigoError(codigo + "01");
-                } else {
-                    valor = Integer.parseInt(r.getString("codigoError").substring(3, 5)) + 1;
-                    if (valor < 10) {
-                        err.setCodigoError(codigo + "0" + Integer.toString(valor));
-                    } else {
-                        err.setCodigoError(codigo + Integer.toString(valor));
-                    }
-                }
-                r = err.seleccionar("codigoCategoria", "categoriaError", "nombreCategoria = '" + tipoError.getSelectedItem().toString() + "'");
-                err.setCodigoTipo(codigo);
-                err.setCodigoCategoria(Integer.parseInt(r.getString("codigoCategoria")));
-                err.setNombreError(nombre.getText());
-                err.setDescripcion(jTextArea1.getText());
-                if (err.ingresarError()) {
-                    JOptionPane.showMessageDialog(null, "El error a sido guardado", "Crear nuevo error", JOptionPane.INFORMATION_MESSAGE);
-                    limpiar();
-                }else{
-                    JOptionPane.showMessageDialog(null, "El error no se pudo crear", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-                //  TIENE Q MANDARSE UNA NOTIFICACION DE CREACION DE NUEVO ERROR AL GERENTE 
-            } else {
+            }else{
                 JOptionPane.showMessageDialog(null, "El error tiene que tener un nombre", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        } catch (SQLException | NumberFormatException | HeadlessException e) {
-            System.out.println("No fue agregada");
+        }else{
+            JOptionPane.showMessageDialog(null, "Seleccione un error primero", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_crearErrorActionPerformed
-
-    private void listaErrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaErrActionPerformed
-        // TODO add your handling code here:
-        if (primeraVez == true) {
-            actualizarListaErrores(true);
-            primeraVez = false;
-        } else {
-            actualizarListaErrores(false);
-        }
-        lista.setSize(800, 600);
-        lista.setLocationRelativeTo(null);
-        lista.setVisible(true);
-    }//GEN-LAST:event_listaErrActionPerformed
-
-    private void limpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarCamposActionPerformed
-        // TODO add your handling code here:
-        limpiar();
-    }//GEN-LAST:event_limpiarCamposActionPerformed
-
-    public void limpiar() {
-        nombre.setText("");
-        jTextArea1.setText("");
-    }
-    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        new MenuPpal(u, false, this.n, this.e).setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton12ActionPerformed
+    }//GEN-LAST:event_actualizarErrorActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
+        new AgregarError(u,this.n,this.e).setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton10ActionPerformed
-    public void actualizarListaErrores(boolean primeraVez) {
-        int i, j, filas;//i fila j colummna
-        ResultSet r;
+
+    private void listaErroresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaErroresMouseClicked
+        // TODO add your handling code here:
         try {
-            r = u.seleccionar("count(*) as filas", "error", "aprobado=1");
+            ResultSet r;
+            String codigo = listaErrores.getValueAt(listaErrores.getSelectedRow(), 0).toString();
+            r = u.seleccionar("codigoTipo,codigoCategoria,nombreError,descripcionError,aprobado", "error", "codigoError like '" + codigo + "'");
+            codigoError.setText(codigo);
+            nombreError.setText(r.getString("nombreError"));
+            tipoError.setSelectedIndex(Integer.parseInt(r.getString("codigoTipo")) - 1);
+            jTextArea1.setText(r.getString("descripcionError"));
+            u.cerrarConexion();
+            u.cerrarConexionBase();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_listaErroresMouseClicked
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        new MenuPpal(u,false,this.n,this.e).setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
+        // TODO add your handling code here:
+        codigoError.setText("");
+        nombreError.setText("");
+        tipoError.setSelectedIndex(0);
+        jTextArea1.setText("");
+    }//GEN-LAST:event_cancelarActionPerformed
+
+    public void actualizarErrores(boolean primeraVez) {
+        int i, j, filas;//i fila j colummna        
+        ResultSet r;
+        String condicion="aprobado=0";
+        try {
+            r = u.seleccionar("count(*) as filas", "error", condicion);
             filas = Integer.parseInt(r.getString("filas"));
-            r = u.seleccionar("codigoError,nombreError,nombreTipo,descripcionError", "error,tipoerror",
-                    "error.codigoTipo LIKE tipoerror.codigoTipo and aprobado=1 order by codigoError asc");
+            r = u.seleccionar("codigoError,nombreError,nombreTipo", "error,tipoerror", 
+                    "error.codigoTipo LIKE tipoerror.codigoTipo and "+condicion+" order by codigoError asc");
             r.first();
             for (i = 0; i < filas; i++) {
                 if (primeraVez) {
-                    ((DefaultTableModel) jTable1.getModel()).
-                            setRowCount(jTable1.getRowCount() + 1);// agrega filas dinamicamente
+                    ((DefaultTableModel) listaErrores.getModel()).
+                            setRowCount(listaErrores.getRowCount() + 1);// agrega filas dinamicamente
                 }
-                for (j = 0; j < 4; j++) {
+                for (j = 0; j < 3; j++) {
                     //fila,colummna
                     switch (j) {
                         case 0:
-                            jTable1.setValueAt(r.getString("codigoError"), i, j);
+                            listaErrores.setValueAt(r.getString("codigoError"), i, j);
                             break;
                         case 1:
-                            jTable1.setValueAt(r.getString("nombreError"), i, j);
+                            listaErrores.setValueAt(r.getString("nombreError"), i, j);
                             break;
                         case 2:
-                            jTable1.setValueAt(r.getString("nombreTipo"), i, j);
-                            break;
-                        case 3:
-                            jTable1.setValueAt(r.getString("descripcionError"), i, j);
+                            listaErrores.setValueAt(r.getString("nombreTipo"), i, j);
                             break;
                     }
                 }
                 r.next();
-            }
+            }           
             u.getSentencia().close();
-        } catch (SQLException | NumberFormatException e) {
+            u.cerrarConexionBase();
+        } catch (SQLException | NumberFormatException ex) {
         }
     }
     /**
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox areas;
-    private javax.swing.JButton crearError;
+    private javax.swing.JButton actualizarError;
+    private javax.swing.JLabel aprobado;
+    private javax.swing.JButton cancelar;
+    private javax.swing.JLabel codigoError;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton6;
@@ -726,32 +602,24 @@ public final class AgregarError extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JButton limpiarCampos;
-    private javax.swing.JFrame lista;
-    private javax.swing.JButton listaErr;
-    private javax.swing.JTextField nombre;
+    private javax.swing.JTable listaErrores;
+    private javax.swing.JTextField nombreError;
     private javax.swing.JComboBox tipoError;
     // End of variables declaration//GEN-END:variables
 }

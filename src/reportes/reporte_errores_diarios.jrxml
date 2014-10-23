@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Reporte de errores encontrados" language="groovy" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e6354a08-ec2c-4f62-b9df-3a1611966df4">
 	<property name="ireport.zoom" value="1.2418426461183105"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="23"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="fechaInicio" class="java.lang.String">
 		<defaultValueExpression><![CDATA[cfuentes]]></defaultValueExpression>
 	</parameter>
@@ -10,7 +10,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT a.user,a.specimen,nombreError,nombreCategoria,comentarioAuditor,d.fecha FROM `puede_tener` a,error b,orden c,procesa_audita d,categoriaError e  where a.codigoError=b.codigoError and b.codigoCategoria =e.codigoCategoria and a.specimen =c.specimen and a.specimen = d.specimen and a.user= d.user and d.fecha between $P{fechaInicio} and $P{fechaFin} order by d.fecha asc,a.user asc,a.specimen asc]]>
+		<![CDATA[SELECT a.user,a.specimen,nombreError,nombreCategoria,comentarioAuditor,d.fecha,nombreTipo FROM `puede_tener` a,error b,orden c,procesa_audita d,categoriaError e,tipoError f where a.codigoError=b.codigoError and b.codigoCategoria =e.codigoCategoria and f.codigoTipo=b.codigoTipo and a.specimen =c.specimen and a.specimen = d.specimen and a.user= d.user and d.fecha between $P{fechaInicio} and $P{fechaFin} order by d.fecha asc,a.user asc,a.specimen asc]]>
 	</queryString>
 	<field name="user" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -30,12 +30,15 @@
 	<field name="fecha" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="nombreTipo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<group name="dia">
 		<groupExpression><![CDATA[$F{fecha}]]></groupExpression>
 		<groupHeader>
 			<band height="50">
 				<staticText>
-					<reportElement mode="Opaque" x="3" y="30" width="63" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="2df6ff9b-fa79-411f-b344-a22a6a7575b9"/>
+					<reportElement mode="Opaque" x="3" y="30" width="50" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="2df6ff9b-fa79-411f-b344-a22a6a7575b9"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -49,7 +52,7 @@
 					<text><![CDATA[Agente]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="66" y="30" width="72" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="c2116153-adb3-4ffc-96f7-6843c5c8a9d8"/>
+					<reportElement mode="Opaque" x="53" y="30" width="72" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="c2116153-adb3-4ffc-96f7-6843c5c8a9d8"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -63,7 +66,7 @@
 					<text><![CDATA[Specimen]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="138" y="30" width="272" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="63daf7a2-754a-45cc-be08-277c12e8670e"/>
+					<reportElement mode="Opaque" x="125" y="30" width="241" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="63daf7a2-754a-45cc-be08-277c12e8670e"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -77,7 +80,7 @@
 					<text><![CDATA[Nombre del Error]]></text>
 				</staticText>
 				<staticText>
-					<reportElement mode="Opaque" x="503" y="30" width="249" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="4ac7d19c-baff-4086-a990-10662156a2c1"/>
+					<reportElement mode="Opaque" x="543" y="30" width="209" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="4ac7d19c-baff-4086-a990-10662156a2c1"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -98,7 +101,7 @@
 					<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement mode="Opaque" x="410" y="30" width="93" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="c6c4dbba-74a4-4ecd-95b1-fb2fb40e03cd"/>
+					<reportElement mode="Opaque" x="366" y="30" width="58" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="c6c4dbba-74a4-4ecd-95b1-fb2fb40e03cd"/>
 					<box>
 						<pen lineWidth="0.5"/>
 						<topPen lineWidth="0.5"/>
@@ -110,6 +113,20 @@
 						<font size="12" isBold="true"/>
 					</textElement>
 					<text><![CDATA[Categoria]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="424" y="30" width="119" height="20" forecolor="#FFFFFF" backcolor="#000000" uuid="79102b26-befd-4c15-8098-4582ac75fdcf"/>
+					<box>
+						<pen lineWidth="0.5"/>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Tipo]]></text>
 				</staticText>
 			</band>
 		</groupHeader>
@@ -140,7 +157,7 @@
 			<staticText>
 				<reportElement x="0" y="0" width="752" height="37" uuid="4dbb4b9f-71b7-4d03-9b3e-2601406a6e53"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Calibri" size="18" isBold="true"/>
+					<font fontName="SansSerif" size="18" isBold="true"/>
 				</textElement>
 				<text><![CDATA[HMCR Solutions S.A. de C.V.]]></text>
 			</staticText>
@@ -163,7 +180,7 @@
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="3" y="0" width="63" height="20" uuid="0f5eaa65-8a7a-4b10-885f-c439bf6a69b3"/>
+				<reportElement x="3" y="0" width="50" height="20" uuid="0f5eaa65-8a7a-4b10-885f-c439bf6a69b3"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -175,7 +192,7 @@
 				<textFieldExpression><![CDATA[$F{user}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="66" y="0" width="72" height="20" uuid="61d7fdc7-9062-4b58-b3c4-a30bd4f93c15"/>
+				<reportElement x="53" y="0" width="72" height="20" uuid="61d7fdc7-9062-4b58-b3c4-a30bd4f93c15"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -187,7 +204,7 @@
 				<textFieldExpression><![CDATA[$F{specimen}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="138" y="0" width="272" height="20" uuid="f8f4af68-0446-4bb3-b2ac-3cad43113a20"/>
+				<reportElement x="125" y="0" width="241" height="20" uuid="f8f4af68-0446-4bb3-b2ac-3cad43113a20"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -199,7 +216,7 @@
 				<textFieldExpression><![CDATA[$F{nombreError}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="503" y="0" width="249" height="20" uuid="9f3a6b6d-7d86-4e48-b798-d89afd28a455"/>
+				<reportElement x="543" y="0" width="209" height="20" uuid="9f3a6b6d-7d86-4e48-b798-d89afd28a455"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -207,11 +224,13 @@
 					<bottomPen lineWidth="0.5"/>
 					<rightPen lineWidth="0.5"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{comentarioAuditor}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="410" y="0" width="93" height="20" uuid="03e7a616-e0b5-4d62-90fe-10740e5b63b4"/>
+				<reportElement x="366" y="0" width="58" height="20" uuid="03e7a616-e0b5-4d62-90fe-10740e5b63b4"/>
 				<box>
 					<pen lineWidth="0.5"/>
 					<topPen lineWidth="0.5"/>
@@ -221,6 +240,20 @@
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{nombreCategoria}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="424" y="0" width="119" height="20" uuid="5aa532d7-7312-4d3a-b489-ccea3d30555a"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreTipo}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

@@ -318,6 +318,10 @@ public class Orden extends Sistema {
              * 2:sin hacer nada
              * 3 poner el total
              */
+            /*
+            select (select count(*) from procesa_audita where user='cfuentes' and tipoOperacion = 1 and fecha = '2014-05-05') as t1,
+            (select count(*) from (select distinct a.specimen from procesa_audita a join mandada_por b on a.specimen = b.specimen and b.user= 'cfuentes' and a.user='cfuentes' and tipoOperacion = 1 and fecha = '2014-05-05' join orden c on c.specimen =b.specimen and tipoOrden = 2) a) as t2, 
+            (select count(*) from (select distinct a.specimen from procesa_audita a join mandada_por b on a.specimen = b.specimen and b.user= 'cfuentes' and a.user='cfuentes' and tipoOperacion = 1 and fecha = '2014-05-05' join orden c on c.specimen =b.specimen and tipoOrden = 3) a) as t3*/
             t = new int[4];
             t[0] = t[1] = t[2] = 0;
             ResultSet r;
