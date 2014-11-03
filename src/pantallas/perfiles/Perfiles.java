@@ -1063,67 +1063,69 @@ public final class Perfiles extends javax.swing.JFrame {
                         int totalesErroresQuincena2[];
                         int mesActual = c.get(Calendar.MONTH) + 1;
                         int anioActual = c.get(Calendar.YEAR);
-                        String mes = "";
+                        String mes = Integer.toString(mesActual);
                         if (mesActual < 10) {
                             mes = "0" + Integer.toString(mesActual);
                         }
-                        fechafinBase = Integer.toString(anioActual) + "-" + mes;
+                        fechafinBase = Integer.toString(anioActual) + "-" + mes+"-";
 
                         if (mesActual == 1) {
-                            fechafinAnterior = Integer.toString(anioActual - 1) + "-" + Integer.toString(mesActual + 11);
-                            fechainicioAnterior = fechafinAnterior + "-01";
+                            fechafinAnterior = Integer.toString(anioActual - 1) + "-12-";
+                            fechainicioAnterior = fechafinAnterior;
                         } else {
                             if ((mesActual - 1) < 10) {
                                 mes = "0" + Integer.toString(mesActual - 1);
+                            }else{
+                                mes = Integer.toString(mesActual - 1);
                             }
-                            fechafinAnterior = Integer.toString(anioActual) + "-" + mes;
-                            fechainicioAnterior = fechafinAnterior + "-01";
+                            fechafinAnterior = Integer.toString(anioActual) + "-" + mes+"-";
+                            fechainicioAnterior = fechafinAnterior ;
                         }
-                        if (mesActual == 1 || mesActual == 3 || mesActual == 5 || mesActual == 7 || mesActual == 8 || mesActual == 10) {
-                            fechafinBase = fechafinBase + "-31";
-                            if (mesActual == 8 || mesActual == 1) {
-                                fechafinAnterior = fechafinAnterior + "-31";
-                            } else {
-                                fechafinAnterior = fechafinAnterior + "-30";
-                            }
-                        } else {
-                            boolean bisiesto = ((anioActual % 4 == 0) && (anioActual % 100 != 0)) || (anioActual % 400 == 0);
-                            if (mesActual == 2) {
-                                fechafinAnterior = fechafinAnterior + "-31";
-                                if (bisiesto) {
-                                    fechafinBase = fechafinBase + "-29";
-                                } else {
-                                    fechafinBase = fechafinBase + "-28";
-                                }
-                            } else {
-                                fechafinBase = fechafinBase + "-30";
-                                if (mesActual == 3) {
-                                    if (bisiesto) {
-                                        fechafinAnterior = fechafinAnterior + "-29";
-                                    } else {
-                                        fechafinAnterior = fechafinAnterior + "-28";
-                                    }
-                                } else {
-                                    fechafinAnterior = fechafinAnterior + "-31";
-                                }
-                            }
-                        }
-                        fechainicioBase = Integer.toString(anioActual) + "-" + (Integer.parseInt(mes) + 1) + "-01";
+//                        if (mesActual == 1 || mesActual == 3 || mesActual == 5 || mesActual == 7 || mesActual == 8 || mesActual == 10) {
+//                            fechafinBase = fechafinBase + "-31";
+//                            if (mesActual == 8 || mesActual == 1) {
+//                                fechafinAnterior = fechafinAnterior + "-31";
+//                            } else {
+//                                fechafinAnterior = fechafinAnterior + "-30";
+//                            }
+//                        } else {
+//                            boolean bisiesto = ((anioActual % 4 == 0) && (anioActual % 100 != 0)) || (anioActual % 400 == 0);
+//                            if (mesActual == 2) {
+//                                fechafinAnterior = fechafinAnterior + "-31";
+//                                if (bisiesto) {
+//                                    fechafinBase = fechafinBase + "-29";
+//                                } else {
+//                                    fechafinBase = fechafinBase + "-28";
+//                                }
+//                            } else {
+//                                fechafinBase = fechafinBase + "-30";
+//                                if (mesActual == 3) {
+//                                    if (bisiesto) {
+//                                        fechafinAnterior = fechafinAnterior + "-29";
+//                                    } else {
+//                                        fechafinAnterior = fechafinAnterior + "-28";
+//                                    }
+//                                } else {
+//                                    fechafinAnterior = fechafinAnterior + "-31";
+//                                }
+//                            }
+//                        }
+                        fechainicioBase = Integer.toString(anioActual) + "-" + mesActual+"-";
                         //fila,colummna
                         int i, j;
-                        System.out.println(fechainicioAnterior + "---" + fechafinAnterior);
-                        System.out.println(fechainicioBase + "---" + fechafinBase);
+                        System.out.println("Fecha anterior "+fechainicioAnterior + "    " + fechafinAnterior);
+                        System.out.println("Fecha base "+fechainicioBase + "   " + fechafinBase);
                         //2012-11-11
                         //para sacar promedio SELECT count( DISTINCT date( fecha ) ) as dias FROM procesa_audita WHERE user = 'cfuentes' AND tipoOperacion =1 AND date( fecha ) BETWEEN '2013-10-01' AND '2013-10-31'
                         u.cerrarConexionBase();
                         r = u.seleccionar("count( DISTINCT date( fecha ) ) as dias", "procesa_audita", "user = '" + userCRT + "' AND tipoOperacion =1 AND date( fecha ) BETWEEN '" + fechainicioBase + "' AND '" + fechafinBase + "'");
                         int dias = Integer.parseInt(r.getString("dias"));
-                        totalesMesAnterior = o.cantidadTipoOrdenes(userCRT, " fecha between '" + fechainicioAnterior + "' and '" + fechafinAnterior + "'");
-                        totalesQuincena1 = o.cantidadTipoOrdenes(userCRT, " fecha between '" + fechainicioBase + "' and '" + fechafinBase.substring(0, 8) + "15'");
-                        totalesQuincena2 = o.cantidadTipoOrdenes(userCRT, " fecha between '" + fechafinBase.substring(0, 8) + "16' and '" + fechafinBase + "'");
-                        totalesErroresMesAnterior = o.cantidadCategoriaErrores(userCRT, " d.fecha between '" + fechainicioAnterior + "' and '" + fechafinAnterior + "'");
-                        totalesErroresQuincena1 = o.cantidadCategoriaErrores(userCRT, " d.fecha between '" + fechainicioBase + "' and '" + fechafinBase.substring(0, 8) + "15'");
-                        totalesErroresQuincena2 = o.cantidadCategoriaErrores(userCRT, " d.fecha between '" + fechafinBase.substring(0, 8) + "16' and '" + fechafinBase + "'");
+                        totalesMesAnterior = o.cantidadTipoOrdenes(userCRT, " fecha between '" + fechainicioAnterior + "01' and '" + fechafinAnterior + "31'");
+                        totalesQuincena1 = o.cantidadTipoOrdenes(userCRT, " fecha between '" + fechainicioBase + "01' and '" + fechafinBase + "15'");
+                        totalesQuincena2 = o.cantidadTipoOrdenes(userCRT, " fecha between '" + fechafinBase + "16' and '" + fechafinBase + "31'");
+                        totalesErroresMesAnterior = o.cantidadCategoriaErrores(userCRT, " d.fecha between '" + fechainicioAnterior + "01' and '" + fechafinAnterior + "31'");
+                        totalesErroresQuincena1 = o.cantidadCategoriaErrores(userCRT, " d.fecha between '" + fechainicioBase + "01' and '" + fechafinBase + "15'");
+                        totalesErroresQuincena2 = o.cantidadCategoriaErrores(userCRT, " d.fecha between '" + fechafinBase + "16' and '" + fechafinBase + "31'");
                         JTableHeader th = procesadas.getTableHeader();
                         TableColumnModel tcm = th.getColumnModel();
                         TableColumn tc = tcm.getColumn(1);

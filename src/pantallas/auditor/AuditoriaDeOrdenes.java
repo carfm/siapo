@@ -1151,16 +1151,20 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
             nombreError = ed_table_errores.getValueAt(i, 1).toString().trim();
             Orden o;
             if (deLab.equals("1")) {
+                //error de laboratorio
                 o = new Orden(nSpecimen, true, agente, codError, nombreError);
                 exito = o.agregarError(false);
             } else {
+                //error de no laboratorio
                 o = new Orden(nSpecimen, false, agente, codError, nombreError);
                 exito = o.agregarError(false);
             }
+            //se guarda el comentario hecho por el auditor
+            enviarComentarioAud(ed_table_errores.getValueAt(0, 3).toString(), nSpecimen);
+            //50000001
         }
         u.pasarGarbageCollector();
-        //se guarda el comentario hecho por el auditor
-        enviarComentarioAud(ed_table_errores.getValueAt(0, 3).toString(), nSpecimen);
+
         if (exito) {
             if (u.insertar("procesa_audita", "NULL,'" + u.getUser() + "', '" + nSpecimen + "',CURDATE(),CURTIME(),CURTIME(),2")) {
                 //trayIcon.displayMessage(nSpecimen, "Orden Auditada Exitosamente", TrayIcon.MessageType.INFO);
@@ -1295,12 +1299,12 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
         try {
             // TODO add your handling code here:
             /*
-            select
-            auditor,e.user as agente
-            from
-            procesa_audita e join (select a.specimen,auditor from procesa_audita a join (select user as auditor,max(idProcAud) as id from procesa_audita c where c.tipooperacion = 2 and fecha = curdate() group by auditor) b on a.idProcAud = b.id) d on d.specimen = e.specimen group by auditor
-            */
-            String tabla="";
+             select
+             auditor,e.user as agente
+             from
+             procesa_audita e join (select a.specimen,auditor from procesa_audita a join (select user as auditor,max(idProcAud) as id from procesa_audita c where c.tipooperacion = 2 and fecha = curdate() group by auditor) b on a.idProcAud = b.id) d on d.specimen = e.specimen group by auditor
+             */
+            String tabla = "";
             ResultSet r;
             r = u.seleccionar("auditor,e.user as agente", "procesa_audita e join "
                     + "(select a.specimen,auditor from procesa_audita a join "
@@ -1308,10 +1312,10 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
                     + "on a.idProcAud = b.id) d on d.specimen = e.specimen group by auditor",
                     "");
             r.beforeFirst();
-            while(r.next()){
-                tabla = tabla +r.getString("auditor")+" audita a "+r.getString("agente")+"\n";
+            while (r.next()) {
+                tabla = tabla + r.getString("auditor") + " audita a " + r.getString("agente") + "\n";
             }
-            JOptionPane.showMessageDialog(this,tabla,"Lista de Auditores / Agentes",JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(this, tabla, "Lista de Auditores / Agentes", JOptionPane.PLAIN_MESSAGE);
         } catch (SQLException ex) {
             Logger.getLogger(AuditoriaDeOrdenes.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1508,6 +1512,7 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
                                             if (!o.estaAuditada() && !ed_text_specimen.getText().isEmpty()) {// si ya esta auditada
                                                 ingresarAuditoria();
                                                 actualizarTotales();
+                                                //para enviar mail si ya hay resultados
 //                                        if (longitud >= 1 && resultados.isSelected()) {
 //                                            para.setText("fuentes.carlos4@gmail.com");
 //                                            asunto.setText("Prueba de envio de correo");
