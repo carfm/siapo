@@ -84,6 +84,7 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
         autocompletar();
         iconoBarra();
         errores = (new Error()).obtenerErrores();
+        actualizarTotales();
     }
 
     @SuppressWarnings("unchecked")
@@ -848,8 +849,10 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
                                     .addComponent(jLabel2))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(ed_panel_errorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ed_text_codError, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(nombreError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(nombreError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(ed_panel_errorLayout.createSequentialGroup()
+                                        .addComponent(ed_text_codError, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ed_panel_errorLayout.createSequentialGroup()
                                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1048,9 +1051,9 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
                     .addComponent(ed_panel_error, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1117,7 +1120,7 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
         o.setSpecimen(ed_text_specimen.getText());
         if (!o.getSpecimen().isEmpty()) {
             if (o.tieneRegistros()) { //si existe el specimen
-                o.setSpecimen(specAlmacenado);
+                //o.setSpecimen(specAlmacenado);
                 if (o.estaAuditada()) {// si ya esta auditada
                     JOptionPane.showMessageDialog(null, "Orden ya auditada si quiere agregar errores vaya a la opcion de modificar auditoria", "Auditoria de Orden", JOptionPane.INFORMATION_MESSAGE);
                 } else {
@@ -1141,7 +1144,7 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
 
     public boolean ingresarAuditoria() {
         /* Metodo que ingresa todos los errores encontrados en una orden, por el auditor hacia la base de datos.*/
-        String codError, nombreError, nSpecimen, agente, deLab;
+        String codError, nombreError, nSpecimen, agente, deLab, comentario;
         nSpecimen = ed_text_specimen.getText().trim();
         agente = ed_text_agent.getText();
         boolean exito = true;
@@ -1149,25 +1152,23 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
             deLab = ed_table_errores.getValueAt(i, 4).toString().trim();
             codError = ed_table_errores.getValueAt(i, 0).toString().trim().substring(0, 5);
             nombreError = ed_table_errores.getValueAt(i, 1).toString().trim();
+            comentario = ed_table_errores.getValueAt(0, 3).toString();
             Orden o;
             if (deLab.equals("1")) {
                 //error de laboratorio
                 o = new Orden(nSpecimen, true, agente, codError, nombreError);
-                exito = o.agregarError(false);
+                exito = o.agregarError(false, comentario);
             } else {
                 //error de no laboratorio
                 o = new Orden(nSpecimen, false, agente, codError, nombreError);
-                exito = o.agregarError(false);
+                exito = o.agregarError(false, comentario);
             }
             //se guarda el comentario hecho por el auditor
-            enviarComentarioAud(ed_table_errores.getValueAt(0, 3).toString(), nSpecimen);
+            enviarComentarioAud(comentario, nSpecimen);
             //50000001
         }
-        u.pasarGarbageCollector();
-
         if (exito) {
             if (u.insertar("procesa_audita", "NULL,'" + u.getUser() + "', '" + nSpecimen + "',CURDATE(),CURTIME(),CURTIME(),2")) {
-                //trayIcon.displayMessage(nSpecimen, "Orden Auditada Exitosamente", TrayIcon.MessageType.INFO);
                 //se reinician todos los controles del  frame.
                 limpiarTabla(ed_table_errores);
                 limpiarControles();
@@ -1398,7 +1399,6 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
         this.ed_text_tOrden.setText("");
         this.ed_text_agent.setText("");
         this.ed_text_location.setText("");
-//        this.ed_coment_agent.setText("");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField asunto;
@@ -1486,6 +1486,7 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
 
     @Override
     public void run() {
+        
         while (!stop) {
             try {
                 Thread.sleep(2000);
@@ -1504,52 +1505,31 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
                                     // PROCESO DE REGISTRO DE AUDITORIA
                                     Orden o = new Orden();
                                     o.setSpecimen(texto);
-                                    specAlmacenado = texto;
-                                    if (o.tieneRegistros()) { //si existe el specimen
-                                        if (primeraVez) {
-                                            primeraVez = false;
-                                        } else {
-                                            if (!o.estaAuditada() && !ed_text_specimen.getText().isEmpty()) {// si ya esta auditada
-                                                ingresarAuditoria();
-                                                actualizarTotales();
-                                                //para enviar mail si ya hay resultados
-//                                        if (longitud >= 1 && resultados.isSelected()) {
-//                                            para.setText("fuentes.carlos4@gmail.com");
-//                                            asunto.setText("Prueba de envio de correo");
-//                                            mensaje.setText("Advertencia!!! se encontrarion errores en el specimen "
-//                                                    + spec + "los errores encontrados son: "
-//                                                    + "error1, error2,etc.");
-//                                            enviarMail.setVisible(true);
-//                                            enviarMail.setLocationRelativeTo(null);
-//                                            resultados.setSelected(false);
-//                                        } else {
-//                                            enviarMail.setVisible(false);
-//                                        }
-                                            }
-
-                                        }
-                                        o.setSpecimen(specAlmacenado);
-                                        if (o.estaAuditada()) {// si ya esta auditada
-                                            trayIcon.displayMessage(specAlmacenado, "Orden ya auditada", TrayIcon.MessageType.INFO);
-                                            primeraVez = true;
-                                        } else {
-                                            if (!specAlmacenado.equals(ed_text_specimen.getText())) {
+                                    specAlmacenado = texto;//actualizamos el specimen almacenado
+                                    if (o.tieneRegistros()) { //si existe el specimen                                         
+                                        if (!ed_text_specimen.getText().equals(specAlmacenado)) {//que sea diferente al que ya esta almacenado
+                                            if (!o.estaAuditada()) {//revisamos que la orden no tenga auditoria
+                                                if (!ed_text_specimen.getText().isEmpty()) {//revisamos si el campo del specimen no esta vacio                                               
+                                                    ingresarAuditoria();//ingresamos la auditoria para la orden anterior 
+                                                    actualizarTotales();//actualizamos los totales
+                                                }
                                                 trayIcon.displayMessage(specAlmacenado, "Nueva auditoria de specimen", TrayIcon.MessageType.INFO);
-                                                ed_text_specimen.setText(specAlmacenado);
-                                                recuperarDatosOrden();
+                                                ed_text_specimen.setText(specAlmacenado);//nueva orden de auditoria
+                                                recuperarDatosOrden();//recuperamos los datos de la orden
+                                            } else {// la orden ya esta auditada
+                                                //mensaje
+                                                trayIcon.displayMessage(texto, "Orden ya auditada", TrayIcon.MessageType.INFO);
                                             }
                                         }
                                     } else {
-                                        trayIcon.displayMessage(specAlmacenado, "No existe el specimen", TrayIcon.MessageType.INFO);
+                                        trayIcon.displayMessage(texto, "No existe el specimen", TrayIcon.MessageType.INFO);
                                     }
                                 }
                             }
                         }
                     }
                 } catch (Exception ex) {
-                    //Logger.getLogger(AuditoriaDeOrdenes.class.getName()).log(Level.SEVERE, null, ex);
                     ErroresSiapo.agregar(ex, "codigo 36");
-                    //System.out.println(ex);
                 }
             }
         }

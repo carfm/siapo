@@ -7,7 +7,6 @@ package pantallas.auditor;
 import pantallas.auditor.AuditoriaDeOrdenes;
 import clases.Usuario;
 
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -24,12 +23,13 @@ import pantallas.mensajeria.NotificacionNueva;
 import pantallas.mensajeria.errorNuevo;
 
 public class EliminarAuditoria extends javax.swing.JFrame {
+
     public Calendar c;
     private Usuario u;
     public NotificacionNueva n;
     public errorNuevo e;
-    private String fechaHoy="";
-    
+    private String fechaHoy = "";
+
     public EliminarAuditoria(Usuario u, NotificacionNueva n, errorNuevo e) {
         c = Calendar.getInstance();
         this.u = new Usuario();
@@ -40,18 +40,18 @@ public class EliminarAuditoria extends javax.swing.JFrame {
         this.n = n;
         initComponents();
         fecha.setEnabled(false);
-        llenarOrdenes("todo",null,true);
+        llenarOrdenes("user", u.getUser(), true);
         setSize(1024, 680);
         setLocationRelativeTo(null);
     }
-    
+
     public EliminarAuditoria() {
         c = Calendar.getInstance();
-        this.u=new Usuario();
+        this.u = new Usuario();
         initComponents();
         setSize(1024, 680);
         setLocationRelativeTo(null);
-        llenarOrdenes("todo",null,true);
+        llenarOrdenes("user", u.getUser(), true);
     }
 
     /**
@@ -564,32 +564,32 @@ public class EliminarAuditoria extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        new MenuPpal(u,false,this.n,this.e).setVisible(true);
+        new MenuPpal(u, false, this.n, this.e).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
-        new ModificarAuditoria(u,this.n,this.e).setVisible(true);
+        new ModificarAuditoria(u, this.n, this.e).setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        new EliminarAuditoria(u,this.n,this.e).setVisible(true);
+        new EliminarAuditoria(u, this.n, this.e).setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        new AuditoriaDeOrdenes(u,this.n,this.e).setVisible(true);
+        new AuditoriaDeOrdenes(u, this.n, this.e).setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void listaOrdenesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaOrdenesMouseClicked
         String orden = listaOrdenes.getValueAt(listaOrdenes.getSelectedRow(), 1).toString();
-        String user=listaOrdenes.getValueAt(listaOrdenes.getSelectedRow(), 2).toString();
+        String user = listaOrdenes.getValueAt(listaOrdenes.getSelectedRow(), 2).toString();
         limpiarTabla(errores);
-        llenarErrores(orden,user,true);
+        llenarErrores(orden, user, true);
         borrar.setEnabled(true);
         cancelar.setEnabled(true);
     }//GEN-LAST:event_listaOrdenesMouseClicked
@@ -607,76 +607,75 @@ public class EliminarAuditoria extends javax.swing.JFrame {
     }//GEN-LAST:event_buscarActionPerformed
 
     private void buscar_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscar_btnActionPerformed
-        if (fechaRadio.isSelected()){
-        try{            
-            SimpleDateFormat variableFecha = new SimpleDateFormat("dd-MM-yyyy");  
-            String fechaB = variableFecha.format(fecha.getDate());            
-                if(fechaB.isEmpty()){
-                    fechaHoy="";
+        if (fechaRadio.isSelected()) {
+            try {
+                SimpleDateFormat variableFecha = new SimpleDateFormat("dd-MM-yyyy");
+                String fechaB = variableFecha.format(fecha.getDate());
+                if (fechaB.isEmpty()) {
+                    fechaHoy = "";
+                } else {
+                    fechaHoy = u.fechaCorrecta(fechaB);
                 }
-                else{
-                    fechaHoy=u.fechaCorrecta(fechaB);
+
+            } catch (Exception e) {
+
+            } finally {
+                limpiarTabla(listaOrdenes);
+                llenarOrdenes("user", u.getUser(), true);
+            }
+        } else {
+            if (buscar.getText().equals("")) {
+                limpiarTabla(listaOrdenes);
+                llenarOrdenes("user", u.getUser(), true);
+
+            } else {
+                if (buscarSpecimen.isSelected()) {
+                    llenarOrdenes("specimen", buscar.getText(), true);
+                } else {
+                    llenarOrdenes("user", buscar.getText(), true);
                 }
-            
-    }catch(Exception e){
-                    
-                    
-    }finally{
-                    limpiarTabla(listaOrdenes);
-                    llenarOrdenes("todo",null,true);
+            }
         }
-        }else{
-        if (buscar.getText().equals("")){
-            limpiarTabla(listaOrdenes);
-            llenarOrdenes("todo",null,true);
-            
-        }
-        else{
-            if (buscarSpecimen.isSelected()){
-                llenarOrdenes("specimen",buscar.getText(), true);}
-            else
-                llenarOrdenes("user",buscar.getText(),true);
-        }}
-        
+
     }//GEN-LAST:event_buscar_btnActionPerformed
 
     private void erroresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_erroresMouseClicked
     }//GEN-LAST:event_erroresMouseClicked
 
     private void borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarActionPerformed
-        String spec=listaOrdenes.getValueAt(listaOrdenes.getSelectedRow(), 1).toString();
-        String user=listaOrdenes.getValueAt(listaOrdenes.getSelectedRow(), 2).toString();
+        String spec = listaOrdenes.getValueAt(listaOrdenes.getSelectedRow(), 1).toString();
+        String user = listaOrdenes.getValueAt(listaOrdenes.getSelectedRow(), 2).toString();
         DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
         String strFechaActual;
         strFechaActual = df.format(new java.util.Date());
-        int idMen=0;
-        boolean exito= u.borrar("puede_tener","specimen=\""+spec+"\"");
-        u.borrar("procesa_audita","specimen=\""+listaOrdenes.getValueAt(listaOrdenes.getSelectedRow(), 1).toString()+"\""
+        int idMen = 0;
+        boolean exito = u.borrar("puede_tener", "specimen=\"" + spec + "\"");
+        u.borrar("procesa_audita", "specimen=\"" + listaOrdenes.getValueAt(listaOrdenes.getSelectedRow(), 1).toString() + "\""
                 + "and tipoOperacion=2");
-        if (exito){
-            u.actualizar("procesa_audita","recurrencia=(recurrencia-1)","specimen='"+spec+"', AND user='"+user+"'");
-            if (errores.getColumnCount()>=1){
-            ResultSet res=u.seleccionar("idMensaje", "mensaje", "");
-            try {
-                if(res.last()){  
-                   idMen=res.getInt("idMensaje");
-                    idMen++;
+        if (exito) {
+            u.actualizar("procesa_audita", "recurrencia=(recurrencia-1)", "specimen='" + spec + "', AND user='" + user + "'");
+            if (errores.getColumnCount() >= 1) {
+                ResultSet res = u.seleccionar("idMensaje", "mensaje", "");
+                try {
+                    if (res.last()) {
+                        idMen = res.getInt("idMensaje");
+                        idMen++;
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(EliminarAuditoria.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (SQLException ex) {
-                Logger.getLogger(EliminarAuditoria.class.getName()).log(Level.SEVERE, null, ex);
+                u.insertar("mensaje", "" + idMen + ",2,'" + strFechaActual + "',"
+                        + "'" + c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND) + "',"
+                        + "'Se han eliminado todos los errores del specimen: " + spec + "', 'Auditoria Eliminada!!'");
+                u.insertar("gestiona", "null," + idMen + ",'" + user + "',0,0,1");  //funciona
             }
-            u.insertar("mensaje",""+idMen+ ",2,'"+strFechaActual+"',"
-                    + "'"+c.get(Calendar.HOUR_OF_DAY)+":"+c.get(Calendar.MINUTE)+":"+c.get(Calendar.SECOND)+"',"
-                    + "'Se han eliminado todos los errores del specimen: "+spec+"', 'Auditoria Eliminada!!'");
-             u.insertar("gestiona","null,"+idMen+",'"+user+"',0,0,1");  //funciona
-            }
-            JOptionPane.showMessageDialog(null,"La auditoria ha sido eliminada.");
+            JOptionPane.showMessageDialog(null, "La auditoria ha sido eliminada.");
             limpiarTabla(listaOrdenes);
             limpiarTabla(errores);
-            llenarOrdenes("todo",null,true);
+            llenarOrdenes("user", u.getUser(), true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Lo sentimos. Fallo la eliminacion.");
         }
-        else
-        JOptionPane.showMessageDialog(null,"Lo sentimos. Fallo la eliminacion.");
 
     }//GEN-LAST:event_borrarActionPerformed
 
@@ -685,19 +684,19 @@ public class EliminarAuditoria extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelarActionPerformed
 
     private void fechaRadioItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_fechaRadioItemStateChanged
-        if(fechaRadio.isSelected()){
+        if (fechaRadio.isSelected()) {
             buscar.setEnabled(false);
-            fecha.setEnabled(true);}
-        else{
+            fecha.setEnabled(true);
+        } else {
             fecha.setEnabled(false);
-        buscar.setEnabled(true);
+            buscar.setEnabled(true);
         }
     }//GEN-LAST:event_fechaRadioItemStateChanged
 
     /**
      * @param args the command line arguments
      */
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton borrar;
     private javax.swing.JPanel botones;
@@ -735,138 +734,145 @@ public class EliminarAuditoria extends javax.swing.JFrame {
     private javax.swing.JPanel ordenesAuditadas;
     // End of variables declaration//GEN-END:variables
  private void llenarErrores(String orden, String user, boolean primeraVez) {
-       int i, j, filas;//i fila j colummna  
-       String specimen=orden, usuario=user;
+        int i, j, filas;//i fila j colummna  
+        String specimen = orden, usuario = user;
         ResultSet r, rs;
 
         try {
-            r = u.seleccionar("count(*) as filas", "puede_tener", "specimen=\""+specimen+"\"");
+            r = u.seleccionar("count(*) as filas", "puede_tener", "specimen=\"" + specimen + "\"");
             filas = Integer.parseInt(r.getString("filas"));
             r = u.seleccionar("puede_tener.idPuedeTener,puede_tener.codigoError, Error.descripcionError, "
-                    + "orden.comentarioAuditor, error.aprobado","puede_tener, error, orden",
-                    "(puede_tener.specimen ="+specimen+" AND puede_tener.specimen = "
+                    + "orden.comentarioAuditor, error.aprobado", "puede_tener, error, orden",
+                    "(puede_tener.specimen =" + specimen + " AND puede_tener.specimen = "
                     + "orden.specimen AND puede_tener.codigoError = error.codigoError)");
 
             r.beforeFirst();
-            if (r.next()) {               
-            for (i = 0; i < filas; i++) {
-                if(primeraVez)
-                    ((DefaultTableModel) errores.getModel()).setRowCount(errores.getRowCount() + 1);// agrega filas dinamicamente
-                for (j = 0; j < 6; j++) {
-                    //fila,colummna
-                    switch (j) {
-                        case 0:
-                            errores.setValueAt(r.getString("puede_tener.codigoError"), i, j);
-                            break;
-                        case 1:
-                            errores.setValueAt(r.getString("error.descripcionError"), i, j);
-                            break;
-                        case 2:
-                            errores.setValueAt(r.getString("orden.comentarioAuditor"), i, j);
-                            break;
-                        case 3:
-                            rs=u.seleccionar("recurrencia", "puede_tener",
-                                    "specimen= '"+specimen+"' AND codigoError='"
-                                    + ""+r.getString("puede_tener.codigoError")+"' AND errorLaboratorio=0");
-                           
-                            rs.first();
-                            errores.setValueAt(rs.getString("recurrencia"), i, j);
-                            break;
-                        case 4:
-                            if(r.getString("error.aprobado").equals("1"))
-                                errores.setValueAt("SI", i, j);
-                            else
-                                errores.setValueAt("NO", i, j);
-                            break;                                   
-                        case 5:
-                            errores.setValueAt(r.getString("puede_tener.idPuedeTener"), i, j);
-                        
+            if (r.next()) {
+                for (i = 0; i < filas; i++) {
+                    if (primeraVez) {
+                        ((DefaultTableModel) errores.getModel()).setRowCount(errores.getRowCount() + 1);// agrega filas dinamicamente
                     }
+                    for (j = 0; j < 6; j++) {
+                        //fila,colummna
+                        switch (j) {
+                            case 0:
+                                errores.setValueAt(r.getString("puede_tener.codigoError"), i, j);
+                                break;
+                            case 1:
+                                errores.setValueAt(r.getString("error.descripcionError"), i, j);
+                                break;
+                            case 2:
+                                errores.setValueAt(r.getString("orden.comentarioAuditor"), i, j);
+                                break;
+                            case 3:
+                                rs = u.seleccionar("recurrencia", "puede_tener",
+                                        "specimen= '" + specimen + "' AND codigoError='"
+                                        + "" + r.getString("puede_tener.codigoError") + "' AND errorLaboratorio=0");
+
+                                rs.first();
+                                errores.setValueAt(rs.getString("recurrencia"), i, j);
+                                break;
+                            case 4:
+                                if (r.getString("error.aprobado").equals("1")) {
+                                    errores.setValueAt("SI", i, j);
+                                } else {
+                                    errores.setValueAt("NO", i, j);
+                                }
+                                break;
+                            case 5:
+                                errores.setValueAt(r.getString("puede_tener.idPuedeTener"), i, j);
+
+                        }
+                    }
+                    r.next();
                 }
-                r.next();
+            } else {
+                //JOptionPane.showMessageDialog(null, "No se encontraron registros");
             }
-            }
-            else
-                JOptionPane.showMessageDialog(null, "No se encontraron registros");
             u.getSentencia().close();
         } catch (SQLException | NumberFormatException e) {
         }
     }
-    
+
     private void llenarOrdenes(String registros, String datos, boolean primeraVez) {
-       int i, j, filas=0;//i fila j colummna  
-       String tipo=registros, dato=datos;
-       String campos,tablas,condicion,cam;
-         ResultSet r;
-         if (fechaHoy.isEmpty())
-            fechaHoy=c.get(Calendar.YEAR)+"-"+(c.get(Calendar.MONTH)+1)+"-"+c.get(Calendar.DATE);
-         switch (tipo){
-             default:
-                campos="count(*) as filas";
-                tablas="procesa_audita";
-                condicion="tipoOperacion=2 AND DATE(fecha)='"+fechaHoy+"'";
-                cam="*";
-            break;
-        
-        case "specimen":
-            limpiarTabla(listaOrdenes);
-            campos="count(*) as filas";
-            tablas="procesa_audita";
-            condicion="tipoOperacion=2 and specimen='"+dato+"'";
-            cam="*";
-           break;
-        
-        case "user":
-            limpiarTabla(listaOrdenes);
-            campos="count(*) as filas";
-            tablas="procesa_audita";
-            condicion="tipoOperacion=2 and user='"+dato+"'";
-            cam="*";
-            break;    
-   
-    }
+        int i, j, filas = 0;//i fila j colummna  
+        String tipo = registros, dato = datos;
+        String campos, tablas, condicion, cam;
+        ResultSet r;
+        if (fechaHoy.isEmpty()) {
+            fechaHoy = c.get(Calendar.YEAR) + "-" + (c.get(Calendar.MONTH) + 1) + "-" + c.get(Calendar.DATE);
+        }
+        switch (tipo) {
+            default:
+                campos = "count(*) as filas";
+                tablas = "procesa_audita";
+                condicion = "tipoOperacion=2 AND DATE(fecha)=curdate()";
+                cam = "fecha,specimen";
+                break;
+
+            case "specimen":
+                limpiarTabla(listaOrdenes);
+                campos = "count(*) as filas";
+                tablas = "procesa_audita";
+                condicion = "tipoOperacion=2 and specimen='" + dato + "'";
+                cam = "fecha,specimen";
+                break;
+
+            case "user":
+                limpiarTabla(listaOrdenes);
+                campos = "count(*) as filas";
+                tablas = "procesa_audita";
+                condicion = "tipoOperacion=2 and user='" + dato + "'and DATE(fecha)=curdate()";
+                cam = "fecha,specimen";
+                break;
+
+        }
         try {
-            r=u.seleccionar(campos, tablas, condicion);
+            r = u.seleccionar(campos, tablas, condicion);
             filas = Integer.parseInt(r.getString("filas"));
-            r=u.seleccionar(cam, tablas, condicion);
+            u.cerrarConexionBase();
+            r = u.seleccionar(cam, tablas, condicion);
             r.beforeFirst();
             if (r.next()) {
-            for (i = 0; i < filas; i++) {
-                if (primeraVez)
-                    ((DefaultTableModel) listaOrdenes.getModel()).setRowCount(listaOrdenes.getRowCount() + 1);// agrega filas dinamicamente
-                for (j = 0; j < 3; j++) {
-                    //fila,colummna
-                    switch (j) {
-                        case 0:
-                            listaOrdenes.setValueAt(r.getString("fecha"), i, j);
-                            break;
-                        case 1:
-                            listaOrdenes.setValueAt(r.getString("specimen"), i, j);
-                            break;
-                        case 2:
-                            ResultSet rUsuario=u.seleccionar("user", "procesa_audita", "specimen='"+r.getString("specimen")+"' AND tipoOperacion=1");
-                            listaOrdenes.setValueAt(rUsuario.getString("user"), i, j);
-                            break;
-                  
+                for (i = 0; i < filas; i++) {
+                    if (primeraVez) {
+                        ((DefaultTableModel) listaOrdenes.getModel()).setRowCount(listaOrdenes.getRowCount() + 1);// agrega filas dinamicamente
                     }
+                    for (j = 0; j < 3; j++) {
+                        //fila,colummna
+                        switch (j) {
+                            case 0:
+                                listaOrdenes.setValueAt(r.getString("fecha"), i, j);
+                                break;
+                            case 1:
+                                listaOrdenes.setValueAt(r.getString("specimen"), i, j);
+                                break;
+                            case 2:
+                                
+                                ResultSet rUsuario = u.seleccionar("user", "procesa_audita", "specimen='" + r.getString("specimen") + "' AND tipoOperacion=1");
+                                listaOrdenes.setValueAt(rUsuario.getString("user"), i, j);
+                                break;
+
+                        }
+                    }
+                    r.next();
                 }
-                r.next();
-            }}
-            else{
-                JOptionPane.showMessageDialog(null, "No se encontraron registros");
-                if(!tipo.equals("todo"))
-                    llenarOrdenes("todo",null,true);
+            } else {
+                //JOptionPane.showMessageDialog(null, "No se encontraron registros");
+                if (!tipo.equals("todo")) {
+                    llenarOrdenes("todo", u.getUser(), true);
+                }
             }
             u.getSentencia().close();
         } catch (SQLException | NumberFormatException e) {
         }
     }
-    
-    public void limpiarTabla(JTable tabla){
+
+    public void limpiarTabla(JTable tabla) {
         try {
-            DefaultTableModel modelo=(DefaultTableModel) tabla.getModel();
-            int filas=tabla.getRowCount();
-            for (int i = 0;filas>i; i++) {
+            DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+            int filas = tabla.getRowCount();
+            for (int i = 0; filas > i; i++) {
                 modelo.removeRow(0);
             }
         } catch (Exception e) {

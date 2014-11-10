@@ -1242,7 +1242,7 @@ public class ModificarAuditoria extends javax.swing.JFrame {
                 errorDeLab=false;
         Orden o=new Orden(spec.getText(),errorDeLab,usuario.getText(),
                 codiError.getText(),descripcion.getText() );
-        boolean exito  =o.agregarError(false);
+        boolean exito  =o.agregarError(false,"");
         if (exito){
         String orden = listaOrdenes.getValueAt(listaOrdenes.getSelectedRow(), 1).toString();
         String user=listaOrdenes.getValueAt(listaOrdenes.getSelectedRow(), 2).toString();

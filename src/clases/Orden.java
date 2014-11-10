@@ -179,7 +179,7 @@ public class Orden extends Sistema {
     }
 /// revisar
 
-    public boolean agregarError(boolean aproErrorlab) {
+    public boolean agregarError(boolean aproErrorlab,String comentario) {
         boolean exito = false;
         try {
             res = seleccionar("aprobado", "error", "codigoError='" + codError + "'");
@@ -233,7 +233,9 @@ public class Orden extends Sistema {
 //                            + (recurrenciaActual + 1) + "\nFecha inicio:"
 //                            + fechaInicioRecurrencia + "\nfecha:" + fecha);
                     if (factorError > tolerancia) {
+                        /// se dejara ahorita el mensaje igual para los 2
                         //Advertencia //Modificar despues
+                        /*
                         insertar("mensaje", "NULL,2,"
                                 + "'Se le ha encontrado el error: " + codError + ": " + nomError
                                 + " en el specimen: " + specimen + " ingresado el dia " + fechaDeOrden
@@ -242,6 +244,19 @@ public class Orden extends Sistema {
                                 + "Ha sobrepasado la recurrencia sobre los dias limite por lo que se le advierte a "
                                 + "no seguir cometiendo este error; de lo contrario sera citado por el Gerente."
                                 + "\n\nFin del Mensaje', 'Error Encontrado (ADVERTENCIA!!!)',NOW()");
+                        
+                        insertar("mensaje", "NULL,2,"
+                                + "'Se le ha encontrado el error: " + codError + ": " + nomError
+                                + " en el specimen: " + specimen + " ingresado el dia " + fechaDeOrden
+                                + "\nRecurrencia soportada de este error:" + recurrenciaError
+                                + "\nCantidad de Dias Maximo: " + diasMaximo + "\nRecurrencia Actual: " + recurrencia + "\n"
+                                + "\n\nFin del Mensaje', 'Error Encontrado',NOW()");
+                        */
+                        insertar("mensaje", "NULL,2,"
+                                + "'Se le ha encontrado el error: " + codError + ": " + nomError
+                                + " en el specimen: " + specimen + " ingresado el dia " + fechaDeOrden
+                                + "\nComentario del auditor: " + comentario
+                                + "\n\nFin del Mensaje', 'Error Encontrado',NOW()");
                         insertar("gestiona", "null,(SELECT MAX(idMensaje) FROM mensaje),'" + getUser() + "',0,0,1");
                         // System.out.println("Advertencia");
                     } else {
@@ -249,18 +264,11 @@ public class Orden extends Sistema {
                         insertar("mensaje", "NULL,2,"
                                 + "'Se le ha encontrado el error: " + codError + ": " + nomError
                                 + " en el specimen: " + specimen + " ingresado el dia " + fechaDeOrden
-                                + "\nRecurrencia soportada de este error:" + recurrenciaError
-                                + "\nCantidad de Dias Maximo: " + diasMaximo + "\nRecurrencia Actual: " + recurrencia + "\n"
+                                + "\nComentario del auditor: " + comentario
                                 + "\n\nFin del Mensaje', 'Error Encontrado',NOW()");
                         insertar("gestiona", "null,(SELECT MAX(idMensaje) FROM mensaje),'" + getUser() + "',0,0,0");
                         //  System.out.println("No Advertencia");
                     }
-                    //select recurrencia,fecha from puede_tener a,error b,tipoError c where a.codigoError =b.codigoError and b.codigoTipo=c.codigoTipo and c.codigoTipo= (select codigoTipo from error where codigoError ='IOR01')
-                   /* res = seleccionar("a.codigoError", "puede_tener a,error b,tipoError c", "a.codigoError =b.codigoError and b.codigoTipo=c.codigoTipo and c.codigoTipo=(select codigoTipo from error where codigoError ='" + codError + "') and user= '" + getUser() + "'  order by fecha desc");
-                     res.beforeFirst();
-                     while (res.next()) {
-                     actualizar("puede_tener", "recurrencia=" + recurrencia + ",fecha='" + fecha.toString() + "'", "user='" + getUser() + "' AND codigoError='" + res.getString("a.codigoError") + "'");
-                     }*/
                     exito = insertar("puede_tener", "NULL, '" + codError + "', '" + specimen + "', '" + getUser() + "',(SELECT MAX(idMensaje) FROM mensaje), " + recurrencia + ", 0,'" + fecha + "'");
                 } else {
                     if (aproErrorlab) {

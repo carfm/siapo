@@ -52,8 +52,10 @@ public class Hilo extends Thread {
             case 3:// se ha mandado un orden de regreso
                 getVentana().getTextoPane().setBackground(Color.yellow);
                 break;
-                
-            
+            case 4:// la orden ya esta siendo/ha sido ingresada por otra persona
+                getVentana().getTextoPane().setBackground(Color.green);
+                break;
+                         
         }
 //        if (tipoColor == 1) {
 //            ventana.getTextoPane().setBackground(Color.white);
@@ -186,6 +188,7 @@ public class Hilo extends Thread {
                     return new Color(0, 130, 0);
                 case 1:     // ROJO
                     return new Color(255, 0, 0);
+                    
                 default:    // Negro
                     return new Color(0, 0, 0);
             }

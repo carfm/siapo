@@ -2000,22 +2000,14 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
         while (!detener) {
             try {
                 Thread.sleep(2000);
-                //System.out.println("------");10000222
                 if (!cancelar) {//1
-                    //System.out.println("paso condicion 1");
                     String texto = u.obtenerCadenaPortapapeles();
                     if (!texto.equals("")) {//2
-                        //System.out.println("paso condicion 2");
                         // validaciones del numero de specimen
-                        //System.out.println(texto);
                         if ((texto.length() == 7 || texto.length() == 8) && !texto.equals("00000000")) {//3
-                            //System.out.println("paso condicion 3");
                             if (u.esNumero(texto)) {//4
-                                //System.out.println("paso condicion 4");
                                 if (!specAlmacenado.equalsIgnoreCase(texto)) {//5
-                                    //System.out.println("paso condicion 5");
                                     // PROCESO DE REGISTRO
-                                    //Orden o = new Orden();
                                     // si es el mismo user el que ya la ingreso no se registra
                                     ordenActual.setSpecimen(texto);
                                     Boolean noMismo = ordenActual.noMismoUser(u.getUser());
@@ -2039,23 +2031,23 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                                                 // comprobamos si la orden ya tiene registro he ingresamos la orden
                                                 Boolean comprobar = ordenActual.ingresarRegistro(u.getUser(), this.trayIcon);
                                                 if (comprobar != null) {
+                                                    // la orden no se ha registrado aun
                                                     almacenado = comprobar;
                                                     actualizarInformacion(true);
                                                     specimen.setText(texto);
                                                 } else {
-                                                    inicializarPortapapeles(true);
+                                                    // la orden ya se ha registrado. solo inicializamos el portapapeles
+                                                    inicializarPortapapeles(true);                                                    
                                                 }
                                             } else {
                                                 JOptionPane.showMessageDialog(null, "No se pudo terminar de procesar la orden");
                                             }
                                         } else {
                                             specAlmacenado = texto;
-                                            //System.out.println("paso condicion 6");
                                         }
                                     } else {
                                         JOptionPane.showMessageDialog(null, "Trate de copiar de nuevo el numero de specimen");
                                     }
-                                    //System.out.println(specAlmacenado);
                                 }
                             }
                         }
@@ -2168,10 +2160,8 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                 + " \n";
         if (this.almacenado) {
             texto = texto + "INGRESADA POR: "+ ordenActual.getUser().toUpperCase();
-
-        } else {
-            texto = texto + "NO INGRESADA";
-        }
+            ventanaEmergente.cambiarColor(4);
+        } 
         if (tipoOrden.getSelectedIndex() > 0) {
             ventanaEmergente.cambiarColor(3);
             texto = texto + "\nMANDADA POR: " + ordenActual.getComentarioAgente();
@@ -2182,11 +2172,13 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
     }
 
     public void ingresarOrden(boolean cambioLocation) {
+        //cambio location es atributo que indica si es un ingreso porque cambio de location o no
         if (!specimen.getText().isEmpty()) {
             boolean bien;
             bien = actualizarOrden();
             if (bien) {
                 if (!cambioLocation) {
+                    //solo se muestra este mensaje si no se ha cambiado de location
                     JOptionPane.showMessageDialog(null, "Orden ingresada exitosamente",
                             "Registro de orden", JOptionPane.INFORMATION_MESSAGE);
                 }

@@ -401,7 +401,7 @@ public class Usuario extends Sistema {
                                     razalt = (int) Math.floor(Math.random() * (errores.size()-1 - 0 + 1) + 0);
                                     Error e = errores.get(razalt);
                                     Orden o = new Orden(specimen, false, agente, e.getCodigoError(), e.getNombreError());
-                                    o.agregarError(false);
+                                    o.agregarError(false,"");
                                     topeE--;
                                 }
                             }
@@ -479,7 +479,7 @@ public class Usuario extends Sistema {
     public void notificarAgente(String user, String specimen, String codError, String nomError, boolean lab) {
         this.borrar("puede_tener", "user='" + user + "' and codigoError='" + codError + "' and specimen ='" + specimen + "' and idMensaje is null and fecha is null");
         Orden o = new Orden(specimen, lab, user, codError, nomError);
-        o.agregarError(lab);
+        o.agregarError(lab,"");
     }
 
     public void notificarAuditor(String codError, String nomError) {
