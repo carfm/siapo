@@ -129,11 +129,11 @@ public class Orden extends Sistema {
         return tiene;
     }
 
-    public Boolean noMismoUser(String user) {
+    public Boolean noMismoUser(String user,String specimen) {
         ResultSet r;
         Boolean nomismo = false;
         try {
-            r = seleccionar("user", "procesa_audita", "specimen = '" + getSpecimen() + "' and user = '" + user + "' and tipoOperacion=1");
+            r = seleccionar("user", "procesa_audita", "specimen = '" + specimen + "' and user = '" + user + "' and tipoOperacion=1");
             if (!r.last()) {
                 // solo el tiene el registro de esa orden
                 nomismo = true;

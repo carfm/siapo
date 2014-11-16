@@ -347,7 +347,6 @@ public class MenuPpal extends javax.swing.JFrame {
         });
 
         errorLabGerente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Delete-icon.png"))); // NOI18N
-        errorLabGerente.setEnabled(false);
         errorLabGerente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 errorLabGerenteActionPerformed(evt);
@@ -377,7 +376,6 @@ public class MenuPpal extends javax.swing.JFrame {
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("Errores de Laboratorio");
-        jLabel5.setEnabled(false);
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Generar Reportes");

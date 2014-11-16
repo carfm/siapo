@@ -1262,7 +1262,7 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
     }//GEN-LAST:event_ingresarOrdenActionPerformed
 
     private void cancelarRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarRegistroActionPerformed
-        if (this.specimen.getText().isEmpty()) {
+        if (this.specimen.getText().isEmpty() && this.historial.getRowCount() <= 0) {
             JOptionPane.showMessageDialog(null, "No hay registro que cancelar",
                     "Error", JOptionPane.ERROR_MESSAGE);
         } else {
@@ -1275,22 +1275,22 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
             if (resulta == JOptionPane.YES_OPTION) {
                 Orden o = new Orden();
                 o.setSpecimen(specAlmacenado);
-                o.setTipoOrden(this.tipoOrden.getSelectedIndex() + 1);                
-                if(o.borrarOrden(u.getUser())){
+                o.setTipoOrden(this.tipoOrden.getSelectedIndex() + 1);
+                if (o.borrarOrden(u.getUser())) {
                     JOptionPane.showMessageDialog(null, "Se ha cancelado el registro",
-                        "Cancelar registro de orden", JOptionPane.INFORMATION_MESSAGE);
-                }else{
+                            "Cancelar registro de orden", JOptionPane.INFORMATION_MESSAGE);
+                    if (!cerrando) {
+                        u.inicializarPortapapeles("00000000");
+                        inicializarPortapapeles(true);
+                        actualizarInformacion(false);
+                        this.ventanaEmergente.agregarTexto("ORDEN " + o.getSpecimen() + " CANCELADA", 2);
+                    }
+                } else {
                     JOptionPane.showMessageDialog(null, "No se pudo cancelar el registro",
-                        "Cancelar registro de orden", JOptionPane.ERROR_MESSAGE);
+                            "Cancelar registro de orden", JOptionPane.ERROR_MESSAGE);
                 }
-                u.inicializarPortapapeles("00000000");
-                inicializarPortapapeles(true);
-                if (!h.isAlive()) {
-                    JOptionPane.showMessageDialog(null, "No estaba vivo");
-                    h.start();
-                }
-                actualizarInformacion(false);               
             }
+
         }
     }//GEN-LAST:event_cancelarRegistroActionPerformed
 
@@ -1375,7 +1375,7 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
     }//GEN-LAST:event_menuActionPerformed
 
     private void tipoOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoOrdenActionPerformed
-        if (!this.specimen.getText().isEmpty()) {
+        if (!this.specimen.getText().isEmpty() || this.historial.getRowCount() > 0) {
             if (this.tipoOrden.getSelectedIndex() > 0) {
                 this.jDialogComentario.setSize(340, 140);
                 this.jDialogComentario.setLocationRelativeTo(null);
@@ -1699,15 +1699,6 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
     private void nombreLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreLocationActionPerformed
         // TODO add your handling code here: 12345616
         l = l.buscarLocation(listaDeLocations, this.nombreLocation.getSelectedItem().toString());
-        System.out.println(l.getNombreLocation());
-//        if (almacenado) {
-//            if (this.locations.getSelectedItem().equals(l.getNombreLocation())) {
-//                l = l.buscarLocation(listaDeLocations, this.nombreLocation.getSelectedItem().toString()); // actualizar la nueva location o almacenar la location actual
-//            }
-//        } else {
-//            l = l.buscarLocation(listaDeLocations, this.nombreLocation.getSelectedItem().toString()); // actualizar la nueva location o almacenar la location actual
-//        }
-
     }//GEN-LAST:event_nombreLocationActionPerformed
 
     public Action getAccion(Action[] acciones, String nombreAccion) {
@@ -2009,8 +2000,8 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                                 if (!specAlmacenado.equalsIgnoreCase(texto)) {//5
                                     // PROCESO DE REGISTRO
                                     // si es el mismo user el que ya la ingreso no se registra
-                                    ordenActual.setSpecimen(texto);
-                                    Boolean noMismo = ordenActual.noMismoUser(u.getUser());
+                                    //ordenActual.setSpecimen(texto);
+                                    Boolean noMismo = ordenActual.noMismoUser(u.getUser(), texto);
                                     if (noMismo != null) {
                                         if (noMismo) {//6
                                             //comprobamos si es primera vez que se realiza la automatizacion
@@ -2037,7 +2028,7 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                                                     specimen.setText(texto);
                                                 } else {
                                                     // la orden ya se ha registrado. solo inicializamos el portapapeles
-                                                    inicializarPortapapeles(true);                                                    
+                                                    inicializarPortapapeles(true);
                                                 }
                                             } else {
                                                 JOptionPane.showMessageDialog(null, "No se pudo terminar de procesar la orden");
@@ -2080,14 +2071,14 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
             this.ordenActual.obtenerInfoOrden(historial, nombreLocation, tipoOrden);
             //historial.repaint();       
             actualizarVentanaEmergente();
-        }else{
+        } else {
             limpiar();
         }
         llenarTotales();
-        trayIcon.setToolTip("Orden actual: " + specAlmacenado + "\nPR:" + this.total.getText() + " CO:" + this.completas.getText() + " IN:" + this.incompletas.getText() + " SN:" + this.nada.getText());        
+        trayIcon.setToolTip("PR:" + this.total.getText() + " CO:" + this.completas.getText() + " IN:" + this.incompletas.getText() + " SN:" + this.nada.getText());
         if (this.listaDeOrdenes.isVisible()) {
             actualizarListaRegistro();
-            
+
         }
     }
 
@@ -2128,7 +2119,6 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
     }
 
     private void autocompletar() {
-
         ResultSet r;
         r = u.seleccionar("codigoRazon,nombreRazon", "razon", "");
         try {
@@ -2146,7 +2136,11 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
         this.ordenActual.setComentarioAgente(comentario.getText());
         this.ordenActual.setCodigoLocation(l.getCodigoLocation());
         this.ordenActual.setTipoOrden(tipoOrden.getSelectedIndex() + 1);
-        this.ordenActual.setSpecimen(specimen.getText());
+//        try{
+//            this.ordenActual.setSpecimen(specimen.getText());
+//        }catch(Exception ex){
+//            this.ordenActual.setSpecimen(specAlmacenado);            
+//        }        
         return this.ordenActual.actualizarOrden(almacenado, u.getUser());
     }
 
@@ -2159,9 +2153,9 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                 + "\nFECHA Y HORA: " + this.historial.getValueAt(0, 1)
                 + " \n";
         if (this.almacenado) {
-            texto = texto + "INGRESADA POR: "+ ordenActual.getUser().toUpperCase();
+            texto = texto + "INGRESADA POR: " + ordenActual.getUser().toUpperCase();
             ventanaEmergente.cambiarColor(4);
-        } 
+        }
         if (tipoOrden.getSelectedIndex() > 0) {
             ventanaEmergente.cambiarColor(3);
             texto = texto + "\nMANDADA POR: " + ordenActual.getComentarioAgente();
@@ -2173,7 +2167,8 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
 
     public void ingresarOrden(boolean cambioLocation) {
         //cambio location es atributo que indica si es un ingreso porque cambio de location o no
-        if (!specimen.getText().isEmpty()) {
+
+        if (!specimen.getText().isEmpty() || this.historial.getRowCount() > 0) {
             boolean bien;
             bien = actualizarOrden();
             if (bien) {
@@ -2183,10 +2178,6 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                             "Registro de orden", JOptionPane.INFORMATION_MESSAGE);
                 }
                 inicializarPortapapeles(false);
-                if (!h.isAlive()) {
-                    JOptionPane.showMessageDialog(null, "No estaba vivo");
-                    h.start();
-                }
                 limpiar();
                 actualizarInformacion(false);
             } else {
