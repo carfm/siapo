@@ -76,6 +76,8 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
         listaLocations.setLocationRelativeTo(null);
         ///escogiendo la primera location       
         listaLocations.setVisible(true);
+        iconoBarra();
+
     }
 
     /**
@@ -143,12 +145,12 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
         jPanel1 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        specimen = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         tipoOrden = new javax.swing.JComboBox();
         jLabel10 = new javax.swing.JLabel();
         comentario = new javax.swing.JTextField();
         nombreLocation = new javax.swing.JComboBox();
+        specimen = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
@@ -806,10 +808,6 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Location");
 
-        specimen.setEditable(false);
-        specimen.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        specimen.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Tipo de Orden Procesada");
 
@@ -833,6 +831,8 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
             }
         });
 
+        specimen.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -844,8 +844,8 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(specimen, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
-                    .addComponent(nombreLocation, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(nombreLocation, 0, 208, Short.MAX_VALUE)
+                    .addComponent(specimen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
@@ -862,16 +862,16 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(specimen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
-                    .addComponent(tipoOrden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tipoOrden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(specimen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jLabel10)
                     .addComponent(comentario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nombreLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel5.setBackground(new java.awt.Color(94, 112, 144));
@@ -1219,12 +1219,12 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(163, Short.MAX_VALUE)
+                .addContainerGap(162, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(164, Short.MAX_VALUE))
+                .addContainerGap(163, Short.MAX_VALUE))
             .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -1309,7 +1309,6 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
         boolean bien = true;
         String nombre = "";
         try {
-            //l.setNombreLocation();
             nombre = String.valueOf(listaLocation.getValueAt(listaLocation.getSelectedRow(), 0));
         } catch (Exception ex) {
             bien = false;
@@ -1328,25 +1327,27 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                 this.h = new Thread(this, "registro");
                 h.setPriority(Thread.MAX_PRIORITY);
                 h.start();
-                iconoBarra();
+                // de base de datos
+                llenarTotales();                
+                listaDeLocations = l.obtenerLocations();
+                l.llenarComboBoxLocations(locations, listaDeLocations);
+                l.llenarComboBoxLocations(nombreLocation, listaDeLocations);
+                codigoRazon = new TextAutoCompleter(jDialogRazon);
+                autocompletar();
+                // de no base de datos
+                primerIngreso = false;
+                inicializar();
+                listaDeOrdenes.setSize(800, 600);
+                listaDeOrdenes.setLocationRelativeTo(null);
+                setSize(1024, 680);
+                setLocationRelativeTo(null);
+                this.ordenActual.setRazones(new ArrayList());
                 inicializarVentanaEmergente();
                 this.ventanaEmergente.agregarTexto("Se ha minimizado SIAPO."
                         + "\nPuede ver la lista de sus ordenes procesadas en la opcion "
                         + "de la lista de ordenes del icono de SIAPO (el de abajo clic derecho sobre el icono)"
                         + " y puede cerrar la ventana de lista de ordenes sin ningun problema", 3);
-                llenarTotales();
-                primerIngreso = false;
-                inicializar();
-                listaDeLocations = l.obtenerLocations();
-                l.llenarComboBoxLocations(locations, listaDeLocations);
-                l.llenarComboBoxLocations(nombreLocation, listaDeLocations);
-                listaDeOrdenes.setSize(800, 600);
-                listaDeOrdenes.setLocationRelativeTo(null);
-                setSize(1024, 680);
-                setLocationRelativeTo(null);
-                codigoRazon = new TextAutoCompleter(jDialogRazon);
-                autocompletar();
-                this.ordenActual.setRazones(new ArrayList());
+                ventanaEmergente.start();
             } else {
                 if (!this.specimen.getText().equals("")) {
                     // la location anterior
@@ -1981,7 +1982,7 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
     private javax.swing.JButton quitar;
     private javax.swing.JButton registro;
     private javax.swing.JTextField spec;
-    private javax.swing.JTextField specimen;
+    private javax.swing.JLabel specimen;
     private javax.swing.JComboBox tipoOrden;
     private javax.swing.JLabel total;
     // End of variables declaration//GEN-END:variables
@@ -2012,6 +2013,9 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                                                 //segun el valor de almacenado                                           
                                                 bien = actualizarOrden();
                                             }
+                                            /*
+                                            77777711
+                                            */
                                             if (bien) {
                                                 limpiar();
                                                 specAlmacenado = texto;
@@ -2134,13 +2138,13 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
 
     public boolean actualizarOrden() {
         this.ordenActual.setComentarioAgente(comentario.getText());
-        this.ordenActual.setCodigoLocation(l.getCodigoLocation());
+        //this.ordenActual.setCodigoLocation(l.getCodigoLocation());
         this.ordenActual.setTipoOrden(tipoOrden.getSelectedIndex() + 1);
-//        try{
-//            this.ordenActual.setSpecimen(specimen.getText());
-//        }catch(Exception ex){
-//            this.ordenActual.setSpecimen(specAlmacenado);            
-//        }        
+        try{
+            this.ordenActual.setSpecimen(specimen.getText());
+        }catch(Exception ex){
+            this.ordenActual.setSpecimen(specAlmacenado);            
+        }        
         return this.ordenActual.actualizarOrden(almacenado, u.getUser());
     }
 
@@ -2194,7 +2198,7 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
         ventanaEmergente = new Hilo();
         ventanaEmergente.agregarTexto("", 3);
         ventanaEmergente.cambiarColor(1);
-        ventanaEmergente.start();
+
     }
 
     private boolean agregarRazonOrden() {
