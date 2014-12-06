@@ -249,7 +249,7 @@ public class NotificacionNueva extends javax.swing.JFrame implements Runnable {
             r.close();
             u.cerrarConexionBase();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "No se puede comprobar si tiene mensajes nuevos","", JOptionPane.INFORMATION_MESSAGE);
+            //JOptionPane.showMessageDialog(null, "No se puede comprobar si tiene mensajes nuevos","", JOptionPane.INFORMATION_MESSAGE);
         }
         return existen;
     }
@@ -267,7 +267,7 @@ public class NotificacionNueva extends javax.swing.JFrame implements Runnable {
             r.close();
             u.cerrarConexionBase();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "No se puede comprobar si tiene mensajes nuevos","", JOptionPane.INFORMATION_MESSAGE);
+           // JOptionPane.showMessageDialog(null, "No se puede comprobar si tiene mensajes nuevos","", JOptionPane.INFORMATION_MESSAGE);
         }
         return existen;
     }
