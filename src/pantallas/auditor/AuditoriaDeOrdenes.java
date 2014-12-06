@@ -1317,6 +1317,7 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
                 tabla = tabla + r.getString("auditor") + " audita a " + r.getString("agente") + "\n";
             }
             JOptionPane.showMessageDialog(this, tabla, "Lista de Auditores / Agentes", JOptionPane.PLAIN_MESSAGE);
+            u.cerrarConexionBase();
         } catch (SQLException ex) {
             Logger.getLogger(AuditoriaDeOrdenes.class.getName()).log(Level.SEVERE, null, ex);
         }
