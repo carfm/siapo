@@ -482,20 +482,21 @@ public final class Bandeja extends javax.swing.JFrame {
         String[] titulos = {"Estado", "Codigo", "Fecha", "Hora", "Asunto"};
         if (tipoBand.equals("mensaje")) {
             if (esGerente) {
-                query = "SELECT idMensaje,asunto,date(fechaHoraMensaje) as fecha,time(fechaHoraMensaje) as hora FROM mensaje WHERE "
+                query = "SELECT distinct idMensaje,asunto,date(fechaHoraMensaje) as fecha,time(fechaHoraMensaje) as hora FROM mensaje WHERE "
                         + "mensaje.tipoMensaje=1) ORDER BY fechaHoraMensaje DESC;";
             } else {
-                query = "SELECT mensaje.idMensaje,asunto,date(fechaHoraMensaje) as fecha,time(fechaHoraMensaje) as hora,visto FROM mensaje, gestiona WHERE "
+                query = "SELECT distinct mensaje.idMensaje,asunto,date(fechaHoraMensaje) as fecha,time(fechaHoraMensaje) as hora,visto FROM mensaje, gestiona WHERE "
                         + "( mensaje.idMensaje = gestiona.idMensaje "
                         + "AND gestiona.user = \"" + user + "\" AND gestiona.oculto = '0'"
                         + " AND mensaje.tipoMensaje=1) ORDER BY fechaHoraMensaje DESC;";
             }
         } else {
-            query = "SELECT mensaje.idMensaje,asunto,date(fechaHoraMensaje) as fecha,time(fechaHoraMensaje) as hora,visto FROM mensaje,puede_tener, gestiona WHERE "
+            query = "SELECT distinct mensaje.idMensaje,asunto,date(fechaHoraMensaje) as fecha,time(fechaHoraMensaje) as hora,visto FROM mensaje,puede_tener, gestiona WHERE "
                     + "( mensaje.idMensaje = gestiona.idMensaje "
                     + "AND gestiona.user = \"" + user + "\" AND gestiona.oculto = "
                     + "'0' AND mensaje.tipoMensaje=2 AND puede_tener.idMensaje = mensaje.idMensaje AND errorLaboratorio =0) ORDER BY fechaHoraMensaje DESC;";
         }
+        //System.out.println(query);
         declaracion = null;
         rs = null;
         DefaultTableModel model = new DefaultTableModel(null, titulos);
