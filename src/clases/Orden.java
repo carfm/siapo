@@ -47,7 +47,7 @@ public class Orden extends Sistema {
         this.user = user;
         this.codError = codError;
         this.nomError = nomError;
-        
+
     }
 
     public Orden() {
@@ -129,7 +129,7 @@ public class Orden extends Sistema {
         return tiene;
     }
 
-    public Boolean noMismoUser(String user,String specimen) {
+    public Boolean noMismoUser(String user, String specimen) {
         ResultSet r;
         Boolean nomismo = false;
         try {
@@ -179,122 +179,127 @@ public class Orden extends Sistema {
     }
 /// revisar
 
-    public boolean agregarError(boolean aproErrorlab,String comentario) {
-        boolean exito = false;
-        try {
-            res = seleccionar("aprobado", "error", "codigoError='" + codError + "'");
-            if (res.getString("aprobado").equals("1")) {
-                java.sql.Date fechaDeOrden;
-                cerrarConexionBase();
-                res = seleccionar("fecha", "procesa_audita", "specimen='" + specimen + "' and tipoOperacion=1 order by fecha asc");
-                fechaDeOrden = res.getDate("fecha");
-                if (!this.errorLab) {
-                    int recurrenciaActual, diasActuales, diasMaximo, recurrenciaError, recurrencia;
-                    java.sql.Date fechaInicioRecurrencia, fecha;
-                    float tolerancia, factorError;
-                    //select recurrencia,fecha as primererror from puede_tener a,error b,tipoError c where  a.codigoError =b.codigoError and b.codigoTipo=c.codigoTipo and c.codigoTipo= (select codigoTipo from error where codigoError ='IOR02') and a.user= 'enajarro' and recurrencia != 0 order by fecha desc, recurrencia desc
-                    cerrarConexionBase();
-                    res = seleccionar("recurrencia,fecha as primererror", "puede_tener a,error b,categoriaError c", "a.codigoError =b.codigoError and b.codigoCategoria=c.codigoCategoria and c.codigoCategoria= (select codigoCategoria from error where codigoError ='" + codError + "') and user= '" + getUser() + "' and recurrencia != 0 order by fecha desc, recurrencia desc limit 1");
-                    res.beforeFirst();
-                    if (res.next()) {
-                        recurrenciaActual = res.getInt("recurrencia");
-                    } else {
-                        recurrenciaActual = 0;
-                        cerrarConexionBase();
-                        res = seleccionar("fecha as primererror", "procesa_audita", "specimen='" + specimen + "' and tipoOperacion=1 order by fecha asc");
-                    }
-                    fechaInicioRecurrencia = res.getDate("primererror");
-                    cerrarConexionBase();
-                    res = seleccionar("diasLimite,recurrenciaSoportada", "categoriaError, error", "error.codigoCategoria = categoriaError.codigoCategoria AND error.codigoError ='" + codError + "'");
-                    diasMaximo = res.getInt("diasLimite");
-                    recurrenciaError = res.getInt("recurrenciaSoportada");
-                    res.close();
-                    this.cerrarConexionBase();
-                    diasActuales = restarFechas(fechaInicioRecurrencia, fechaDeOrden);
-                    tolerancia = Float.parseFloat(Integer.toString(recurrenciaError)) / Float.parseFloat(Integer.toString(diasMaximo));
-                    if (recurrenciaActual == 0 || (diasActuales > (recurrenciaError * diasMaximo))) {
-                        fecha = fechaDeOrden;
-                        recurrencia = 1;
-                    } else {
-                        fecha = fechaInicioRecurrencia;
-                        recurrencia = recurrenciaActual + 1;
-                    }
-                    if (diasActuales == 0) {
-                        if (recurrenciaActual <= 0) {
-                            factorError = 0;// primeraVez
-                        } else {
-                            factorError = Float.parseFloat(Integer.toString(recurrencia)) / 1;//repetido el mismo dia
-                        }
-                    } else {
-                        factorError = Float.parseFloat(Integer.toString(recurrencia)) / Float.parseFloat(Integer.toString(diasActuales));
-                    }
-//                    System.out.println("Factor de error:" + factorError + "\nTolerancia:" + tolerancia
-//                            + "\nDias Actuales:" + diasActuales + "\nRecurrencia:"
-//                            + (recurrenciaActual + 1) + "\nFecha inicio:"
-//                            + fechaInicioRecurrencia + "\nfecha:" + fecha);
-                    if (factorError > tolerancia) {
-                        /// se dejara ahorita el mensaje igual para los 2
-                        //Advertencia //Modificar despues
-                        /*
-                        insertar("mensaje", "NULL,2,"
-                                + "'Se le ha encontrado el error: " + codError + ": " + nomError
-                                + " en el specimen: " + specimen + " ingresado el dia " + fechaDeOrden
-                                + "\nRecurrencia soportada de este error:" + recurrenciaError
-                                + "\nCantidad de Dias Maximo: " + diasMaximo + "\nRecurrencia Actual: " + recurrencia + "\n"
-                                + "Ha sobrepasado la recurrencia sobre los dias limite por lo que se le advierte a "
-                                + "no seguir cometiendo este error; de lo contrario sera citado por el Gerente."
-                                + "\n\nFin del Mensaje', 'Error Encontrado (ADVERTENCIA!!!)',NOW()");
-                        
-                        insertar("mensaje", "NULL,2,"
-                                + "'Se le ha encontrado el error: " + codError + ": " + nomError
-                                + " en el specimen: " + specimen + " ingresado el dia " + fechaDeOrden
-                                + "\nRecurrencia soportada de este error:" + recurrenciaError
-                                + "\nCantidad de Dias Maximo: " + diasMaximo + "\nRecurrencia Actual: " + recurrencia + "\n"
-                                + "\n\nFin del Mensaje', 'Error Encontrado',NOW()");
-                        */
-                        insertar("mensaje", "NULL,2,"
-                                + "'Se le ha encontrado el error: " + codError + ": " + nomError
-                                + " en el specimen: " + specimen + " ingresado el dia " + fechaDeOrden
-                                + "\nComentario del auditor: " + comentario
-                                + "\n\nFin del Mensaje', 'Error Encontrado',NOW()");
-                        insertar("gestiona", "null,(SELECT MAX(idMensaje) FROM mensaje),'" + getUser() + "',0,0,1");
-                        // System.out.println("Advertencia");
-                    } else {
-                        //No Advertencia
-                        insertar("mensaje", "NULL,2,"
-                                + "'Se le ha encontrado el error: " + codError + ": " + nomError
-                                + " en el specimen: " + specimen + " ingresado el dia " + fechaDeOrden
-                                + "\nComentario del auditor: " + comentario
-                                + "\n\nFin del Mensaje', 'Error Encontrado',NOW()");
-                        insertar("gestiona", "null,(SELECT MAX(idMensaje) FROM mensaje),'" + getUser() + "',0,0,0");
-                        //  System.out.println("No Advertencia");
-                    }
-                    exito = insertar("puede_tener", "NULL, '" + codError + "', '" + specimen + "', '" + getUser() + "',(SELECT MAX(idMensaje) FROM mensaje), " + recurrencia + ", 0,'" + fecha + "'");
-                } else {
-                    if (aproErrorlab) {
-                        // TRIGGER DE ACTUALIZACION
-                        insertar("mensaje", "NULL,2,"
-                                + "'Se le ha encontrado el error: " + codError + ": " + nomError
-                                + "\nen el specimen: " + specimen + " ingresado el dia " + fechaDeOrden
-                                + "\n(No afecta su recurrencia actual)"
-                                + "\nEste error fue encontrado en el Laboratorio por lo que se le advierte a ser mas cuidadoso\n"
-                                + "\n\nFin del Mensaje', 'Error Encontrado en Laboratorio',NOW()");
-                        exito = insertar("gestiona", "null,(SELECT MAX(idMensaje) FROM mensaje),'" + getUser() + "',0,0,1");
-                        this.actualizar("puede_tener", "idMensaje = (SELECT MAX(idMensaje) FROM mensaje)", "codigoError = '' and specimen = '' and user = '' and errorLaboratorio = 1");
-                    } else {
-                        // se ingresa previamente la notificacion de error de laboratorio esta  no afecta la recurrencia pero si tiene una advertencia
-                        exito = insertar("puede_tener", "NULL, '" + codError + "', '" + specimen + "', '" + getUser() + "',NULL, 0, 1,NULL");
-                        System.out.println("No Advertencia");
-                    }
-                }
-            } else {
-                insertar("puede_tener", "NULL, '" + codError + "', '" + specimen + "', '" + getUser() + "',NULL, 0, 0,NULL");
-            }
-        } catch (Exception e) {
-            ErroresSiapo.agregar(e, "codigo 28");
-            //Logger.getLogger(Orden.class.getName()).log(Level.SEVERE, null, e);
-            exito = false;
+    public boolean agregarError(boolean aproErrorlab, String comentario) {
+        boolean exito;
+        if (this.errorLab) {
+            exito = insertar("puede_tener", "NULL, '" + codError + "', '" + specimen + "', '" + getUser() + "',NULL, 0,1,NULL");
+        } else {
+            exito = insertar("puede_tener", "NULL, '" + codError + "', '" + specimen + "', '" + getUser() + "',NULL, 0,0,CURDATE()");
         }
+//        try {
+//            res = seleccionar("aprobado", "error", "codigoError='" + codError + "'");
+//            if (res.getString("aprobado").equals("1")) {
+//                java.sql.Date fechaDeOrden;
+//                cerrarConexionBase();
+//                res = seleccionar("fecha", "procesa_audita", "specimen='" + specimen + "' and tipoOperacion=1 order by fecha asc");
+//                fechaDeOrden = res.getDate("fecha");
+//                if (!this.errorLab) {
+//                    int recurrenciaActual, diasActuales, diasMaximo, recurrenciaError, recurrencia;
+//                    java.sql.Date fechaInicioRecurrencia, fecha;
+//                    float tolerancia, factorError;
+//                    //select recurrencia,fecha as primererror from puede_tener a,error b,tipoError c where  a.codigoError =b.codigoError and b.codigoTipo=c.codigoTipo and c.codigoTipo= (select codigoTipo from error where codigoError ='IOR02') and a.user= 'enajarro' and recurrencia != 0 order by fecha desc, recurrencia desc
+//                    cerrarConexionBase();
+//                    res = seleccionar("recurrencia,fecha as primererror", "puede_tener a,error b,categoriaError c", "a.codigoError =b.codigoError and b.codigoCategoria=c.codigoCategoria and c.codigoCategoria= (select codigoCategoria from error where codigoError ='" + codError + "') and user= '" + getUser() + "' and recurrencia != 0 order by fecha desc, recurrencia desc limit 1");
+//                    res.beforeFirst();
+//                    if (res.next()) {
+//                        recurrenciaActual = res.getInt("recurrencia");
+//                    } else {
+//                        recurrenciaActual = 0;
+//                        cerrarConexionBase();
+//                        res = seleccionar("fecha as primererror", "procesa_audita", "specimen='" + specimen + "' and tipoOperacion=1 order by fecha asc");
+//                    }
+//                    fechaInicioRecurrencia = res.getDate("primererror");
+//                    cerrarConexionBase();
+//                    res = seleccionar("diasLimite,recurrenciaSoportada", "categoriaError, error", "error.codigoCategoria = categoriaError.codigoCategoria AND error.codigoError ='" + codError + "'");
+//                    diasMaximo = res.getInt("diasLimite");
+//                    recurrenciaError = res.getInt("recurrenciaSoportada");
+//                    res.close();
+//                    this.cerrarConexionBase();
+//                    diasActuales = restarFechas(fechaInicioRecurrencia, fechaDeOrden);
+//                    tolerancia = Float.parseFloat(Integer.toString(recurrenciaError)) / Float.parseFloat(Integer.toString(diasMaximo));
+//                    if (recurrenciaActual == 0 || (diasActuales > (recurrenciaError * diasMaximo))) {
+//                        fecha = fechaDeOrden;
+//                        recurrencia = 1;
+//                    } else {
+//                        fecha = fechaInicioRecurrencia;
+//                        recurrencia = recurrenciaActual + 1;
+//                    }
+//                    if (diasActuales == 0) {
+//                        if (recurrenciaActual <= 0) {
+//                            factorError = 0;// primeraVez
+//                        } else {
+//                            factorError = Float.parseFloat(Integer.toString(recurrencia)) / 1;//repetido el mismo dia
+//                        }
+//                    } else {
+//                        factorError = Float.parseFloat(Integer.toString(recurrencia)) / Float.parseFloat(Integer.toString(diasActuales));
+//                    }
+////                    System.out.println("Factor de error:" + factorError + "\nTolerancia:" + tolerancia
+////                            + "\nDias Actuales:" + diasActuales + "\nRecurrencia:"
+////                            + (recurrenciaActual + 1) + "\nFecha inicio:"
+////                            + fechaInicioRecurrencia + "\nfecha:" + fecha);
+//                    if (factorError > tolerancia) {
+//                        /// se dejara ahorita el mensaje igual para los 2
+//                        //Advertencia //Modificar despues
+//                        /*
+//                        insertar("mensaje", "NULL,2,"
+//                                + "'Se le ha encontrado el error: " + codError + ": " + nomError
+//                                + " en el specimen: " + specimen + " ingresado el dia " + fechaDeOrden
+//                                + "\nRecurrencia soportada de este error:" + recurrenciaError
+//                                + "\nCantidad de Dias Maximo: " + diasMaximo + "\nRecurrencia Actual: " + recurrencia + "\n"
+//                                + "Ha sobrepasado la recurrencia sobre los dias limite por lo que se le advierte a "
+//                                + "no seguir cometiendo este error; de lo contrario sera citado por el Gerente."
+//                                + "\n\nFin del Mensaje', 'Error Encontrado (ADVERTENCIA!!!)',NOW()");
+//                        
+//                        insertar("mensaje", "NULL,2,"
+//                                + "'Se le ha encontrado el error: " + codError + ": " + nomError
+//                                + " en el specimen: " + specimen + " ingresado el dia " + fechaDeOrden
+//                                + "\nRecurrencia soportada de este error:" + recurrenciaError
+//                                + "\nCantidad de Dias Maximo: " + diasMaximo + "\nRecurrencia Actual: " + recurrencia + "\n"
+//                                + "\n\nFin del Mensaje', 'Error Encontrado',NOW()");
+//                        */
+//                        insertar("mensaje", "NULL,2,"
+//                                + "'Se le ha encontrado el error: " + codError + ": " + nomError
+//                                + " en el specimen: " + specimen + " ingresado el dia " + fechaDeOrden
+//                                + "\nComentario del auditor: " + comentario
+//                                + "\n\nFin del Mensaje', 'Error Encontrado',NOW()");
+//                        insertar("gestiona", "null,(SELECT MAX(idMensaje) FROM mensaje),'" + getUser() + "',0,0,1");
+//                        // System.out.println("Advertencia");
+//                    } else {
+//                        //No Advertencia
+//                        insertar("mensaje", "NULL,2,"
+//                                + "'Se le ha encontrado el error: " + codError + ": " + nomError
+//                                + " en el specimen: " + specimen + " ingresado el dia " + fechaDeOrden
+//                                + "\nComentario del auditor: " + comentario
+//                                + "\n\nFin del Mensaje', 'Error Encontrado',NOW()");
+//                        insertar("gestiona", "null,(SELECT MAX(idMensaje) FROM mensaje),'" + getUser() + "',0,0,0");
+//                        //  System.out.println("No Advertencia");
+//                    }
+//                    exito = insertar("puede_tener", "NULL, '" + codError + "', '" + specimen + "', '" + getUser() + "',(SELECT MAX(idMensaje) FROM mensaje), " + recurrencia + ", 0,'" + fecha + "'");
+//                } else {
+//                    if (aproErrorlab) {
+//                        // TRIGGER DE ACTUALIZACION
+//                        insertar("mensaje", "NULL,2,"
+//                                + "'Se le ha encontrado el error: " + codError + ": " + nomError
+//                                + "\nen el specimen: " + specimen + " ingresado el dia " + fechaDeOrden
+//                                + "\n(No afecta su recurrencia actual)"
+//                                + "\nEste error fue encontrado en el Laboratorio por lo que se le advierte a ser mas cuidadoso\n"
+//                                + "\n\nFin del Mensaje', 'Error Encontrado en Laboratorio',NOW()");
+//                        exito = insertar("gestiona", "null,(SELECT MAX(idMensaje) FROM mensaje),'" + getUser() + "',0,0,1");
+//                        this.actualizar("puede_tener", "idMensaje = (SELECT MAX(idMensaje) FROM mensaje)", "codigoError = '' and specimen = '' and user = '' and errorLaboratorio = 1");
+//                    } else {
+//                        // se ingresa previamente la notificacion de error de laboratorio esta  no afecta la recurrencia pero si tiene una advertencia
+//                        exito = insertar("puede_tener", "NULL, '" + codError + "', '" + specimen + "', '" + getUser() + "',NULL, 0, 1,NULL");
+//                        System.out.println("No Advertencia");
+//                    }
+//                }
+//            } else {
+//                insertar("puede_tener", "NULL, '" + codError + "', '" + specimen + "', '" + getUser() + "',NULL, 0, 0,NULL");
+//            }
+//        } catch (Exception e) {
+//            ErroresSiapo.agregar(e, "codigo 28");
+//            //Logger.getLogger(Orden.class.getName()).log(Level.SEVERE, null, e);
+//            exito = false;
+//        }
         return exito;
     }
 
@@ -327,9 +332,9 @@ public class Orden extends Sistema {
              * 3 poner el total
              */
             /*
-            select (select count(*) from procesa_audita where user='cfuentes' and tipoOperacion = 1 and fecha = '2014-05-05') as t1,
-            (select count(*) from (select distinct a.specimen from procesa_audita a join mandada_por b on a.specimen = b.specimen and b.user= 'cfuentes' and a.user='cfuentes' and tipoOperacion = 1 and fecha = '2014-05-05' join orden c on c.specimen =b.specimen and tipoOrden = 2) a) as t2, 
-            (select count(*) from (select distinct a.specimen from procesa_audita a join mandada_por b on a.specimen = b.specimen and b.user= 'cfuentes' and a.user='cfuentes' and tipoOperacion = 1 and fecha = '2014-05-05' join orden c on c.specimen =b.specimen and tipoOrden = 3) a) as t3*/
+             select (select count(*) from procesa_audita where user='cfuentes' and tipoOperacion = 1 and fecha = '2014-05-05') as t1,
+             (select count(*) from (select distinct a.specimen from procesa_audita a join mandada_por b on a.specimen = b.specimen and b.user= 'cfuentes' and a.user='cfuentes' and tipoOperacion = 1 and fecha = '2014-05-05' join orden c on c.specimen =b.specimen and tipoOrden = 2) a) as t2, 
+             (select count(*) from (select distinct a.specimen from procesa_audita a join mandada_por b on a.specimen = b.specimen and b.user= 'cfuentes' and a.user='cfuentes' and tipoOperacion = 1 and fecha = '2014-05-05' join orden c on c.specimen =b.specimen and tipoOrden = 3) a) as t3*/
             t = new int[4];
             t[0] = t[1] = t[2] = 0;
             ResultSet r;
@@ -523,7 +528,7 @@ public class Orden extends Sistema {
                 ((DefaultTableModel) listaOrdenes.getModel()).addRow(fila);
             }
             ((DefaultTableModel) listaOrdenes.getModel()).fireTableDataChanged();
-            listaOrdenes.repaint();
+            //listaOrdenes.repaint();
             this.cerrarConexionBase();
         } catch (Exception e) {
             //System.out.println(e);
@@ -563,9 +568,9 @@ public class Orden extends Sistema {
         boolean bien;
         if (cont > 1) {
             //si tiene mas registros solo borramos el registro del actual agente
-            bien =borrar("procesa_audita", "user = '" + user + "' and specimen = '" + getSpecimen() + "' and tipoOperacion=1");
+            bien = borrar("procesa_audita", "user = '" + user + "' and specimen = '" + getSpecimen() + "' and tipoOperacion=1");
             if (this.getTipoOrden() != 1) {
-                bien =borrar("mandada_por", "user = '" + user + "' and specimen = '" + getSpecimen() + "'");
+                bien = borrar("mandada_por", "user = '" + user + "' and specimen = '" + getSpecimen() + "'");
             }
         } else {
             //sino borra la orden porq solo el la ha ingresado
@@ -609,7 +614,7 @@ public class Orden extends Sistema {
                 r.first();
                 //nombreLocation.setSelectedItem(r.getString("nombrelocation"));
                 tipoOrden.setSelectedIndex(Integer.parseInt(r.getString("tipoOrden")) - 1);
-                this.comentarioAgente= r.getString("comentarioAgente");
+                this.comentarioAgente = r.getString("comentarioAgente");
                 this.setUser(r.getString("user"));
                 DefaultTableModel modelo = (DefaultTableModel) historial.getModel();
                 int i;
@@ -620,9 +625,9 @@ public class Orden extends Sistema {
                         fila[i] = r.getObject(i + 3);
                     }
                     modelo.addRow(fila);
-                }                
+                }
                 cerrarConexionBase();
-            }     
+            }
             historial.repaint();
             cerrarConexionBase();
         } catch (SQLException | NumberFormatException ex) {
