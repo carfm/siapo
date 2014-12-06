@@ -4,9 +4,7 @@
  */
 package pantallas.auditor;
 
-import pantallas.auditor.AuditoriaDeOrdenes;
 import clases.Usuario;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -14,7 +12,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -664,6 +661,7 @@ public class EliminarAuditoria extends javax.swing.JFrame {
                 } catch (SQLException ex) {
                     Logger.getLogger(EliminarAuditoria.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                u.cerrarConexionBase();
                 u.insertar("mensaje", "" + idMen + ",2,'" + strFechaActual + "',"
                         + "'" + c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND) + "',"
                         + "'Se han eliminado todos los errores del specimen: " + spec + "', 'Auditoria Eliminada!!'");
@@ -735,15 +733,14 @@ public class EliminarAuditoria extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
  private void llenarErrores(String orden, String user, boolean primeraVez) {
         int i, j, filas;//i fila j colummna  
-        String specimen = orden, usuario = user;
-        ResultSet r, rs;
-
+        ResultSet r;
         try {
-            r = u.seleccionar("count(*) as filas", "puede_tener", "specimen=\"" + specimen + "\"");
-            filas = Integer.parseInt(r.getString("filas"));
-            r = u.seleccionar("puede_tener.idPuedeTener,puede_tener.codigoError, Error.descripcionError, "
+            r = u.seleccionar("count(*) as filas", "puede_tener", "specimen='"+orden+"'");
+            filas = r.getInt("filas");
+            u.cerrarConexionBase();
+            r = u.seleccionar("puede_tener.idPuedeTener,puede_tener.codigoError, Error.nombreError, "
                     + "orden.comentarioAuditor, error.aprobado", "puede_tener, error, orden",
-                    "(puede_tener.specimen =" + specimen + " AND puede_tener.specimen = "
+                    "(puede_tener.specimen ='" + orden + "' AND puede_tener.specimen = "
                     + "orden.specimen AND puede_tener.codigoError = error.codigoError)");
 
             r.beforeFirst();
@@ -759,18 +756,13 @@ public class EliminarAuditoria extends javax.swing.JFrame {
                                 errores.setValueAt(r.getString("puede_tener.codigoError"), i, j);
                                 break;
                             case 1:
-                                errores.setValueAt(r.getString("error.descripcionError"), i, j);
+                                errores.setValueAt(r.getString("error.nombreError"), i, j);
                                 break;
                             case 2:
                                 errores.setValueAt(r.getString("orden.comentarioAuditor"), i, j);
                                 break;
                             case 3:
-                                rs = u.seleccionar("recurrencia", "puede_tener",
-                                        "specimen= '" + specimen + "' AND codigoError='"
-                                        + "" + r.getString("puede_tener.codigoError") + "' AND errorLaboratorio=0");
-
-                                rs.first();
-                                errores.setValueAt(rs.getString("recurrencia"), i, j);
+                                errores.setValueAt("", i, j);//recurrencia
                                 break;
                             case 4:
                                 if (r.getString("error.aprobado").equals("1")) {
@@ -786,16 +778,15 @@ public class EliminarAuditoria extends javax.swing.JFrame {
                     }
                     r.next();
                 }
-            } else {
-                //JOptionPane.showMessageDialog(null, "No se encontraron registros");
             }
-            u.getSentencia().close();
+            u.cerrarConexionBase();
         } catch (SQLException | NumberFormatException e) {
-        }
+            u.cerrarConexionBase();
+        } 
     }
 
     private void llenarOrdenes(String registros, String datos, boolean primeraVez) {
-        int i, j, filas = 0;//i fila j colummna  
+        int i, j, filas;//i fila j colummna  
         String tipo = registros, dato = datos;
         String campos, tablas, condicion, cam;
         ResultSet r;
@@ -805,25 +796,25 @@ public class EliminarAuditoria extends javax.swing.JFrame {
         switch (tipo) {
             default:
                 campos = "count(*) as filas";
-                tablas = "procesa_audita";
+                tablas = "procesa_audita b";
                 condicion = "tipoOperacion=2 AND DATE(fecha)=curdate()";
-                cam = "fecha,specimen";
+                cam = "fecha,specimen,(SELECT user from procesa_audita WHERE specimen = b.specimen limit 1) as agente";
                 break;
 
             case "specimen":
                 limpiarTabla(listaOrdenes);
                 campos = "count(*) as filas";
-                tablas = "procesa_audita";
+                tablas = "procesa_audita b";
                 condicion = "tipoOperacion=2 and specimen='" + dato + "'";
-                cam = "fecha,specimen";
+                cam = "fecha,specimen,(SELECT user from procesa_audita WHERE specimen = b.specimen limit 1) as agente";
                 break;
 
             case "user":
                 limpiarTabla(listaOrdenes);
                 campos = "count(*) as filas";
-                tablas = "procesa_audita";
+                tablas = "procesa_audita b";
                 condicion = "tipoOperacion=2 and user='" + dato + "'and DATE(fecha)=curdate()";
-                cam = "fecha,specimen";
+                cam = "fecha,specimen,(SELECT user from procesa_audita WHERE specimen = b.specimen limit 1) as agente";
                 break;
 
         }
@@ -848,22 +839,16 @@ public class EliminarAuditoria extends javax.swing.JFrame {
                                 listaOrdenes.setValueAt(r.getString("specimen"), i, j);
                                 break;
                             case 2:
-                                
-                                ResultSet rUsuario = u.seleccionar("user", "procesa_audita", "specimen='" + r.getString("specimen") + "' AND tipoOperacion=1");
-                                listaOrdenes.setValueAt(rUsuario.getString("user"), i, j);
+                                //ResultSet rUsuario = u.seleccionar("user", "procesa_audita", "specimen='" + r.getString("specimen") + "' AND tipoOperacion=1");
+                                listaOrdenes.setValueAt(r.getString("agente"), i, j);
                                 break;
 
                         }
                     }
                     r.next();
                 }
-            } else {
-                //JOptionPane.showMessageDialog(null, "No se encontraron registros");
-                if (!tipo.equals("todo")) {
-                    llenarOrdenes("todo", u.getUser(), true);
-                }
+                u.cerrarConexionBase();
             }
-            u.getSentencia().close();
         } catch (SQLException | NumberFormatException e) {
         }
     }
