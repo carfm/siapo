@@ -1154,6 +1154,8 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
             nombreError = ed_table_errores.getValueAt(i, 1).toString().trim();
             comentario = ed_table_errores.getValueAt(0, 3).toString();
             Orden o;
+            //se guarda el comentario hecho por el auditor
+            enviarComentarioAud(comentario, nSpecimen);
             if (deLab.equals("1")) {
                 //error de laboratorio
                 o = new Orden(nSpecimen, true, agente, codError, nombreError);
@@ -1163,8 +1165,7 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
                 o = new Orden(nSpecimen, false, agente, codError, nombreError);
                 exito = o.agregarError(false, comentario);
             }
-            //se guarda el comentario hecho por el auditor
-            enviarComentarioAud(comentario, nSpecimen);
+            
             //50000001
         }
         if (exito) {
