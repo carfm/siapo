@@ -239,17 +239,19 @@ public class NotificacionNueva extends javax.swing.JFrame implements Runnable {
     public boolean notificacionesNuevas() {
         boolean existen = false;
         ResultSet r;
-        String tablas = "gestiona,puede_tener";
-        String condicion = "puede_tener.user='" + u.getUser() + "'  and gestiona.visto =0 AND  puede_tener.idMensaje = gestiona.idMensaje AND errorLaboratorio =0";
+        String tablas = "gestiona,mensaje";
+        //String condicion = "puede_tener.user='" + u.getUser() + "'  and gestiona.visto =0 AND  puede_tener.idMensaje = gestiona.idMensaje AND errorLaboratorio =0";
+        String condicion = "user='" + u.getUser() + "' AND gestiona.idMensaje = "
+                + "mensaje.idMensaje AND visto =0 AND mensaje.tipoMensaje=2";
         try {
-            //System.out.println(condicion);
-            r = u.seleccionar("puede_tener.user", tablas, condicion);
+            r = u.seleccionar("user", tablas, condicion);
             r.beforeFirst();
             existen = r.next();
-            r.close();
-            u.cerrarConexionBase();
+            r.close();            
         } catch (Exception ex) {
             //JOptionPane.showMessageDialog(null, "No se puede comprobar si tiene mensajes nuevos","", JOptionPane.INFORMATION_MESSAGE);
+        }finally{
+           u.cerrarConexionBase(); 
         }
         return existen;
     }
@@ -268,6 +270,8 @@ public class NotificacionNueva extends javax.swing.JFrame implements Runnable {
             u.cerrarConexionBase();
         } catch (Exception ex) {
            // JOptionPane.showMessageDialog(null, "No se puede comprobar si tiene mensajes nuevos","", JOptionPane.INFORMATION_MESSAGE);
+        }finally{
+           u.cerrarConexionBase(); 
         }
         return existen;
     }
