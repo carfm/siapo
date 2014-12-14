@@ -7,11 +7,8 @@ package pantallas.auditor;
 import clases.Usuario;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -22,7 +19,7 @@ import pantallas.mensajeria.errorNuevo;
 public class EliminarAuditoria extends javax.swing.JFrame {
 
     public Calendar c;
-    private Usuario u;
+    private final Usuario u;
     public NotificacionNueva n;
     public errorNuevo e;
     private String fechaHoy = "";
@@ -345,25 +342,10 @@ public class EliminarAuditoria extends javax.swing.JFrame {
         busqueda.add(buscarSpecimen);
         buscarSpecimen.setSelected(true);
         buscarSpecimen.setText("Specimen");
-        buscarSpecimen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarSpecimenActionPerformed(evt);
-            }
-        });
 
         busqueda.add(buscarUser);
         buscarUser.setText("User");
-        buscarUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarUserActionPerformed(evt);
-            }
-        });
-
-        buscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarActionPerformed(evt);
-            }
-        });
+        buscarUser.setEnabled(false);
 
         buscar_btn.setText("Buscar");
         buscar_btn.addActionListener(new java.awt.event.ActionListener() {
@@ -374,6 +356,7 @@ public class EliminarAuditoria extends javax.swing.JFrame {
 
         busqueda.add(fechaRadio);
         fechaRadio.setText("fecha");
+        fechaRadio.setEnabled(false);
         fechaRadio.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 fechaRadioItemStateChanged(evt);
@@ -381,6 +364,7 @@ public class EliminarAuditoria extends javax.swing.JFrame {
         });
 
         fecha.setDateFormatString("dd-MM-yyyy");
+        fecha.setEnabled(false);
 
         javax.swing.GroupLayout ordenesAuditadasLayout = new javax.swing.GroupLayout(ordenesAuditadas);
         ordenesAuditadas.setLayout(ordenesAuditadasLayout);
@@ -442,11 +426,6 @@ public class EliminarAuditoria extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
-            }
-        });
-        errores.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                erroresMouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(errores);
@@ -591,18 +570,6 @@ public class EliminarAuditoria extends javax.swing.JFrame {
         cancelar.setEnabled(true);
     }//GEN-LAST:event_listaOrdenesMouseClicked
 
-    private void buscarSpecimenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarSpecimenActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buscarSpecimenActionPerformed
-
-    private void buscarUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarUserActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buscarUserActionPerformed
-
-    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_buscarActionPerformed
-
     private void buscar_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscar_btnActionPerformed
         if (fechaRadio.isSelected()) {
             try {
@@ -614,7 +581,7 @@ public class EliminarAuditoria extends javax.swing.JFrame {
                     fechaHoy = u.fechaCorrecta(fechaB);
                 }
 
-            } catch (Exception e) {
+            } catch (Exception ex) {
 
             } finally {
                 limpiarTabla(listaOrdenes);
@@ -636,45 +603,31 @@ public class EliminarAuditoria extends javax.swing.JFrame {
 
     }//GEN-LAST:event_buscar_btnActionPerformed
 
-    private void erroresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_erroresMouseClicked
-    }//GEN-LAST:event_erroresMouseClicked
-
     private void borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarActionPerformed
         String spec = listaOrdenes.getValueAt(listaOrdenes.getSelectedRow(), 1).toString();
-        String user = listaOrdenes.getValueAt(listaOrdenes.getSelectedRow(), 2).toString();
-        DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
-        String strFechaActual;
-        strFechaActual = df.format(new java.util.Date());
-        int idMen = 0;
-        boolean exito = u.borrar("puede_tener", "specimen=\"" + spec + "\"");
-        u.borrar("procesa_audita", "specimen=\"" + listaOrdenes.getValueAt(listaOrdenes.getSelectedRow(), 1).toString() + "\""
-                + "and tipoOperacion=2");
-        if (exito) {
-            u.actualizar("procesa_audita", "recurrencia=(recurrencia-1)", "specimen='" + spec + "', AND user='" + user + "'");
-            if (errores.getColumnCount() >= 1) {
-                ResultSet res = u.seleccionar("idMensaje", "mensaje", "");
-                try {
-                    if (res.last()) {
-                        idMen = res.getInt("idMensaje");
-                        idMen++;
-                    }
-                } catch (SQLException ex) {
-                    Logger.getLogger(EliminarAuditoria.class.getName()).log(Level.SEVERE, null, ex);
+        int resulta;
+        resulta = JOptionPane.showConfirmDialog(null, "¿Desea cancelar la auditoria en el specimen: "
+                + spec+"?", "Cancelar auditoria",
+                JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (resulta == JOptionPane.YES_OPTION) {
+            String user = listaOrdenes.getValueAt(listaOrdenes.getSelectedRow(), 2).toString();
+            boolean exito = u.borrar("procesa_audita", "specimen='" + spec + "' and tipoOperacion=2 and user= '" + u.getUser() + "'");
+            if (exito) {
+                if (errores.getColumnCount() >= 1) {
+                    exito = u.borrar("puede_tener", "specimen='" + spec + "' and user= '" + user + "'");
                 }
-                u.cerrarConexionBase();
-                u.insertar("mensaje", "" + idMen + ",2,'" + strFechaActual + "',"
-                        + "'" + c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND) + "',"
-                        + "'Se han eliminado todos los errores del specimen: " + spec + "', 'Auditoria Eliminada!!'");
-                u.insertar("gestiona", "null," + idMen + ",'" + user + "',0,0,1");  //funciona
+                if (exito) {
+                    JOptionPane.showMessageDialog(null, "La auditoria ha sido eliminada.");
+                    limpiarTabla(listaOrdenes);
+                    limpiarTabla(errores);
+                    llenarOrdenes("user", u.getUser(), true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Lo sentimos. Fallo la eliminacion.");
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Lo sentimos. Fallo la eliminacion.");
             }
-            JOptionPane.showMessageDialog(null, "La auditoria ha sido eliminada.");
-            limpiarTabla(listaOrdenes);
-            limpiarTabla(errores);
-            llenarOrdenes("user", u.getUser(), true);
-        } else {
-            JOptionPane.showMessageDialog(null, "Lo sentimos. Fallo la eliminacion.");
         }
-
     }//GEN-LAST:event_borrarActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
@@ -735,7 +688,7 @@ public class EliminarAuditoria extends javax.swing.JFrame {
         int i, j, filas;//i fila j colummna  
         ResultSet r;
         try {
-            r = u.seleccionar("count(*) as filas", "puede_tener", "specimen='"+orden+"'");
+            r = u.seleccionar("count(*) as filas", "puede_tener", "specimen='" + orden + "'");
             filas = r.getInt("filas");
             u.cerrarConexionBase();
             r = u.seleccionar("puede_tener.idPuedeTener,puede_tener.codigoError, Error.nombreError, "
@@ -780,9 +733,9 @@ public class EliminarAuditoria extends javax.swing.JFrame {
                 }
             }
             u.cerrarConexionBase();
-        } catch (SQLException | NumberFormatException e) {
+        } catch (SQLException | NumberFormatException ex) {
             u.cerrarConexionBase();
-        } 
+        }
     }
 
     private void llenarOrdenes(String registros, String datos, boolean primeraVez) {
@@ -839,17 +792,16 @@ public class EliminarAuditoria extends javax.swing.JFrame {
                                 listaOrdenes.setValueAt(r.getString("specimen"), i, j);
                                 break;
                             case 2:
-                                //ResultSet rUsuario = u.seleccionar("user", "procesa_audita", "specimen='" + r.getString("specimen") + "' AND tipoOperacion=1");
                                 listaOrdenes.setValueAt(r.getString("agente"), i, j);
                                 break;
-
                         }
                     }
                     r.next();
-                }
-                u.cerrarConexionBase();
+                }                
             }
-        } catch (SQLException | NumberFormatException e) {
+        } catch (SQLException | NumberFormatException ex) {
+        }finally{
+            u.cerrarConexionBase();
         }
     }
 
@@ -860,7 +812,7 @@ public class EliminarAuditoria extends javax.swing.JFrame {
             for (int i = 0; filas > i; i++) {
                 modelo.removeRow(0);
             }
-        } catch (Exception e) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
         }
     }

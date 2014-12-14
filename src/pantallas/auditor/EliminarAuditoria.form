@@ -553,9 +553,6 @@
             <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Specimen"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buscarSpecimenActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="buscarUser">
           <Properties>
@@ -563,15 +560,10 @@
               <ComponentRef name="busqueda"/>
             </Property>
             <Property name="text" type="java.lang.String" value="User"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buscarUserActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="buscar">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buscarActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JToggleButton" name="buscar_btn">
           <Properties>
@@ -587,6 +579,7 @@
               <ComponentRef name="busqueda"/>
             </Property>
             <Property name="text" type="java.lang.String" value="fecha"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="fechaRadioItemStateChanged"/>
@@ -595,6 +588,7 @@
         <Component class="com.toedter.calendar.JDateChooser" name="fecha">
           <Properties>
             <Property name="dateFormatString" type="java.lang.String" value="dd-MM-yyyy"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -687,9 +681,6 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="erroresMouseClicked"/>
-              </Events>
             </Component>
           </SubComponents>
         </Container>

@@ -561,9 +561,9 @@
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="3">
-                <StringItem index="0" value="Grave"/>
-                <StringItem index="1" value="Mediano"/>
-                <StringItem index="2" value="Leve"/>
+                <StringItem index="0" value="GRAVE"/>
+                <StringItem index="1" value="MEDIANO"/>
+                <StringItem index="2" value="LEVE"/>
               </StringArray>
             </Property>
           </Properties>
@@ -581,14 +581,14 @@
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="8">
-                <StringItem index="0" value="Diagnostico"/>
-                <StringItem index="1" value="Doctor"/>
-                <StringItem index="2" value="Examenes"/>
-                <StringItem index="3" value="Hospital"/>
-                <StringItem index="4" value="Informacion en la orden"/>
-                <StringItem index="5" value="Muestras"/>
-                <StringItem index="6" value="Paciente"/>
-                <StringItem index="7" value="Otros"/>
+                <StringItem index="0" value="DIAGNOSTICO"/>
+                <StringItem index="1" value="DOCTOR"/>
+                <StringItem index="2" value="EXAMENES"/>
+                <StringItem index="3" value="HOSPITAL"/>
+                <StringItem index="4" value="INFORMACION EN LA ORDEN"/>
+                <StringItem index="5" value="MUESTRAS"/>
+                <StringItem index="6" value="PACIENTE"/>
+                <StringItem index="7" value="OTROS"/>
               </StringArray>
             </Property>
           </Properties>

@@ -29,6 +29,7 @@ public class Error extends Sistema{
                 + "'"+getNombreError()+"','"+getDescripcion()+"',1";
         return insertar("error", s);
     }
+    
 /**********************FIN ingresarError**************************/
     
     /**

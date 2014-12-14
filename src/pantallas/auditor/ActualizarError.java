@@ -4,17 +4,13 @@
  */
 package pantallas.auditor;
 
-import pantallas.gerente.*;
 import clases.Usuario;
 import clases.Error;
-
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import pantallas.general.MenuPpal;
@@ -32,14 +28,12 @@ public final class ActualizarError extends javax.swing.JFrame {
      *
      */
     public Calendar c;
-    private Usuario u;
+    private final Usuario u;
     public NotificacionNueva n;
     public errorNuevo e;
 
     public ActualizarError(Usuario u, NotificacionNueva n, errorNuevo e) {
         c = Calendar.getInstance();
-        ResultSet r;
-        int filas, i;
         this.u = new Usuario();
         this.u.setUser(u.getUser());
         this.u.setNombreUsuario(u.getNombreUsuario());
@@ -50,18 +44,6 @@ public final class ActualizarError extends javax.swing.JFrame {
         actualizarErrores(true);
         setSize(1024, 680);
         setLocationRelativeTo(null);
-        /*try {
-            r = u.seleccionar("count(*) as filas", "tipoerror", "tipoActivo!=0");
-            filas = Integer.parseInt(r.getString("filas"));
-            r = u.seleccionar("nombreTipo", "tipoerror", "");
-            r.first();
-            for (i = 0; i < filas; i++) {
-                tipoError.addItem(r.getString("nombreTipo"));
-                r.next();
-            }
-        } catch (SQLException | NumberFormatException e) {
-            System.out.println(e);
-        }*/
     }
 
     /**
@@ -333,13 +315,13 @@ public final class ActualizarError extends javax.swing.JFrame {
         jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel26.setText("Categoria:");
 
-        categoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Grave", "Mediano", "Leve" }));
+        categoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "GRAVE", "MEDIANO", "LEVE" }));
 
         jLabel27.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel27.setText("Tipo:");
 
-        tipoError.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Diagnostico", "Doctor", "Examenes", "Hospital", "Informacion en la orden", "Muestras", "Paciente", "Otros" }));
+        tipoError.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "DIAGNOSTICO", "DOCTOR", "EXAMENES", "HOSPITAL", "INFORMACION EN LA ORDEN", "MUESTRAS", "PACIENTE", "OTROS" }));
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -526,26 +508,25 @@ public final class ActualizarError extends javax.swing.JFrame {
                 try {
                     Error err = new Error();
                     ResultSet r;
-                    r = err.seleccionar("codigoCategoria", "categoriaError", "nombreCategoria = '" + categoria.getSelectedItem().toString() + "'");
-                    err.setCodigoCategoria(r.getInt("codigoCategoria"));
-                    u.cerrarConexionBase();
-                    r = err.seleccionar("codigoTipo", "tipoError", "nombreTipo = '" + tipoError.getSelectedItem().toString() + "'");
-                    err.setCodigoTipo(r.getString("codigoTipo"));
+                    //r = err.seleccionar("codigoCategoria", "categoriaError", "nombreCategoria = '" + categoria.getSelectedItem().toString() + "'");
+                    err.setCodigoCategoria(categoria.getSelectedIndex()+1);
+//                    r = err.seleccionar("codigoTipo", "tipoError", "nombreTipo = '" + tipoError.getSelectedItem().toString() + "'");
+//                    err.setCodigoTipo(r.getString("codigoTipo"));
                     err.setNombreError(nombreError.getText());
                     err.setDescripcion(jTextArea1.getText());
-                    err.actualizar("error", "codigoTipo='" + err.getCodigoTipo() + "',nombreError='"
-                            + err.getNombreError() + "',descripcionError='" + err.getDescripcion() + "',categoriaError="+err.getCodigoCategoria(), "codigoError = '" + codigoError.getText() + "'");
+                    //u.cerrarConexionBase();
+                    err.actualizar("error", "nombreError='"
+                            + err.getNombreError() + "',descripcionError='" + err.getDescripcion() + "',codigoCategoria=" + err.getCodigoCategoria(), "codigoError = '" + codigoError.getText() + "'");
                     actualizarErrores(false);
                     JOptionPane.showMessageDialog(null, "El error ha sido actualizado", "Actualizar error", JOptionPane.INFORMATION_MESSAGE);
-                    u.getSentencia().close();
-                    u.cerrarConexionBase();
-                } catch (SQLException ex) {
+                } catch (Exception ex) {
+                    //u.cerrarConexionBase();
                     Logger.getLogger(ActualizarError.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "El error tiene que tener un nombre", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Seleccione un error primero", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_actualizarErrorActionPerformed
@@ -555,27 +536,30 @@ public final class ActualizarError extends javax.swing.JFrame {
         try {
             ResultSet r;
             String codigo = listaErrores.getValueAt(listaErrores.getSelectedRow(), 0).toString();
-            System.out.println(codigo);
-            r = u.seleccionar("codigoCategoria,nombreError,descripcionError", "error", "codigoError = '" + codigo + "'");
+            r = u.seleccionar("codigoCategoria,codigoTipo,nombreError,descripcionError", "error", "codigoError = '" + codigo + "'");
             codigoError.setText(codigo);
             nombreError.setText(r.getString("nombreError"));
-            categoria.setSelectedIndex(r.getInt("codigoCategoria") - 1);            
+            categoria.setSelectedIndex(Integer.parseInt(r.getString("codigoCategoria")) - 1);
+            String area = String.valueOf(listaErrores.getValueAt(listaErrores.getSelectedRow(), 2));
+            tipoError.setSelectedItem(area);
             jTextArea1.setText(r.getString("descripcionError"));
+            u.getSentencia().close();
+            u.cerrarConexionBase();            
+        } catch (SQLException | NumberFormatException ex) {
+        }finally{
             u.cerrarConexion();
             u.cerrarConexionBase();
-        } catch (SQLException | NumberFormatException e) {
-            System.out.println(e);
         }
     }//GEN-LAST:event_listaErroresMouseClicked
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        new ActualizarError(u,this.n,this.e).setVisible(true);
+        new ActualizarError(u, this.n, this.e).setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        new MenuPpal(u,false,this.n,this.e).setVisible(true);
+        new MenuPpal(u, false, this.n, this.e).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton12ActionPerformed
 
@@ -596,15 +580,12 @@ public final class ActualizarError extends javax.swing.JFrame {
     public void actualizarErrores(boolean primeraVez) {
         int i, j, filas;//i fila j colummna        
         ResultSet r;
-
         try {
             //r = u.seleccionar("count(*) as filas", "", "");
             filas = u.contadorFilas("error", "aprobado=1");
-            
             r = u.seleccionar("codigoError,nombreError,nombreTipo", "error,tipoerror",
                     "error.codigoTipo = tipoerror.codigoTipo and aprobado=1 order by codigoError asc");
             r.first();
-
             for (i = 0; i < filas; i++) {
                 if (primeraVez) {
                     ((DefaultTableModel) listaErrores.getModel()).
@@ -626,9 +607,9 @@ public final class ActualizarError extends javax.swing.JFrame {
                 }
                 r.next();
             }
-            u.getSentencia().close();
-            u.cerrarConexionBase();
         } catch (SQLException | NumberFormatException e) {
+        } finally {
+            u.cerrarConexionBase();
         }
     }
     /**

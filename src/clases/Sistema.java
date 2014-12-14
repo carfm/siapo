@@ -487,7 +487,6 @@ public class Sistema {
             t.close();
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
             return false;
         }
     }
@@ -519,8 +518,7 @@ public class Sistema {
                 texto = t.getTransferData(dataFlavorStringJava).toString();
             }
         } catch (Exception ex) {
-            ErroresSiapo.agregar(ex, "codigo 13");
-
+           // ErroresSiapo.agregar(ex, "codigo 13");
         }
         return texto;
     }

@@ -860,11 +860,12 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel9)
-                    .addComponent(tipoOrden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(specimen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(specimen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel7)
+                        .addComponent(jLabel9)
+                        .addComponent(tipoOrden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
@@ -1328,7 +1329,7 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                 h.setPriority(Thread.MAX_PRIORITY);
                 h.start();
                 // de base de datos
-                llenarTotales();                
+                llenarTotales();
                 listaDeLocations = l.obtenerLocations();
                 l.llenarComboBoxLocations(locations, listaDeLocations);
                 l.llenarComboBoxLocations(nombreLocation, listaDeLocations);
@@ -2013,9 +2014,6 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                                                 //segun el valor de almacenado                                           
                                                 bien = actualizarOrden();
                                             }
-                                            /*
-                                            77777711
-                                            */
                                             if (bien) {
                                                 limpiar();
                                                 specAlmacenado = texto;
@@ -2027,21 +2025,21 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                                                 Boolean comprobar = ordenActual.ingresarRegistro(u.getUser(), this.trayIcon);
                                                 if (comprobar != null) {
                                                     // la orden no se ha registrado aun
+                                                    specimen.setText(texto);// ponemos el specimen en el label
                                                     almacenado = comprobar;
                                                     actualizarInformacion(true);
-                                                    specimen.setText(texto);
                                                 } else {
                                                     // la orden ya se ha registrado. solo inicializamos el portapapeles
                                                     inicializarPortapapeles(true);
                                                 }
                                             } else {
-                                                JOptionPane.showMessageDialog(null, "No se pudo terminar de procesar la orden");
+                                                //JOptionPane.showMessageDialog(null, "No se pudo terminar de procesar la orden");
                                             }
                                         } else {
                                             specAlmacenado = texto;
                                         }
                                     } else {
-                                        JOptionPane.showMessageDialog(null, "Trate de copiar de nuevo el numero de specimen");
+                                        //JOptionPane.showMessageDialog(null, "Trate de copiar de nuevo el numero de specimen");
                                     }
                                 }
                             }
@@ -2124,15 +2122,17 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
 
     private void autocompletar() {
         ResultSet r;
-        r = u.seleccionar("codigoRazon,nombreRazon", "razon", "");
         try {
+            r = u.seleccionar("codigoRazon,nombreRazon", "razon", "");
             r.beforeFirst();
             while (r.next()) {
                 this.codigoRazon.addItem(r.getString("codigoRazon") + " -" + r.getString("nombreRazon"));
             }
+
+        } catch (SQLException ex) {
+        } finally {
             u.cerrarConexion();
             u.cerrarConexionBase();
-        } catch (SQLException ex) {
         }
     }
 
@@ -2140,11 +2140,11 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
         this.ordenActual.setComentarioAgente(comentario.getText());
         //this.ordenActual.setCodigoLocation(l.getCodigoLocation());
         this.ordenActual.setTipoOrden(tipoOrden.getSelectedIndex() + 1);
-        try{
+        try {
             this.ordenActual.setSpecimen(specimen.getText());
-        }catch(Exception ex){
-            this.ordenActual.setSpecimen(specAlmacenado);            
-        }        
+        } catch (Exception ex) {
+            this.ordenActual.setSpecimen(specAlmacenado);
+        }
         return this.ordenActual.actualizarOrden(almacenado, u.getUser());
     }
 
@@ -2171,7 +2171,6 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
 
     public void ingresarOrden(boolean cambioLocation) {
         //cambio location es atributo que indica si es un ingreso porque cambio de location o no
-
         if (!specimen.getText().isEmpty() || this.historial.getRowCount() > 0) {
             boolean bien;
             bien = actualizarOrden();
@@ -2198,7 +2197,6 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
         ventanaEmergente = new Hilo();
         ventanaEmergente.agregarTexto("", 3);
         ventanaEmergente.cambiarColor(1);
-
     }
 
     private boolean agregarRazonOrden() {
@@ -2208,7 +2206,6 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
             if (listaDeOrdenes.isVisible()) {
                 listaOrdenes.setValueAt(tipoOrden.getSelectedItem().toString(), 0, 2);
                 listaOrdenes.setValueAt(comentario.getText(), 0, 5);
-
             }
             this.jDialogRazon.setText("");
             actualizarVentanaEmergente();
