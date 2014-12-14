@@ -474,7 +474,9 @@ public final class Bandeja extends javax.swing.JFrame {
 
     /**
      * ***************************************
-     * @param tabla
+     * @param tabla //88818812
+     * 88818812
+     * 88818813
      */
     public void refrescarTabla(JTable tabla) {
         //Esta funcion permite la recuperacion de mensajes desde la base de datos hacia la bandeja de mensajes
@@ -491,10 +493,10 @@ public final class Bandeja extends javax.swing.JFrame {
                         + " AND mensaje.tipoMensaje=1) ORDER BY fechaHoraMensaje DESC;";
             }
         } else {
-            query = "SELECT distinct mensaje.idMensaje,asunto,date(fechaHoraMensaje) as fecha,time(fechaHoraMensaje) as hora,visto FROM mensaje,puede_tener, gestiona WHERE "
+            query = "SELECT distinct mensaje.idMensaje,asunto,date(fechaHoraMensaje) as fecha,time(fechaHoraMensaje) as hora,visto FROM mensaje, gestiona WHERE "
                     + "( mensaje.idMensaje = gestiona.idMensaje "
                     + "AND gestiona.user = \"" + user + "\" AND gestiona.oculto = "
-                    + "'0' AND mensaje.tipoMensaje=2 AND puede_tener.idMensaje = mensaje.idMensaje AND errorLaboratorio =0) ORDER BY fechaHoraMensaje DESC;";
+                    + "'0' AND mensaje.tipoMensaje=2) ORDER BY fechaHoraMensaje DESC;";
         }
         //System.out.println(query);
         declaracion = null;
