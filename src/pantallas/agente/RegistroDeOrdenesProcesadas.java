@@ -1377,7 +1377,7 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
     }//GEN-LAST:event_menuActionPerformed
 
     private void tipoOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoOrdenActionPerformed
-        if (!this.specimen.getText().isEmpty() || this.historial.getRowCount() > 0) {
+        if (!(this.specimen.getText().isEmpty() || this.almacenado)) {
             if (this.tipoOrden.getSelectedIndex() > 0) {
                 this.jDialogComentario.setSize(340, 140);
                 this.jDialogComentario.setLocationRelativeTo(null);
@@ -2025,8 +2025,8 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                                                 Boolean comprobar = ordenActual.ingresarRegistro(u.getUser(), this.trayIcon);
                                                 if (comprobar != null) {
                                                     // la orden no se ha registrado aun
-                                                    specimen.setText(texto);// ponemos el specimen en el label
                                                     almacenado = comprobar;
+                                                    specimen.setText(texto);// ponemos el specimen en el label                                                    
                                                     actualizarInformacion(true);
                                                 } else {
                                                     // la orden ya se ha registrado. solo inicializamos el portapapeles
