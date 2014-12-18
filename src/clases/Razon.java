@@ -44,9 +44,10 @@ public class Razon extends Sistema {
             if (!r.last()) {
                 valido = true;
             }
-            this.cerrarConexionBase();
-        } catch (Exception e) {
-            this.cerrarConexionBase();
+        } catch (Exception ex) {
+            
+        }finally{
+           this.cerrarConexionBase(); 
         }
         return valido;
     }
@@ -61,11 +62,12 @@ public class Razon extends Sistema {
                 raz.setCodigoRazon(r.getString("codigoRazon"));
                 raz.setNombreRazon(r.getString("nombreRazon"));
                 razones.add(raz);
-            }
-            this.cerrarConexionBase();
-        } catch (Exception e) {
+            }           
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "No se pueden cargar las razones");
             System.exit(1);
+        }finally{
+            this.cerrarConexionBase();
         }
         return razones;
     }
@@ -77,10 +79,11 @@ public class Razon extends Sistema {
             r.beforeFirst();
             if (!r.next()) {
                 valido = true;
-            }
-            this.cerrarConexionBase();
+            }           
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "No se pueden cargar las razones");
+            JOptionPane.showMessageDialog(null, "No existe la razón de envio");
+        }finally{
+            this.cerrarConexionBase();
         }
         return valido;
     }
@@ -89,9 +92,11 @@ public class Razon extends Sistema {
         try {
             ResultSet r = seleccionar("nombreRazon", "razon", "codigoRazon='" + this.codigoRazon + "'");
             this.setNombreRazon(r.getString("nombreRazon"));
-            this.cerrarConexionBase();
+            
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "No se pueden cargar las razones");
+            JOptionPane.showMessageDialog(null, "No existe la razón de envio");
+        }finally{
+            this.cerrarConexionBase();
         }
     }
 
