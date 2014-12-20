@@ -5,7 +5,6 @@
  */
 package clases;
 
-import pantallas.mensajeria.Bandeja;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -13,8 +12,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -126,15 +123,7 @@ public class Mensaje extends Sistema {
             JOptionPane.showMessageDialog(null, "Eliminado con exito");
         }else{
             JOptionPane.showMessageDialog(null, "No se pudo borrar");
-        }
-//        query = "DELETE FROM mensaje WHERE ;
-//        try {
-//            declaracion = conexion("root");
-//            declaracion.executeUpdate(query);
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "Error" + ex, "", JOptionPane.ERROR_MESSAGE);
-//        }
-        
+        }        
     }
 
     /**
@@ -152,17 +141,6 @@ public class Mensaje extends Sistema {
         }else{
             JOptionPane.showMessageDialog(null, "No se pudo borrar");
         }
-//        query = "DELETE FROM mensaje";
-//        try {
-//            declaracion = conexion("root");
-//            declaracion.executeUpdate(query);
-//            new Bandeja(u, tipoBand).setVisible(true);//cambiar los null
-//            cerrarConexiones();
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "Error" + ex, "", JOptionPane.ERROR_MESSAGE);
-//        }
-//        JOptionPane.showMessageDialog(null, "Eliminado con exito");
-
     }
 
     /**
@@ -216,15 +194,6 @@ public class Mensaje extends Sistema {
         }else{
             JOptionPane.showMessageDialog(null, "No se pudo borrar");
         }
-        
-//        query = "UPDATE gestiona SET  WHERE user=\"" + user + "\" AND idMensaje='" + id + "'";
-//        try {
-//            declaracion = conexion("root");
-//            declaracion.executeUpdate(query);
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "Error" + ex, "", JOptionPane.ERROR_MESSAGE);
-//        }
-//        JOptionPane.showMessageDialog(null, "Eliminado con exito");
     }
 
     /**
@@ -243,17 +212,6 @@ public class Mensaje extends Sistema {
         }else{
             JOptionPane.showMessageDialog(null, "No se pudo borrar");
         }
-//        query = "UPDATE gestiona SET oculto=\"1\" WHERE user=\"" + user + "\"";
-//        try {
-//            declaracion = conexion("root");
-//            declaracion.executeUpdate(query);
-//            new Bandeja(u, tipoBand).setVisible(true);//cambiar los parametros
-//            cerrarConexiones();
-//        } catch (SQLException ex) {
-//            JOptionPane.showMessageDialog(null, "Error" + ex, "", JOptionPane.ERROR_MESSAGE);
-//        }
-//        JOptionPane.showMessageDialog(null, "Eliminado con exito");
-
     }
 
     /**

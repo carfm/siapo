@@ -963,11 +963,11 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
 
             },
             new String [] {
-                "user", "fecha y hora"
+                "user", "Hora Inicio", "Hora Finalizacion"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -979,6 +979,7 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
             historial.getColumnModel().getColumn(0).setResizable(false);
             historial.getColumnModel().getColumn(0).setPreferredWidth(10);
             historial.getColumnModel().getColumn(1).setResizable(false);
+            historial.getColumnModel().getColumn(2).setResizable(false);
         }
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -1881,12 +1882,10 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
     }
 
     public void inicializarPortapapeles(boolean noConservarN) {
-
         if (noConservarN) {
             specAlmacenado = "00000000";
             primeraVez = true;
         }
-
     }
     /**
      * @param args the command line arguments
@@ -2128,7 +2127,6 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
             while (r.next()) {
                 this.codigoRazon.addItem(r.getString("codigoRazon") + " -" + r.getString("nombreRazon"));
             }
-
         } catch (SQLException ex) {
         } finally {
             u.cerrarConexion();
@@ -2149,12 +2147,11 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
     }
 
     public void actualizarVentanaEmergente() {
-
         ventanaEmergente.cambiarColor(1);
         String texto = "SPECIMEN ACTUAL: " + this.specAlmacenado
                 + " \nLOCATION: " + nombreLocation.getSelectedItem().toString() + " # " + l.getCodigoLocationUSA()
                 + " \nTIPO DE ORDEN: " + tipoOrden.getSelectedItem().toString().toUpperCase()
-                + "\nFECHA Y HORA: " + this.historial.getValueAt(0, 1)
+                + "\nHORA INICIO: " + this.historial.getValueAt(0, 1) + " HORA FIN: " + this.historial.getValueAt(0, 2)
                 + " \n";
         if (this.almacenado) {
             texto = texto + "INGRESADA POR: " + ordenActual.getUser().toUpperCase();
@@ -2164,9 +2161,7 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
             ventanaEmergente.cambiarColor(3);
             texto = texto + "\nMANDADA POR: " + ordenActual.getComentarioAgente();
         }
-        //       "Specimen: \nLocation:  \nTipo de Orden: \nRazon de envio:"
         this.ventanaEmergente.agregarTexto(texto, 3);
-
     }
 
     public void ingresarOrden(boolean cambioLocation) {

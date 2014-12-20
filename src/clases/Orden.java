@@ -29,11 +29,9 @@ public class Orden extends Sistema {
     private String codigoLocation;
     private int tipoOrden;
     private String comentarioAgente;
-    private String comentarioAuditor;
     private ArrayList<Razon> razones;
     private ArrayList<Error> errores;
     private boolean errorLab;
-    private ResultSet res;
     private String user;
     private String codError;
     private String nomError;
@@ -120,11 +118,12 @@ public class Orden extends Sistema {
                 // NO HAY REGISTRO DEL SPECIMEN
                 tiene = false;
             }
-            r.close();
-            this.cerrarConexionBase();
-        } catch (SQLException ex) {
+            r.close();           
+        } catch (Exception ex) {
             ErroresSiapo.agregar(ex, "codigo 26");
             //Logger.getLogger(Orden.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            this.cerrarConexionBase();
         }
         return tiene;
     }
@@ -137,29 +136,30 @@ public class Orden extends Sistema {
             if (!r.last()) {
                 // solo el tiene el registro de esa orden
                 nomismo = true;
-            }
-            this.cerrarConexionBase();
+            }           
         } catch (SQLException ex) {
             //Logger.getLogger(Orden.class.getName()).log(Level.SEVERE, null, ex);
             nomismo = null;
+        }finally{
+            this.cerrarConexionBase();
         }
         return nomismo;
     }
 
     public boolean contieneErrores() {
         ResultSet r;
-        boolean errores = true;
+        boolean errors = true;
         try {
             r = seleccionar("specimen", "puede_tener", "specimen = '" + getSpecimen() + "'");
             if (!r.last()) {
-                errores = false;
+                errors = false;
             }
-            getSentencia().close();
-            this.cerrarConexionBase();
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(Orden.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            this.cerrarConexionBase();
         }
-        return errores;
+        return errors;
     }
 
     public boolean estaAuditada() {
@@ -171,9 +171,11 @@ public class Orden extends Sistema {
                 auditada = false;
             }
             getSentencia().close();
-            this.cerrarConexionBase();
-        } catch (SQLException ex) {
+            
+        } catch (Exception ex) {
             Logger.getLogger(Orden.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            this.cerrarConexionBase();
         }
         return auditada;
     }
@@ -240,12 +242,13 @@ public class Orden extends Sistema {
                 }
             }
             t[3] = t[0] + t[1] + t[2];
-            r.close();
-            this.cerrarConexionBase();
+            r.close();           
             return t;
-        } catch (SQLException ex) {
-            System.out.println(ex);
+        } catch (Exception ex) {
+            //System.out.println(ex);
             return null;
+        }finally{
+            this.cerrarConexionBase();
         }
     }
 
@@ -274,12 +277,13 @@ public class Orden extends Sistema {
             //r.beforeFirst();
             t[1] = r.getInt("totalError");
             t[0] = t[2] - t[1];
-            r.close();
-            cerrarConexionBase();
+            r.close();           
             return t;
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.out.println(ex);
             return null;
+        }finally{
+            cerrarConexionBase();
         }
     }
 
@@ -312,13 +316,13 @@ public class Orden extends Sistema {
                 }
             }
             t[3] = t[0] + t[1] + t[2];
-            getSentencia().close();
-            this.cerrarConexionBase();
+            getSentencia().close();           
             return t;
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             System.out.println(ex);
-
             return null;
+        }finally{
+           this.cerrarConexionBase(); 
         }
     }
 
@@ -378,13 +382,14 @@ public class Orden extends Sistema {
                 o.setHoraInicio(r.getString("horaInicio"));
                 o.setHoraFin(r.getString("horaFin"));
                 ordenes.add(o);
-            }
-            this.cerrarConexionBase();
+            }            
         } catch (Exception e) {
             ErroresSiapo.agregar(e, "codigo 29");
             JOptionPane.showMessageDialog(null, "No se pueden cargar las ordenes");
             ordenes = null;
             //System.exit(1);
+        }finally{
+            this.cerrarConexionBase();
         }
         return ordenes;
     }
@@ -414,11 +419,12 @@ public class Orden extends Sistema {
                 ((DefaultTableModel) listaOrdenes.getModel()).addRow(fila);
             }
             ((DefaultTableModel) listaOrdenes.getModel()).fireTableDataChanged();
-            //listaOrdenes.repaint();
-            this.cerrarConexionBase();
+            //listaOrdenes.repaint();           
         } catch (Exception e) {
             //System.out.println(e);
             ErroresSiapo.agregar(e, "codigo 30");
+        }finally{
+            this.cerrarConexionBase();
         }
         // return ordenes;
     }
@@ -438,10 +444,11 @@ public class Orden extends Sistema {
                 Razon raz = new Razon();
                 raz.setCodigoRazon(r.getString("codigoRazon"));
                 razones.add(raz);
-            }
-            this.cerrarConexionBase();
+            }            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No se pueden cargar las razones");
+        }finally{
+            this.cerrarConexionBase();
         }
     }
 
@@ -493,12 +500,12 @@ public class Orden extends Sistema {
     public void obtenerInfoOrden(JTable historial, JComboBox nombreLocation, JComboBox tipoOrden) {
         try {
             ResultSet r;
-            r = seleccionar("nombrelocation, tipoOrden,user,concat(fecha,' ',horaInicio),comentarioAgente",
+            r = seleccionar("nombrelocation, tipoOrden,user,horaInicio,horaFin,comentarioAgente",
                     "procesa_audita a, orden b, location c",
                     "a.specimen = b.specimen AND a.specimen = '" + specimen + "' AND c.codigoLocation = b.codigoLocation and tipoOperacion=1 ORDER BY fecha ASC ");
             if (r.last()) {
                 r.first();
-                //nombreLocation.setSelectedItem(r.getString("nombrelocation"));
+                //nombreLocation.setSelectedItem(r.getString("nombrelocation"));14190481
                 tipoOrden.setSelectedIndex(Integer.parseInt(r.getString("tipoOrden")) - 1);
                 this.comentarioAgente = r.getString("comentarioAgente");
                 this.setUser(r.getString("user"));
@@ -506,21 +513,22 @@ public class Orden extends Sistema {
                 int i;
                 r.beforeFirst();
                 while (r.next()) {
-                    Object[] fila = new Object[2];
-                    for (i = 0; i < 2; i++) {
+                    Object[] fila = new Object[3];
+                    for (i = 0; i < 3; i++) {
                         fila[i] = r.getObject(i + 3);
                     }
                     modelo.addRow(fila);
                 }
-                cerrarConexionBase();
             }
             historial.repaint();
-            cerrarConexionBase();
+            
         } catch (SQLException | NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "No se cargo la informacion de la orden",
                     "Error en registro de orden", JOptionPane.INFORMATION_MESSAGE);
             ErroresSiapo.agregar(ex, "codigo 31");
             //System.out.println(ex);
+        }finally{
+            cerrarConexionBase();
         }
     }
 
@@ -587,11 +595,12 @@ public class Orden extends Sistema {
                 listaOrdenes.setValueAt(r.getString("horaInicio"), j, 3);
                 listaOrdenes.setValueAt(r.getString("comentarioAuditor"), j, 4);
                 j++;
-            }
-            this.cerrarConexionBase();
+            }            
         } catch (Exception ex) {
             ErroresSiapo.agregar(ex, "codigo 32");
             //System.out.println(ex);
+        }finally{
+           this.cerrarConexionBase(); 
         }
     }
 

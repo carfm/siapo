@@ -545,16 +545,16 @@ public final class AgregarRazon extends javax.swing.JFrame {
     }//GEN-LAST:event_agregarRazonActionPerformed
 
     private void listaErrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaErrActionPerformed
-        // TODO add your handling code here:
-        if (primeraVez == true) {
-            actualizarListaErrores(true);
-            primeraVez = false;
-        } else {
-            actualizarListaErrores(false);
-        }
-        lista.setSize(800, 600);
-        lista.setLocationRelativeTo(null);
-        lista.setVisible(true);
+//        // TODO add your handling code here:
+//        if (primeraVez == true) {
+//            actualizarListaRazones(true);
+//            primeraVez = false;
+//        } else {
+//            actualizarListaRazones(false);
+//        }
+//        lista.setSize(800, 600);
+//        lista.setLocationRelativeTo(null);
+//        lista.setVisible(true);
     }//GEN-LAST:event_listaErrActionPerformed
 
     private void limpiarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarCamposActionPerformed
@@ -569,42 +569,42 @@ public final class AgregarRazon extends javax.swing.JFrame {
         new MenuPpal(u, false, this.n, this.e).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton12ActionPerformed
-    public void actualizarListaErrores(boolean primeraVez) {
-        int i, j, filas;//i fila j colummna
-        ResultSet r;
-        try {
-            r = u.seleccionar("count(*) as filas", "error", "aprobado=1");
-            filas = Integer.parseInt(r.getString("filas"));
-            r = u.seleccionar("codigoError,nombreError,nombreTipo,descripcionError", "error,tipoerror",
-                    "error.codigoTipo LIKE tipoerror.codigoTipo and aprobado=1 order by codigoError asc");
-            r.first();
-            for (i = 0; i < filas; i++) {
-                if (primeraVez) {
-                    ((DefaultTableModel) jTable1.getModel()).
-                            setRowCount(jTable1.getRowCount() + 1);// agrega filas dinamicamente
-                }
-                for (j = 0; j < 4; j++) {
-                    //fila,colummna
-                    switch (j) {
-                        case 0:
-                            jTable1.setValueAt(r.getString("codigoError"), i, j);
-                            break;
-                        case 1:
-                            jTable1.setValueAt(r.getString("nombreError"), i, j);
-                            break;
-                        case 2:
-                            jTable1.setValueAt(r.getString("nombreTipo"), i, j);
-                            break;
-                        case 3:
-                            jTable1.setValueAt(r.getString("descripcionError"), i, j);
-                            break;
-                    }
-                }
-                r.next();
-            }
-            u.getSentencia().close();
-        } catch (SQLException | NumberFormatException e) {
-        }
+    public void actualizarListaRazones(boolean primeraVez) {
+//        int i, j, filas;//i fila j colummna
+//        ResultSet r;
+//        try {
+//            r = u.seleccionar("count(*) as filas", "error", "aprobado=1");
+//            filas = Integer.parseInt(r.getString("filas"));
+//            r = u.seleccionar("codigoError,nombreError,nombreTipo,descripcionError", "error,tipoerror",
+//                    "error.codigoTipo LIKE tipoerror.codigoTipo and aprobado=1 order by codigoError asc");
+//            r.first();
+//            for (i = 0; i < filas; i++) {
+//                if (primeraVez) {
+//                    ((DefaultTableModel) jTable1.getModel()).
+//                            setRowCount(jTable1.getRowCount() + 1);// agrega filas dinamicamente
+//                }
+//                for (j = 0; j < 4; j++) {
+//                    //fila,colummna
+//                    switch (j) {
+//                        case 0:
+//                            jTable1.setValueAt(r.getString("codigoError"), i, j);
+//                            break;
+//                        case 1:
+//                            jTable1.setValueAt(r.getString("nombreError"), i, j);
+//                            break;
+//                        case 2:
+//                            jTable1.setValueAt(r.getString("nombreTipo"), i, j);
+//                            break;
+//                        case 3:
+//                            jTable1.setValueAt(r.getString("descripcionError"), i, j);
+//                            break;
+//                    }
+//                }
+//                r.next();
+//            }
+//            u.getSentencia().close();
+//        } catch (SQLException | NumberFormatException e) {
+//        }
     }
     /**
      * @param args the command line arguments

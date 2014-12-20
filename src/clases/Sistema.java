@@ -340,12 +340,12 @@ public class Sistema {
         int contador = 0;
         r = seleccionar("count(*) as filas", tabla, condicion);
         try {
-            contador = Integer.parseInt(r.getString("filas"));
-            this.cerrarConexionBase();
-        } catch (SQLException ex) {
+            contador = Integer.parseInt(r.getString("filas"));           
+        } catch (Exception ex) {
             ErroresSiapo.agregar(ex, "codigo 8");
             Logger.getLogger(Sistema.class.getName()).log(Level.SEVERE, null, ex);
-
+        }finally{
+           this.cerrarConexionBase(); 
         }
         return contador;
     }
