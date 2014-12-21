@@ -2150,12 +2150,15 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
         ventanaEmergente.cambiarColor(1);
         String texto = "SPECIMEN ACTUAL: " + this.specAlmacenado
                 + " \nLOCATION: " + nombreLocation.getSelectedItem().toString() + " # " + l.getCodigoLocationUSA()
-                + " \nTIPO DE ORDEN: " + tipoOrden.getSelectedItem().toString().toUpperCase()
-                + "\nHORA INICIO: " + this.historial.getValueAt(0, 1) + " HORA FIN: " + this.historial.getValueAt(0, 2)
-                + " \n";
+                + " \nTIPO DE ORDEN: " + tipoOrden.getSelectedItem().toString().toUpperCase();
+        
         if (this.almacenado) {
-            texto = texto + "INGRESADA POR: " + ordenActual.getUser().toUpperCase();
+            texto = texto + "\nHORA INICIO: " + this.historial.getValueAt(0, 1) + " HORA FIN: " + this.historial.getValueAt(0, 2)
+                    + "\nINGRESADA POR: " + ordenActual.getUser().toUpperCase();
             ventanaEmergente.cambiarColor(4);
+        } else {
+            texto = texto + "\nHORA INICIO: " + this.historial.getValueAt(0, 1)
+                    + "\n";
         }
         if (tipoOrden.getSelectedIndex() > 0) {
             ventanaEmergente.cambiarColor(3);

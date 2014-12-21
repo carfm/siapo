@@ -500,7 +500,7 @@ public class Orden extends Sistema {
     public void obtenerInfoOrden(JTable historial, JComboBox nombreLocation, JComboBox tipoOrden) {
         try {
             ResultSet r;
-            r = seleccionar("nombrelocation, tipoOrden,user,horaInicio,horaFin,comentarioAgente",
+            r = seleccionar("nombrelocation, tipoOrden,user,horaInicio,(SELECT CASE WHEN horaFin is null  THEN '-' ELSE horaFin END),comentarioAgente",
                     "procesa_audita a, orden b, location c",
                     "a.specimen = b.specimen AND a.specimen = '" + specimen + "' AND c.codigoLocation = b.codigoLocation and tipoOperacion=1 ORDER BY fecha ASC ");
             if (r.last()) {
