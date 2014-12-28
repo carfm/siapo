@@ -1120,7 +1120,6 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
         o.setSpecimen(ed_text_specimen.getText());
         if (!o.getSpecimen().isEmpty()) {
             if (o.tieneRegistros()) { //si existe el specimen
-                //o.setSpecimen(specAlmacenado);
                 if (o.estaAuditada()) {// si ya esta auditada
                     JOptionPane.showMessageDialog(null, "Orden ya auditada si quiere agregar errores vaya a la opcion de modificar auditoria", "Auditoria de Orden", JOptionPane.INFORMATION_MESSAGE);
                 } else {
@@ -1131,15 +1130,11 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "No exite el specimen", "Auditoria de Orden", JOptionPane.INFORMATION_MESSAGE);
-                //this.limpiarControles();
             }
             inicializarPortapapeles(false);
         } else {
             JOptionPane.showMessageDialog(null, "No hay registro que ingresar", "Auditoria de Orden", JOptionPane.INFORMATION_MESSAGE);
         }
-
-        //primeraVez = true;
-
     }//GEN-LAST:event_ed_button_regActionPerformed
 
     public boolean ingresarAuditoria() {
@@ -1148,6 +1143,9 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
         nSpecimen = ed_text_specimen.getText().trim();
         agente = ed_text_agent.getText();
         boolean exito = true;
+        if (!this.nombreError.getText().isEmpty()) {
+            ed_button_iError.doClick();
+        }
         for (int i = 0; i < ed_table_errores.getRowCount(); i++) {
             deLab = ed_table_errores.getValueAt(i, 4).toString().trim();
             codError = ed_table_errores.getValueAt(i, 0).toString().trim().substring(0, 5);
@@ -1165,13 +1163,11 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
                 o = new Orden(nSpecimen, false, agente, codError, nombreError);
                 exito = o.agregarError(false, comentario);
             }
-            
-            //50000001
         }
         if (exito) {
             if (u.insertar("procesa_audita", "NULL,'" + u.getUser() + "', '" + nSpecimen + "',CURDATE(),CURTIME(),CURTIME(),2")) {
                 //se reinician todos los controles del  frame.
-                limpiarTabla(ed_table_errores);
+                this.u.limpiarTabla(ed_table_errores);
                 limpiarControles();
                 habilitarControles(false);
                 ed_button_verAudi.setEnabled(true);
@@ -1240,12 +1236,11 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
         } else {
             int i = JOptionPane.showConfirmDialog(null, "¿Esta seguro de continuar?", "Cancelar Auditoria", JOptionPane.YES_NO_OPTION);
             if (i == 0) {
-                limpiarTabla(ed_table_errores);
+                this.u.limpiarTabla(ed_table_errores);
                 limpiarControles();
                 habilitarControles(false);
                 u.inicializarPortapapeles("00000000");
                 inicializarPortapapeles(true);
-                //inicializarPortapapeles(true);
                 JOptionPane.showMessageDialog(null, "¡Operacion realizada con exito!");
             }
         }
@@ -1356,7 +1351,6 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
             ed_button_cancel.setEnabled(true);
             errorLabo.setEnabled(true);
             resultados.setEnabled(true);
-            //ed_button_verAudi.setEnabled(false);
             u.cerrarConexionBase();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Hubo un problema al cargar la informacion de la orden", "", JOptionPane.ERROR_MESSAGE);
@@ -1376,19 +1370,6 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
         if (noConservarN) {
             specAlmacenado = "00000000";
             primeraVez = true;
-        }
-    }
-
-    private void limpiarTabla(JTable tabla) {
-        //Metodo que borra todas las filas insertadas en la JTable
-        try {
-            DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
-            int filas = tabla.getRowCount() - 1;
-            for (int i = filas; i >= 0; i--) {
-                modelo.removeRow(i);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla." + e);
         }
     }
 
@@ -1488,7 +1469,7 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
 
     @Override
     public void run() {
-        
+
         while (!stop) {
             try {
                 Thread.sleep(2000);

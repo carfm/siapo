@@ -1378,14 +1378,16 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
     }//GEN-LAST:event_menuActionPerformed
 
     private void tipoOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoOrdenActionPerformed
-        if (!(this.specimen.getText().isEmpty() || this.almacenado)) {
+        Boolean a = this.specimen.getText().isEmpty(), b = this.historial.getRowCount() > 0;
+        if (!a && b) {
             if (this.tipoOrden.getSelectedIndex() > 0) {
                 this.jDialogComentario.setSize(340, 140);
                 this.jDialogComentario.setLocationRelativeTo(null);
-                this.jDialogComentario.setVisible(true);
+                this.jDialogComentario.setVisible(true);           
             } else {
+                this.comentario.setText("");
+                this.ordenActual.setComentarioAgente("");
                 this.ordenActual.getRazones().clear();
-                this.comentaAgente.setText("");
             }
         }
     }//GEN-LAST:event_tipoOrdenActionPerformed
@@ -1405,7 +1407,7 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
     }//GEN-LAST:event_formWindowIconified
 
     private void borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarActionPerformed
-        // TODO add your handling code here: 55555557
+        // TODO add your handling code here:
         int t[];
         t = listaOrdenes.getSelectedRows();
         if (t.length > 1) {
@@ -1438,12 +1440,12 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                             if (!o.estaAuditada()) {
                                 o.borrarOrden(u.getUser());
                                 this.inicializarPortapapeles(false);
-                                JOptionPane.showMessageDialog(null, " Registro en orden borrado", "Eliminar registro de Orden", JOptionPane.INFORMATION_MESSAGE);
+                                JOptionPane.showMessageDialog(null, " Registro de orden borrado", "Eliminar registro de Orden", JOptionPane.INFORMATION_MESSAGE);
                                 actualizarListaRegistro();
 //                                this.listaDeOrdenes.repaint();
 //                                listaOrdenes.repaint();
                                 llenarTotales();
-                                trayIcon.setToolTip("Orden actual: " + this.specAlmacenado + "\nPR:" + this.total.getText() + " CO:" + this.completas.getText() + " IN:" + this.incompletas.getText() + " SN:" + this.nada.getText());
+                                trayIcon.setToolTip("PR:" + this.total.getText() + " CO:" + this.completas.getText() + " IN:" + this.incompletas.getText() + " SN:" + this.nada.getText());
                             } else {
                                 JOptionPane.showMessageDialog(null, " La orden ya fue auditada asi que no puede ser eliminado el registro", "Error", JOptionPane.INFORMATION_MESSAGE);
                             }
@@ -1604,7 +1606,6 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
         if (!this.jDialogRazon.getText().isEmpty()) {
             if (agregarRazonOrden()) {
                 this.jDialogComentario.dispose();
-                //ventanaEmergente.cambiarColor(3);
             }
         } else {
             if (ordenActual.getRazones().isEmpty()) {
@@ -1700,7 +1701,7 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
     }//GEN-LAST:event_agregarActionPerformed
 
     private void nombreLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreLocationActionPerformed
-        // TODO add your handling code here: 12345616
+        // TODO add your handling code here:
         l = l.buscarLocation(listaDeLocations, this.nombreLocation.getSelectedItem().toString());
     }//GEN-LAST:event_nombreLocationActionPerformed
 
@@ -2025,7 +2026,7 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                                                 if (comprobar != null) {
                                                     // la orden no se ha registrado aun
                                                     almacenado = comprobar;
-                                                    specimen.setText(texto);// ponemos el specimen en el label                                                    
+                                                    specimen.setText(texto);// ponemos el specimen en el label 
                                                     actualizarInformacion(true);
                                                 } else {
                                                     // la orden ya se ha registrado. solo inicializamos el portapapeles
@@ -2092,7 +2093,7 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
     public void comprobarSalida() {
         if (!specimen.getText().isEmpty()) {
             int resulta = JOptionPane.showConfirmDialog(null, "Está por cerrar la aplicación y tiene una orden sin procesar "
-                    + "¿Desea ingresar la orden?", "Eliminar usuario",
+                    + "¿Desea ingresar la orden?", "Eliminar registro de orden",
                     JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
             if (resulta == JOptionPane.YES_OPTION) {
                 ingresarOrden(false);
@@ -2151,7 +2152,7 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
         String texto = "SPECIMEN ACTUAL: " + this.specAlmacenado
                 + " \nLOCATION: " + nombreLocation.getSelectedItem().toString() + " # " + l.getCodigoLocationUSA()
                 + " \nTIPO DE ORDEN: " + tipoOrden.getSelectedItem().toString().toUpperCase();
-        
+
         if (this.almacenado) {
             texto = texto + "\nHORA INICIO: " + this.historial.getValueAt(0, 1) + " HORA FIN: " + this.historial.getValueAt(0, 2)
                     + "\nINGRESADA POR: " + ordenActual.getUser().toUpperCase();
