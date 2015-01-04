@@ -503,7 +503,7 @@ public class Orden extends Sistema {
             ResultSet r;
             r = seleccionar("nombrelocation, tipoOrden,user,horaInicio,(SELECT CASE WHEN horaFin is null  THEN '-' ELSE horaFin END),comentarioAgente",
                     "procesa_audita a, orden b, location c",
-                    "a.specimen = b.specimen AND a.specimen = '" + specimen + "' AND c.codigoLocation = b.codigoLocation and tipoOperacion=1 ORDER BY fecha ASC ");
+                    "a.specimen = b.specimen AND a.specimen = '" + specimen + "' AND c.codigoLocation = b.codigoLocation and tipoOperacion=1 ORDER BY idProcAud ");
             if (r.last()) {
                 r.first();
                 //nombreLocation.setSelectedItem(r.getString("nombrelocation"));14190481
