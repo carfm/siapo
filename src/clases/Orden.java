@@ -7,14 +7,10 @@ package clases;
 import java.awt.TrayIcon;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -46,7 +42,6 @@ public class Orden extends Sistema {
         this.user = user;
         this.codError = codError;
         this.nomError = nomError;
-
     }
 
     public Orden() {
@@ -119,11 +114,11 @@ public class Orden extends Sistema {
                 // NO HAY REGISTRO DEL SPECIMEN
                 tiene = false;
             }
-            r.close();           
+            r.close();
         } catch (Exception ex) {
             ErroresSiapo.agregar(ex, "codigo 26");
             //Logger.getLogger(Orden.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             this.cerrarConexionBase();
         }
         return tiene;
@@ -137,11 +132,11 @@ public class Orden extends Sistema {
             if (!r.last()) {
                 // solo el tiene el registro de esa orden
                 nomismo = true;
-            }           
+            }
         } catch (SQLException ex) {
             //Logger.getLogger(Orden.class.getName()).log(Level.SEVERE, null, ex);
             nomismo = null;
-        }finally{
+        } finally {
             this.cerrarConexionBase();
         }
         return nomismo;
@@ -157,7 +152,7 @@ public class Orden extends Sistema {
             }
         } catch (Exception ex) {
             Logger.getLogger(Orden.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             this.cerrarConexionBase();
         }
         return errors;
@@ -172,10 +167,10 @@ public class Orden extends Sistema {
                 auditada = false;
             }
             getSentencia().close();
-            
+
         } catch (Exception ex) {
             Logger.getLogger(Orden.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             this.cerrarConexionBase();
         }
         return auditada;
@@ -190,25 +185,6 @@ public class Orden extends Sistema {
             exito = insertar("puede_tener", "NULL, '" + codError + "', '" + specimen + "', '" + getUser() + "',NULL, 0,0,CURDATE()");
         }
         return exito;
-    }
-
-    public static int restarFechas(Date fechaInicial, Date fechaFinal) {
-        DateFormat df = DateFormat.getDateInstance(DateFormat.MEDIUM);
-        String fechaInicioString = df.format(fechaInicial);
-        try {
-            fechaInicial = df.parse(fechaInicioString);
-        } catch (ParseException ex) {
-        }
-        String fechaFinalString = df.format(fechaFinal);
-        try {
-            fechaFinal = df.parse(fechaFinalString);
-        } catch (ParseException ex) {
-        }
-        long fechaInicialMs = fechaInicial.getTime();
-        long fechaFinalMs = fechaFinal.getTime();
-        long diferencia = fechaFinalMs - fechaInicialMs;
-        double dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
-        return ((int) dias);
     }
 
     public int[] cantidadTipoOrdenes(String user, String periodo) {
@@ -227,28 +203,35 @@ public class Orden extends Sistema {
             t = new int[4];
             t[0] = t[1] = t[2] = 0;
             ResultSet r;
-            r = seleccionar("tipoOrden, COUNT( * ) as totales",
-                    "orden a, procesa_audita b",
-                    "user = '" + user + "' AND a.specimen = b.specimen and " + periodo + " and tipoOperacion = 1 GROUP BY tipoOrden");
-            r.beforeFirst();
-            while (r.next()) {
-                if (Integer.parseInt(r.getString("tipoOrden")) == 1) { // completas
-                    t[0] = Integer.parseInt(r.getString("totales"));
-                } else {
-                    if (Integer.parseInt(r.getString("tipoOrden")) == 2) {//incompletas
-                        t[1] = Integer.parseInt(r.getString("totales"));
-                    } else {
-                        t[2] = Integer.parseInt(r.getString("totales")); // sin hacer nada
-                    }
-                }
-            }
-            t[3] = t[0] + t[1] + t[2];
-            r.close();           
+            r = seleccionar("(select count(*) from procesa_audita where user='" + user + "' and tipoOperacion = 1 and " + periodo + ") as t3,"
+                    + "(select count(*) from (select distinct a.specimen from procesa_audita a join mandada_por b on a.specimen = b.specimen and b.user= '" + user + "' and a.user='" + user + "' and tipoOperacion = 1 and " + periodo + " join orden c on c.specimen =b.specimen and tipoOrden = 2) a) as t1,"
+                    + "(select count(*) from (select distinct a.specimen from procesa_audita a join mandada_por b on a.specimen = b.specimen and b.user= '" + user + "' and a.user='" + user + "' and tipoOperacion = 1 and " + periodo + " join orden c on c.specimen =b.specimen and tipoOrden = 3) a) as t2", "", "");
+            t[3] = r.getInt("t3");
+            t[1] = r.getInt("t1");
+            t[2] = r.getInt("t2");
+            t[0] = t[3] - t[1] - t[2];
+//            r = seleccionar("tipoOrden, COUNT( * ) as totales",
+//                    "orden a, procesa_audita b",
+//                    "user = '" + user + "' AND a.specimen = b.specimen and " + periodo + " and tipoOperacion = 1 GROUP BY tipoOrden");
+//            r.beforeFirst();
+//            while (r.next()) {
+//                if (Integer.parseInt(r.getString("tipoOrden")) == 1) { // completas
+//                    t[0] = Integer.parseInt(r.getString("totales"));
+//                } else {
+//                    if (Integer.parseInt(r.getString("tipoOrden")) == 2) {//incompletas
+//                        t[1] = Integer.parseInt(r.getString("totales"));
+//                    } else {
+//                        t[2] = Integer.parseInt(r.getString("totales")); // sin hacer nada
+//                    }
+//                }
+//            }
+//            t[3] = t[0] + t[1] + t[2];
+            r.close();
             return t;
         } catch (Exception ex) {
             //System.out.println(ex);
             return null;
-        }finally{
+        } finally {
             this.cerrarConexionBase();
         }
     }
@@ -278,12 +261,12 @@ public class Orden extends Sistema {
             //r.beforeFirst();
             t[1] = r.getInt("totalError");
             t[0] = t[2] - t[1];
-            r.close();           
+            r.close();
             return t;
         } catch (Exception ex) {
             System.out.println(ex);
             return null;
-        }finally{
+        } finally {
             cerrarConexionBase();
         }
     }
@@ -317,13 +300,13 @@ public class Orden extends Sistema {
                 }
             }
             t[3] = t[0] + t[1] + t[2];
-            getSentencia().close();           
+            getSentencia().close();
             return t;
         } catch (Exception ex) {
             System.out.println(ex);
             return null;
-        }finally{
-           this.cerrarConexionBase(); 
+        } finally {
+            this.cerrarConexionBase();
         }
     }
 
@@ -383,13 +366,13 @@ public class Orden extends Sistema {
                 o.setHoraInicio(r.getString("horaInicio"));
                 o.setHoraFin(r.getString("horaFin"));
                 ordenes.add(o);
-            }            
+            }
         } catch (Exception e) {
             ErroresSiapo.agregar(e, "codigo 29");
             JOptionPane.showMessageDialog(null, "No se pueden cargar las ordenes");
             ordenes = null;
             //System.exit(1);
-        }finally{
+        } finally {
             this.cerrarConexionBase();
         }
         return ordenes;
@@ -404,10 +387,25 @@ public class Orden extends Sistema {
             } else {
                 periodo = "between '" + fechaInicio + "' and '" + fechaFin + "'";
             }
-            ResultSet r = seleccionar("b.specimen,nombreLocation,(SELECT CASE WHEN tipoOrden =1 THEN 'Completa' WHEN tipoOrden =2 THEN 'Regresada Incompleta' WHEN tipoOrden =3 THEN 'Regresada sin hacer nada' END) AS nombreTipo,horaInicio,horaFin,comentarioAgente",
+            /*
+             SELECT b.specimen,nombreLocation,
+             (SELECT CASE WHEN tipoOrden =1 THEN 'Completa' 
+             WHEN tipoOrden =2 THEN (SELECT ifnull((SELECT 'Regresada Incompleta' from mandada_por e WHERE e.specimen = b.specimen and e.user='jfuentes' ),'Completa')) WHEN tipoOrden =3 THEN (SELECT ifnull((SELECT 'Regresada sin hacer nada' from mandada_por e WHERE e.specimen = b.specimen and e.user='jfuentes' ),'Completa')) END) AS nombreTipo,horaInicio,horaFin,comentarioAgente 
+             FROM procesa_audita a inner join orden b on a.specimen = b.specimen and tipoOperacion=1 and user = 'jfuentes' inner join location c on c.codigoLocation = b.codigoLocation WHERE fecha between '2015-01-09' and '2015-01-09' 
+             ORDER BY horaInicio desc 
+             ResultSet r = seleccionar("b.specimen,nombreLocation,(SELECT CASE WHEN tipoOrden =1 THEN 'Completa' WHEN tipoOrden =2 THEN 'Regresada Incompleta' WHEN tipoOrden =3 THEN 'Regresada sin hacer nada' END) AS nombreTipo,horaInicio,horaFin,comentarioAgente",
+             "procesa_audita a inner join orden b on a.specimen = b.specimen and tipoOperacion=1 and user = '" + user
+             + "' inner join location c  on c.codigoLocation = b.codigoLocation",
+             "  fecha " + periodo + " ORDER BY horaInicio desc");
+             */
+            ResultSet r = seleccionar("b.specimen,nombreLocation,(SELECT CASE "
+                    + "WHEN tipoOrden =1 THEN 'Completa' "
+                    + "WHEN tipoOrden =2 THEN (SELECT ifnull((SELECT 'Regresada incompleta' from mandada_por e WHERE e.specimen = b.specimen and e.user='" + user + "' ),'Completa'))"
+                    + "WHEN tipoOrden =3 THEN (SELECT ifnull((SELECT 'Regresada sin hacer nada' from mandada_por e WHERE e.specimen = b.specimen and e.user='" + user + "' ),'Completa')) END) AS nombreTipo,horaInicio,horaFin,comentarioAgente",
                     "procesa_audita a inner join orden b on a.specimen = b.specimen and tipoOperacion=1 and user = '" + user
                     + "' inner join location c  on c.codigoLocation = b.codigoLocation",
                     "  fecha " + periodo + " ORDER BY horaInicio desc");
+
             r.beforeFirst();
             while (r.next()) {
                 // Se crea un array que será una de las filas de la tabla.
@@ -424,7 +422,7 @@ public class Orden extends Sistema {
         } catch (Exception e) {
             //System.out.println(e);
             ErroresSiapo.agregar(e, "codigo 30");
-        }finally{
+        } finally {
             this.cerrarConexionBase();
         }
         // return ordenes;
@@ -445,10 +443,10 @@ public class Orden extends Sistema {
                 Razon raz = new Razon();
                 raz.setCodigoRazon(r.getString("codigoRazon"));
                 razones.add(raz);
-            }            
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No se pueden cargar las razones");
-        }finally{
+        } finally {
             this.cerrarConexionBase();
         }
     }
@@ -522,13 +520,13 @@ public class Orden extends Sistema {
                 }
             }
             historial.repaint();
-            
+
         } catch (SQLException | NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "No se cargo la informacion de la orden",
                     "Error en registro de orden", JOptionPane.INFORMATION_MESSAGE);
             ErroresSiapo.agregar(ex, "codigo 31");
             //System.out.println(ex);
-        }finally{
+        } finally {
             cerrarConexionBase();
         }
     }
@@ -596,12 +594,12 @@ public class Orden extends Sistema {
                 listaOrdenes.setValueAt(r.getString("horaInicio"), j, 3);
                 listaOrdenes.setValueAt(r.getString("comentarioAuditor"), j, 4);
                 j++;
-            }            
+            }
         } catch (Exception ex) {
             ErroresSiapo.agregar(ex, "codigo 32");
             //System.out.println(ex);
-        }finally{
-           this.cerrarConexionBase(); 
+        } finally {
+            this.cerrarConexionBase();
         }
     }
 

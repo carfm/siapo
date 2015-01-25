@@ -1055,8 +1055,8 @@
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="comentario" max="32767" attributes="0"/>
-                      <Component id="tipoOrden" pref="241" max="32767" attributes="0"/>
+                      <Component id="comentario" min="-2" pref="241" max="-2" attributes="0"/>
+                      <Component id="tipoOrden" min="-2" pref="241" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -1067,7 +1067,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="specimen" alignment="0" max="32767" attributes="0"/>
+                      <Component id="specimen" alignment="0" min="-2" pref="23" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
