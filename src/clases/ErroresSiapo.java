@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package clases;
 
 import java.io.File;
@@ -16,12 +15,13 @@ import java.util.Date;
  * @author Carlos y Jose
  */
 public class ErroresSiapo {
+
     public static void agregar(Exception ex, String mensaje) {
         FileWriter fichero = null;
         PrintWriter pw;
         java.util.Date fecha = new Date();
-        File fi= new File("c:/prueba.txt");
-       
+        File fi = new File("c:/prueba.txt");
+
         try {
             fichero = new FileWriter("c:/prueba.txt", true);
             pw = new PrintWriter(fichero);

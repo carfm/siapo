@@ -62,9 +62,9 @@ public class Reporte extends Sistema {
                 // volvemos a la primera fecha para contabilizar las de otro agente
                 fechas.first();
             }
-            this.pasarGarbageCollector();
+            //this.pasarGarbageCollector();
             this.cerrarConexionBase();
-            System.out.println("finnnnn");
+            //System.out.println("finnnnn");
         } catch (Exception e) {
             ErroresSiapo.agregar(e, "codigo 33");
             System.out.println(e);

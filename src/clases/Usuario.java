@@ -130,7 +130,6 @@ public class Usuario extends Sistema {
         } catch (SQLException | HeadlessException e) {
             ErroresSiapo.agregar(e, "codigo 34");
         }
-
         return error;
     }
 //metodo
@@ -176,7 +175,7 @@ public class Usuario extends Sistema {
     public void agregarFoto(String direccion) {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            setConexion(DriverManager.getConnection(this.getServidor(), getUsu(), this.getPass()));
+            setConexion(DriverManager.getConnection(Sistema.servidor, Sistema.usu, Sistema.pass));
             PreparedStatement ps = getConexion().prepareStatement("update usuario set foto = (?) where user='" + getUser() + "'");
             getConexion().setAutoCommit(false);
             File file = new File(direccion);
@@ -259,72 +258,6 @@ public class Usuario extends Sistema {
                     } else {
                         //System.out.println();
                         this.cerrarConexionBase();
-
-//                        String[][] tabla = {
-//                            {"dlopez", "190", "20", "10", "180"},
-//                            {"enajarro", "100", "10", "5", "80"},
-//                            {"gmolina", "140", "20", "15", "120"},
-//                            {"lfuentes", "100", "10", "5", "80"},
-//                            {"lmineros", "80", "8", "5", "70"},
-//                            {"mmolina", "160", "25", "20", "140"},
-//                            {"rmartir", "110", "10", "5", "90"},
-//                            {"savalos", "80", "8", "5", "70"},
-//                            {"gabcruz", "100", "10", "5", "80"},
-//                            {"gvasquez", "100", "20", "10", "80"},
-//                            {"alexmart", "80", "10", "5", "70"},
-//                            {"obonilla", "90", "10", "5", "80"},
-//                            {"mcea", "90", "10", "5", "80"},
-//                            {"mvasquez", "95", "10", "5", "90"},
-//                            {"jucruz", "65", "8", "4", "50"},
-//                            {"dperez", "100", "15", "10", "80"},
-//                            {"svillafr", "95", "10", "5", "90"},
-//                            {"fperez", "92", "10", "5", "80"},
-//                            {"cramirez", "140", "20", "10", "120"},
-//                            {"lurodrig", "105", "15", "10", "85"},
-//                            {"eraguila", "90", "10", "5", "80"},
-//                            {"evalient", "80", "10", "5", "70"},
-//                            {"mlozano", "80", "10", "5", "70"},
-//                            {"asanchez", "95", "10", "5", "80"},
-//                            {"mflores", "90", "10", "5", "80"},
-//                            {"aduran", "120", "15", "10", "100"},
-//                            {"bvilleda", "100", "10", "5", "90"},
-//                            {"aramirez", "110", "15", "10", "90"},
-//                            {"rvelasqu", "102", "10", "5", "90"},
-//                            {"vguzman", "87", "10", "5", "80"},
-//                            {"rcarrill", "100", "10", "5", "90"},
-//                            {"hgarcia", "130", "20", "10", "110"},
-//                            {"ivalient", "120", "15", "10", "110"},
-//                            {"bchavez", "130", "20", "15", "110"},
-//                            {"pinocent", "100", "10", "5", "80"},
-//                            {"grmolina", "110", "15", "10", "90"},
-//                            {"vdiaz", "110", "15", "10", "100"}
-//                        };
-//                        Location l = new Location();
-//                        ArrayList<Location> locations = l.obtenerLocations();
-//                        Razon r = new Razon();
-//                        ArrayList<Razon> razones = r.obtenerRazones();
-//
-//                        for (int mes = 10; mes <= 12; mes++) {
-//                            for (String[] tabla1 : tabla) {
-//                                this.setResultado(seleccionar("MAX(specimen) as specimen", "Orden", ""));
-//                                this.insertarRegistros(tabla1[0], this.getResultado().getInt("specimen"), 
-//                                        Integer.parseInt(tabla1[1]), Integer.parseInt(tabla1[2]), Integer.parseInt(tabla1[3]), 
-//                                        Integer.parseInt(tabla1[4]), locations, razones, mes);
-//                                System.out.println(tabla1[0]);
-//                            }
-//                            System.out.println("Mes " + mes);
-//                        }
-                        // Max de ordenes auditadas|Min de ordenes auditadas|Max de errores|Min de errores
-//                        String[][] tabla = {
-//                            {"kcea", "350", "300", "20", "8"},
-//                            {"cmineros", "200", "150", "15", "5"}};
-//                        Error e = new Error();
-//                        ArrayList<Error> errores = e.obtenerErrores();
-//                        for (int mes = 2; mes <=12; mes++) {
-//                            insertarRegistros(tabla, mes, errores);
-//                            System.out.println("Mes " + mes);
-//                        }
-
                         getResultado().close();
                         this.cerrarConexionBase();
                         this.setTiposUsuario();
@@ -350,136 +283,10 @@ public class Usuario extends Sistema {
         }
     }
 
-    public void insertarRegistros(String[][] tabla, int mes, ArrayList<Error> errores)  {
-        int i, tope, topeE, ale, Mspec, mspec, razalt, num;
-        int totalDias = this.numero(mes);
-        String agente, specimen;
-        for (i = 1; i <= totalDias; i++) {
-            try {
-                ResultSet r;
-                //System.out.println(tope);
-                r = this.seleccionar("DAYOFWEEK('2013-" + mes + "-" + i + "') as dia", "", "");
-                int dia = r.getInt("dia");
-                this.cerrarConexionBase();
-                if (!(dia == 1 || dia == 7)) {
-                    System.out.println("DIA:"+i);
-                    tope = (int) Math.floor(Math.random() * (Integer.parseInt(tabla[0][1])
-                            - Integer.parseInt(tabla[0][2]) + 1) + Integer.parseInt(tabla[0][2]));
-                    topeE = (int) Math.floor(Math.random() * (Integer.parseInt(tabla[0][3])
-                            - Integer.parseInt(tabla[0][4]) + 1) + Integer.parseInt(tabla[0][4]));
-                    System.out.println(" auditadas:"+tope);
-                    System.out.println(" errores:"+topeE);
-                    System.out.println("------------------------");
-                    //this.cerrarConexionBase();
-                    r = seleccionar("specimen", "procesa_audita", "fecha ='2013-" + mes + "-" + i + "' and tipoOperacion = 1");
-                    ArrayList<Orden> ordenes = new ArrayList<>();
-                    r.beforeFirst();
-                    while (r.next()) {
-                        Orden o = new Orden();
-                        o.setSpecimen(r.getString("specimen"));
-                        ordenes.add(o);
-                    }                   
-                    mspec = 0;
-                    this.cerrarConexionBase();
-                    for (int k = 0; k < tope; k++) {
-                        Mspec = ordenes.size()-1;
-                        num = (int) Math.floor(Math.random() * (Mspec - mspec + 1) + mspec);
-                        specimen = ordenes.get(num).getSpecimen();
-                        ordenes.remove(num);
-//                        r = seleccionar("specimen", "procesa_audita", "specimen = '" + specimen + "' and tipoOperacion = 2");
-//                        if (r.last()) {
-//                            k--;
-//                        } else {
-                            if (topeE != 0) {
-                                ale = (int) Math.floor(Math.random() * (100 - 0 + 1) + 0);
-                                if (ale <= 5) {
-                                    //error
-                                    this.cerrarConexionBase();
-                                    r = seleccionar("user", "procesa_audita", "specimen = '" + specimen + "'");
-                                    agente = r.getString("user");
-                                    this.cerrarConexionBase();
-                                    razalt = (int) Math.floor(Math.random() * (errores.size()-1 - 0 + 1) + 0);
-                                    Error e = errores.get(razalt);
-                                    Orden o = new Orden(specimen, false, agente, e.getCodigoError(), e.getNombreError());
-                                    o.agregarError(false,"");
-                                    topeE--;
-                                }
-                            }
-                            insertar("procesa_audita", "NULL,'" + tabla[0][0] + "', '" +  specimen+ "', '2013-" + mes + "-" + i + "',NULL,NULL,2");
-//                        }                       
-                    }
-                }
-            } catch (Exception ex) {
-                System.out.println(ex);
-            }
-        }
-    }
-
-    public void insertarRegistros(String agente, int specimen, int MC, int MI, int MR, int mC, ArrayList<Location> locations, ArrayList<Razon> razones, int mes) throws SQLException {
-        int i, j, tope = 0, num, c = 0, maxt = 0;
-        String horaBase = "08:00:00";
-        int totalDias = 30;
-        if (mes != 11) {
-            totalDias = 31;
-        }
-        for (i = 1; i <= totalDias; i++) {
-            ResultSet r;
-            //System.out.println(tope);
-            cerrarConexionBase();
-            r = this.seleccionar("DAYOFWEEK('2013-" + mes + "-" + i + "') as dia", "", "");
-            int dia = r.getInt("dia");
-            this.cerrarConexionBase();
-            if (!(dia == 1 || dia == 7)) {
-                for (j = 0; j < 3; j++) {
-                    // (int) Math.floor(Math.random() * (Maximo - minimo + 1) + minimo);
-                    switch (j) {
-                        case 0:
-                            tope = (int) Math.floor(Math.random() * (MC - mC + 1) + mC);
-                            maxt = 180;
-                            break;
-                        case 1:
-                            tope = (int) Math.floor(Math.random() * (MI - 0 + 1) + 0);
-                            maxt = 360;
-                            break;
-                        case 2:
-                            tope = (int) Math.floor(Math.random() * (MR - 0 + 1) + 0);
-                            maxt = 120;
-                            break;
-                    }
-                    for (int k = 0; k < tope; k++) {
-                        specimen = specimen + 1;
-                        num = (int) Math.floor(Math.random() * (16));
-                        insertar("orden", specimen + ",'" + locations.get(num).getCodigoLocation() + "'," + (j + 1) + ",' ',' '");
-                        if (j == 1 || j == 2) {
-                            int razalt = (int) Math.floor(Math.random() * (43 - 0 + 1) + 0);
-                            Orden o = new Orden();
-                            o.setRazones(new ArrayList<Razon>());
-                            o.getRazones().add(razones.get(razalt));
-                            o.mandadaPor(Integer.toString(specimen), agente);
-                        }
-                        int numero = (int) Math.floor(Math.random() * (maxt - 30 + 1) + 30);
-                        int hor = numero / 3600;
-                        int min = (numero - (3600 * hor)) / 60;
-                        int seg = numero - ((hor * 3600) + (min * 60));
-                        insertar("procesa_audita(specimen,user,tipoOperacion,fecha,horaInicio,horaFin)", "'" + specimen + "','" + agente + "',1,'2013-" + mes + "-" + i + "','" + horaBase + "',ADDTIME('" + horaBase + "','" + hor + ":" + min + ":" + seg + "')");
-                        r = this.seleccionar("horaFin", "procesa_audita", "specimen='" + specimen + "' and user ='" + agente + "'");
-                        horaBase = r.getString("horaFin");
-                        this.cerrarConexionBase();
-                        c = c + 1;
-                    }
-                    //System.out.println(j);
-                }
-                //.out.println(i);
-            }
-            horaBase = "08:00:00";
-            //System.out.println(c);
-        }
-    }
-
     public void notificarAgente(String user, String specimen, String codError, String nomError, boolean lab) {
         this.borrar("puede_tener", "user='" + user + "' and codigoError='" + codError + "' and specimen ='" + specimen + "' and idMensaje is null and fecha is null");
         Orden o = new Orden(specimen, lab, user, codError, nomError);
-        o.agregarError(lab,"");
+        o.agregarError(lab, "");
     }
 
     public void notificarAuditor(String codError, String nomError) {

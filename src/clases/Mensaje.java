@@ -5,11 +5,8 @@
  */
 package clases;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -19,10 +16,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Mensaje extends Sistema {
 
-    private Connection conect = null;
     private ResultSet rs;
-    private Statement declaracion;
-    private String query;
     protected DefaultTableModel model;
     private Usuario u;
     String tipoBand;
@@ -41,32 +35,6 @@ public class Mensaje extends Sistema {
         this.u.setListaTiposUsuario(u.getListaTiposUsuario());
         tipoBand = tipo;
     }
-
-    /**
-     * *********************Comienza Conexion a la
-     * BD*****************************
-     * @param user
-     * @return 
-     */
-    public Statement conexion(String user) {
-        Statement stmt = null;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conect = DriverManager.getConnection(super.getServidor(), super.getUsu(), super.getPass());
-            stmt = conect.createStatement();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Hubo un problema al intentar conectarse con la base de datos \n" + ex.toString(), "", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Hubo un problema al intentar conectarse con la base de datos \n" + ex.toString(), "", JOptionPane.ERROR_MESSAGE);
-        }
-        return stmt;
-
-    }
-
-    /**
-     * *********************termina Coneccion a la
-     * BD*****************************
-     */
     /**
      * ***********************Obtener correlativo de
      * mensajes********************************
@@ -142,23 +110,6 @@ public class Mensaje extends Sistema {
             JOptionPane.showMessageDialog(null, "No se pudo borrar");
         }
     }
-
-    /**
-     * *********************Termina Eliminar todos los
-     * Mensaje*******************************
-     * @throws java.sql.SQLException
-     */
-    public void cerrarConexiones() throws SQLException {
-        /*Su funcion es terminar todo tipo de conexion de la base de datos
-         * para evitar cualquier error de sobrecarga a los ResultSet y Statement
-         */
-
-        rs = null;
-        declaracion = null;
-        conect.close();
-        query = "";
-    }
-
     public boolean difundirMsj(int idMsj) {
         ResultSet resultado;
         String consulta;
@@ -168,15 +119,15 @@ public class Mensaje extends Sistema {
             while (resultado.next()) {
                 consulta = "NULL, " + idMsj + ", '" + resultado.getString("es.user") + "',0,0,0";
                 insertar("gestiona", consulta);
-            }
-            this.cerrarConexion();
-            this.cerrarConexionBase();
+            }            
             return true;
         } catch (SQLException ex) {
             ErroresSiapo.agregar(ex, "codigo 25");
-            this.cerrarConexionBase();
             return false;
             //Logger.getLogger(Mensaje.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            this.cerrarConexion();
+            this.cerrarConexionBase();
         }
     }
 

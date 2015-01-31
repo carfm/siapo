@@ -400,8 +400,8 @@ public class Orden extends Sistema {
              */
             ResultSet r = seleccionar("b.specimen,nombreLocation,(SELECT CASE "
                     + "WHEN tipoOrden =1 THEN 'Completa' "
-                    + "WHEN tipoOrden =2 THEN (SELECT ifnull((SELECT 'Regresada incompleta' from mandada_por e WHERE e.specimen = b.specimen and e.user='" + user + "' ),'Completa'))"
-                    + "WHEN tipoOrden =3 THEN (SELECT ifnull((SELECT 'Regresada sin hacer nada' from mandada_por e WHERE e.specimen = b.specimen and e.user='" + user + "' ),'Completa')) END) AS nombreTipo,horaInicio,horaFin,comentarioAgente",
+                    + "WHEN tipoOrden =2 THEN (SELECT ifnull((SELECT 'Regresada incompleta' from mandada_por e WHERE e.specimen = b.specimen and e.user='" + user + "' limit 1),'Completa'))"
+                    + "WHEN tipoOrden =3 THEN (SELECT ifnull((SELECT 'Regresada sin hacer nada' from mandada_por e WHERE e.specimen = b.specimen and e.user='" + user + "' limit 1),'Completa')) END) AS nombreTipo,horaInicio,horaFin,comentarioAgente",
                     "procesa_audita a inner join orden b on a.specimen = b.specimen and tipoOperacion=1 and user = '" + user
                     + "' inner join location c  on c.codigoLocation = b.codigoLocation",
                     "  fecha " + periodo + " ORDER BY horaInicio desc");
@@ -578,7 +578,7 @@ public class Orden extends Sistema {
             } else {
                 periodo = "between '" + fechaInicio + "' and '" + fechaFin + "'";
             }
-            ResultSet r = seleccionar("b.specimen,(SELECT user from procesa_audita WHERE specimen = b.specimen limit 1) as agente,(SELECT specimen from puede_tener where specimen = b.specimen limit 1) as error,horaInicio,comentarioAuditor",
+            ResultSet r = seleccionar("b.specimen,(SELECT user from procesa_audita WHERE specimen = b.specimen and tipoOperacion=1 ORDER BY idProcAud limit 1) as agente,(select ifnull((SELECT 'Con error' from puede_tener g where g.specimen = b.specimen limit 1),'Sin error')) as error,horaInicio,comentarioAuditor",
                     "procesa_audita a inner join orden b on a.specimen = b.specimen and tipoOperacion=2 and user = '" + user + "'",
                     "  fecha " + periodo + " ORDER BY fecha desc,horaInicio desc");
             r.beforeFirst();
@@ -586,11 +586,7 @@ public class Orden extends Sistema {
                 ((DefaultTableModel) listaOrdenes.getModel()).setRowCount(listaOrdenes.getRowCount() + 1);
                 listaOrdenes.setValueAt(r.getString("specimen"), j, 0);
                 listaOrdenes.setValueAt(r.getString("agente"), j, 1);
-                if (r.getString("error") != null) {
-                    listaOrdenes.setValueAt("Con error", j, 2);
-                } else {
-                    listaOrdenes.setValueAt("Sin error", j, 2);
-                }
+                listaOrdenes.setValueAt(r.getString("error"), j, 2);
                 listaOrdenes.setValueAt(r.getString("horaInicio"), j, 3);
                 listaOrdenes.setValueAt(r.getString("comentarioAuditor"), j, 4);
                 j++;

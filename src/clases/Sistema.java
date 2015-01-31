@@ -1,17 +1,15 @@
 package clases;
 
+import java.awt.HeadlessException;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -46,80 +44,81 @@ public class Sistema {
     private ResultSet resultado;
     private Statement sentencia;
     private Connection conexion;
-    private String usu;
-    private String pass;
-    private String servidor;
+    public final static String servidor = "jdbc:mysql://10.8.40.99:3306/pruebadsi";
+    public final static String usu = "WIN-6C6NJ898UGM";
+    public final static String pass = "hmcr";
     private String para, asunto, mensaje;
 
-    public Sistema() {
-        try {
-            FileInputStream fstream;
-            DataInputStream entrada;
-            // Abrimos el archivo
-            // Obtenemos los directorios raiz de cada disco disponible
-            File[] roots = File.listRoots();
-            boolean continuar = true;
-            int i = 0;
-            File fichero = null;
-            while (continuar && i < roots.length) {
-                fichero = new File(roots[i].toString() + "Archivos de programa/Siapo/SIAPO/losCambios.dat");
-                if (fichero.exists()) {
-                    continuar = false;
-                    //System.out.println("El fichero " + roots[i].toString() + " existe");
-                } else {
-                    fichero = new File(roots[i].toString() + "Program Files/Siapo/SIAPO/losCambios.dat");
-                    if (fichero.exists()) {
-                        continuar = false;
-                        // System.out.println("El fichero " + roots[i].toString() + " existe");
-                    } else {
-                        fichero = new File(roots[i].toString() + "Program Files (x86)/Siapo/SIAPO/losCambios.dat");
-                        if (fichero.exists()) {
-                            continuar = false;
-                            // System.out.println("El fichero " + roots[i].toString() + " existe");
-                        }
-                        //System.out.println("Pues va a ser que no");
-                    }
-                    //System.out.println("Pues va a ser que no");
-                }
-                i++;
-            }
-            if (!continuar) {
-                fstream = new FileInputStream(fichero.getPath());
-                entrada = new DataInputStream(fstream);
-                // Creamos el Buffer de Lectura
-                BufferedReader buffer = new BufferedReader(new InputStreamReader(entrada));
-                String strLinea;
-                // Leer el archivo linea por linea
-                String t[];
-                t = new String[4];
-                i = 0;
-                while ((strLinea = buffer.readLine()) != null) {
-                    // Imprimimos la línea por pantalla
-                    //System.out.println(strLinea);
-                    t[i] = strLinea;
-                    i++;
-                }
-                // Cerramos el archivo
-                entrada.close();
-                servidor = "jdbc:mysql://" + t[0] + ":3306/" + t[1];
-                usu = t[2];
-                pass = t[3];
-            } else {
-                System.err.println("Ocurrio un error");
-            }
-
-        } catch (Exception e) { //Catch de excepciones
-            ErroresSiapo.agregar(e, "codigo 6");
-
-            //System.err.println("Ocurrio un error: " + e.getMessage());
-        }
-    }
-
+//    public Sistema() {
+//        try {
+////            FileInputStream fstream;
+////            DataInputStream entrada;
+////            // Abrimos el archivo
+////            // Obtenemos los directorios raiz de cada disco disponible
+////            File[] roots = File.listRoots();
+////            boolean continuar = true;
+////            int i = 0;
+////            File fichero = null;
+////            while (continuar && i < roots.length) {
+////                fichero = new File(roots[i].toString() + "Archivos de programa/Siapo/SIAPO/losCambios.dat");
+////                if (fichero.exists()) {
+////                    continuar = false;
+////                    //System.out.println("El fichero " + roots[i].toString() + " existe");
+////                } else {
+////                    fichero = new File(roots[i].toString() + "Program Files/Siapo/SIAPO/losCambios.dat");
+////                    if (fichero.exists()) {
+////                        continuar = false;
+////                        // System.out.println("El fichero " + roots[i].toString() + " existe");
+////                    } else {
+////                        fichero = new File(roots[i].toString() + "Program Files (x86)/Siapo/SIAPO/losCambios.dat");
+////                        if (fichero.exists()) {
+////                            continuar = false;
+////                            // System.out.println("El fichero " + roots[i].toString() + " existe");
+////                        }
+////                        //System.out.println("Pues va a ser que no");
+////                    }
+////                    //System.out.println("Pues va a ser que no");
+////                }
+////                i++;
+////            }
+////            if (!continuar) {
+////                fstream = new FileInputStream(fichero.getPath());
+////                entrada = new DataInputStream(fstream);
+////                // Creamos el Buffer de Lectura
+////                BufferedReader buffer = new BufferedReader(new InputStreamReader(entrada));
+////                String strLinea;
+////                // Leer el archivo linea por linea
+////                String t[];
+////                t = new String[4];
+////                i = 0;
+////                while ((strLinea = buffer.readLine()) != null) {
+////                    // Imprimimos la línea por pantalla
+////                    //System.out.println(strLinea);
+////                    t[i] = strLinea;
+////                    i++;
+////                }
+////                // Cerramos el archivo
+////                entrada.close();
+////                servidor = "jdbc:mysql://" + t[0] + ":3306/" + t[1];
+////                usu = t[2];
+////                pass = t[3];
+////            } else {
+////                System.err.println("Ocurrio un error");
+////            }
+//            servidor = "jdbc:mysql://10.8.40.99:3306/pruebadsi";
+//            usu = "WIN-6C6NJ898UGM";
+//            pass = "hmcr";
+//        } catch (Exception e) { //Catch de excepciones
+//            ErroresSiapo.agregar(e, "codigo 6");
+//
+//            //System.err.println("Ocurrio un error: " + e.getMessage());
+//        }
+//    }
     public boolean insertar(String tabla, String valores) {
         boolean bien = true;
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            setConexion(DriverManager.getConnection(servidor, getUsu(), pass));//Crea la conexion
+            setConexion(DriverManager.getConnection(servidor, usu, pass));//Crea la conexion
             setSentencia(getConexion().createStatement());
             String insertar = "INSERT INTO " + tabla + " VALUES (" + valores + ")";
             //System.out.println(insertar);
@@ -139,7 +138,7 @@ public class Sistema {
         boolean bien = true;
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            setConexion(DriverManager.getConnection(servidor, getUsu(), pass));//Crea la conexion
+            setConexion(DriverManager.getConnection(servidor, usu, pass));//Crea la conexion
             String modificar;
             if (condicion.isEmpty()) {
                 modificar = "UPDATE " + tabla + " SET " + campos;
@@ -163,7 +162,7 @@ public class Sistema {
         boolean bien = true;
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            setConexion(DriverManager.getConnection(servidor, getUsu(), pass));//Crea la conexion
+            setConexion(DriverManager.getConnection(servidor, usu, pass));//Crea la conexion
             String modificar;
             if (condicion.isEmpty()) {
                 modificar = "DELETE FROM " + tabla;
@@ -185,7 +184,7 @@ public class Sistema {
     public ResultSet seleccionar(String campo, String tabla, String condicion) {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            setConexion(DriverManager.getConnection(servidor, getUsu(), pass));//Crea la conexion
+            setConexion(DriverManager.getConnection(servidor, usu, pass));//Crea la conexion
             String sql_str;
             if (condicion.isEmpty()) {
                 sql_str = "SELECT " + campo + " FROM " + tabla;
@@ -340,19 +339,14 @@ public class Sistema {
         int contador = 0;
         r = seleccionar("count(*) as filas", tabla, condicion);
         try {
-            contador = Integer.parseInt(r.getString("filas"));           
-        } catch (Exception ex) {
+            contador = Integer.parseInt(r.getString("filas"));
+        } catch (SQLException | NumberFormatException ex) {
             ErroresSiapo.agregar(ex, "codigo 8");
             Logger.getLogger(Sistema.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
-           this.cerrarConexionBase(); 
+        } finally {
+            this.cerrarConexionBase();
         }
         return contador;
-    }
-
-    public void pasarGarbageCollector() {
-        Runtime garbage = Runtime.getRuntime();
-        garbage.gc();
     }
 
     public JasperViewer runReporte(String nombre_reporte, Map parametro) {
@@ -360,7 +354,7 @@ public class Sistema {
             URL archivo = getClass().getResource("/reportes/" + nombre_reporte + ".jasper");
             System.out.println(archivo);
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            setConexion(DriverManager.getConnection(servidor, getUsu(), pass));//Crea la conexion
+            setConexion(DriverManager.getConnection(servidor, usu, pass));//Crea la conexion
             JasperReport jasperReport = (JasperReport) JRLoader.loadObject(archivo);
             JasperPrint imprime = JRFiller.fillReport(jasperReport, parametro, conexion);
             JasperViewer v = new JasperViewer(imprime, false);
@@ -378,7 +372,7 @@ public class Sistema {
         boolean bien = true;
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            setConexion(DriverManager.getConnection(servidor, getUsu(), pass));//Crea la conexion
+            setConexion(DriverManager.getConnection(servidor, usu, pass));//Crea la conexion
             setSentencia(getConexion().createStatement());
             String sql_str = "call " + nombre + parametros;
             getSentencia().executeQuery(sql_str);
@@ -397,7 +391,7 @@ public class Sistema {
         boolean bien = true;
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            setConexion(DriverManager.getConnection(servidor, getUsu(), pass));//Crea la conexion
+            setConexion(DriverManager.getConnection(servidor, usu, pass));//Crea la conexion
             setSentencia(getConexion().createStatement());
             getSentencia().executeUpdate(query);
             getSentencia().close();
@@ -517,8 +511,8 @@ public class Sistema {
             if (t.isDataFlavorSupported(dataFlavorStringJava)) {
                 texto = t.getTransferData(dataFlavorStringJava).toString();
             }
-        } catch (Exception ex) {
-           // ErroresSiapo.agregar(ex, "codigo 13");
+        } catch (HeadlessException | ClassNotFoundException | UnsupportedFlavorException | IOException ex) {
+            // ErroresSiapo.agregar(ex, "codigo 13");
         }
         return texto;
     }
@@ -629,48 +623,6 @@ public class Sistema {
      */
     public void setConexion(Connection conexion) {
         this.conexion = conexion;
-    }
-
-    /**
-     * @return the pass
-     */
-    public String getPass() {
-        return pass;
-    }
-
-    /**
-     * @param pass the pass to set
-     */
-    public void setPass(String pass) {
-        this.pass = pass;
-    }
-
-    /**
-     * @return the servidor
-     */
-    public String getServidor() {
-        return servidor;
-    }
-
-    /**
-     * @param servidor the servidor to set
-     */
-    public void setServidor(String servidor) {
-        this.servidor = servidor;
-    }
-
-    /**
-     * @return the usu
-     */
-    public String getUsu() {
-        return usu;
-    }
-
-    /**
-     * @param usu the usu to set
-     */
-    public void setUsu(String usu) {
-        this.usu = usu;
     }
 
     public void setPara(String para) {

@@ -76,8 +76,6 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
         listaLocations.setLocationRelativeTo(null);
         ///escogiendo la primera location       
         listaLocations.setVisible(true);
-        iconoBarra();
-
     }
 
     /**
@@ -1322,6 +1320,7 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
             cerrando = false;
             this.listaLocations.dispose(); // primero que se cierre la ventana
             if (primerIngreso) {
+                iconoBarra();// se agrega el icono en la barra de tareas
                 u.inicializarPortapapeles("00000000");
                 //inicializa el protapapeles
                 inicializarPortapapeles(true);
