@@ -9,7 +9,6 @@
 package pantallas.mensajeria;
 
 import clases.Mensaje;
-import clases.Sistema;
 import clases.Usuario;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -24,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
 public final class Bandeja extends javax.swing.JFrame {
 
     String query, delType, user;
-    Statement declaracion;
+    //Statement declaracion;
     ResultSet rs;
     Usuario u;
     boolean esGerente = false;
@@ -390,20 +389,17 @@ public final class Bandeja extends javax.swing.JFrame {
             ed_table_in_out_box.setValueAt("leido", this.ed_table_in_out_box.getSelectedRow(), 0);
         }
         String aux = ed_table_in_out_box.getValueAt(this.ed_table_in_out_box.getSelectedRow(), 1).toString().trim();
-        query = "SELECT asunto,contenido FROM mensaje WHERE idMensaje=" + aux + ";";
+        //query = "SELECT asunto,contenido FROM mensaje WHERE idMensaje=" + aux + ";";
         try {
-            declaracion = gm.conexion("root");
-            rs = declaracion.executeQuery(query);
-            rs.next();
+            rs = u.seleccionar("asunto,contenido", "mensaje", "idMensaje=" + aux);
             this.ed_textarea1.setText("Asunto:\n" + rs.getString(1) + ".\n\n" + "Mensaje: \n" + rs.getString(2) + ".\n\n (Fin del mensaje.)");
-            gm.cerrarConexiones();
-            Sistema s = new Sistema();
+            u.cerrarConexionBase();
             if (tipoBand.equals("mensaje")) {
-                s.actualizar("gestiona,mensaje", "gestiona.visto=1",
+                u.actualizar("gestiona,mensaje", "gestiona.visto=1",
                         "user='" + user + "' AND mensaje.idMensaje=gestiona.idMensaje "
                         + "AND gestiona.idMensaje=" + aux + " AND mensaje.tipoMensaje =1");
             } else {
-                s.actualizar("gestiona,mensaje", "gestiona.visto=1",
+                u.actualizar("gestiona,mensaje", "gestiona.visto=1",
                         "user='" + user + "' AND mensaje.idMensaje=gestiona.idMensaje "
                         + "AND gestiona.idMensaje=" + aux + " AND mensaje.tipoMensaje =2");
             }
@@ -474,45 +470,58 @@ public final class Bandeja extends javax.swing.JFrame {
 
     /**
      * ***************************************
-     * @param tabla //88818812
-     * 88818812
-     * 88818813
+     * @param tabla //88818812 88818812 88818813
      */
     public void refrescarTabla(JTable tabla) {
         //Esta funcion permite la recuperacion de mensajes desde la base de datos hacia la bandeja de mensajes
 
         String[] titulos = {"Estado", "Codigo", "Fecha", "Hora", "Asunto"};
+        String[] q = new String[3];
         if (tipoBand.equals("mensaje")) {
             if (esGerente) {
-                query = "SELECT distinct idMensaje,asunto,date(fechaHoraMensaje) as fecha,time(fechaHoraMensaje) as hora FROM mensaje WHERE "
-                        + "mensaje.tipoMensaje=1) ORDER BY fechaHoraMensaje DESC;";
+                q[0] = "distinct idMensaje,asunto,date(fechaHoraMensaje) as fecha,time(fechaHoraMensaje) as hora";
+                q[1] = "mensaje";
+                q[2] = "mensaje.tipoMensaje=1 ORDER BY fechaHoraMensaje DESC";
+                query = "SELECT  FROM mensaje WHERE "
+                        + " ;";
             } else {
-                query = "SELECT distinct mensaje.idMensaje,asunto,date(fechaHoraMensaje) as fecha,time(fechaHoraMensaje) as hora,visto FROM mensaje, gestiona WHERE "
-                        + "( mensaje.idMensaje = gestiona.idMensaje "
+                q[0] = "distinct mensaje.idMensaje,asunto,date(fechaHoraMensaje) as fecha,time(fechaHoraMensaje) as hora,visto";
+                q[1] = "mensaje, gestiona";
+                q[2] = "mensaje.idMensaje = gestiona.idMensaje "
                         + "AND gestiona.user = \"" + user + "\" AND gestiona.oculto = '0'"
-                        + " AND mensaje.tipoMensaje=1) ORDER BY fechaHoraMensaje DESC;";
+                        + " AND mensaje.tipoMensaje=1 ORDER BY fechaHoraMensaje DESC";
+//                query = "SELECT distinct mensaje.idMensaje,asunto,date(fechaHoraMensaje) as fecha,time(fechaHoraMensaje) as hora,visto FROM mensaje, gestiona WHERE "
+//                        + "mensaje.idMensaje = gestiona.idMensaje "
+//                        + "AND gestiona.user = \"" + user + "\" AND gestiona.oculto = '0'"
+//                        + " AND mensaje.tipoMensaje=1 ORDER BY fechaHoraMensaje DESC;";
             }
-        } else {
-            query = "SELECT distinct mensaje.idMensaje,asunto,date(fechaHoraMensaje) as fecha,time(fechaHoraMensaje) as hora,visto FROM mensaje, gestiona WHERE "
-                    + "( mensaje.idMensaje = gestiona.idMensaje "
-                    + "AND gestiona.user = \"" + user + "\" AND gestiona.oculto = "
-                    + "'0' AND mensaje.tipoMensaje=2) ORDER BY fechaHoraMensaje DESC;";
+        } else {//notificacion
+            q[0] = "distinct mensaje.idMensaje,asunto,date(fechaHoraMensaje) as fecha,time(fechaHoraMensaje) as hora,visto";
+            q[1] = "mensaje, gestiona";
+            q[2] = "mensaje.idMensaje = gestiona.idMensaje "
+                    + "AND gestiona.user = \"" + user + "\" AND gestiona.oculto = '0'"
+                    + " AND mensaje.tipoMensaje=2 ORDER BY fechaHoraMensaje DESC";
+//            query = "SELECT distinct mensaje.idMensaje,asunto,date(fechaHoraMensaje) as fecha,time(fechaHoraMensaje) as hora,visto FROM mensaje, gestiona WHERE "
+//                    + "( mensaje.idMensaje = gestiona.idMensaje "
+//                    + "AND gestiona.user = \"" + user + "\" AND gestiona.oculto = "
+//                    + "'0' AND mensaje.tipoMensaje=2) ORDER BY fechaHoraMensaje DESC;";
         }
         //System.out.println(query);
-        declaracion = null;
+        //declaracion = null;
         rs = null;
         DefaultTableModel model = new DefaultTableModel(null, titulos);
-
         try {
-            declaracion = gm.conexion("root");
+            //declaracion = ;
             if (esGerente) {
-                rs = declaracion.executeQuery("SELECT idMensaje,asunto,date(fechaHoraMensaje) as fecha,time(fechaHoraMensaje) as hora FROM mensaje WHERE tipoMensaje=1 ORDER BY fechaHoraMensaje DESC");
+                rs = u.seleccionar("idMensaje,asunto,date(fechaHoraMensaje) as fecha,time(fechaHoraMensaje) as hora", "mensaje", "tipoMensaje=1 ORDER BY fechaHoraMensaje DESC");
+                //rs = declaracion.executeQuery("SELECT idMensaje,asunto,date(fechaHoraMensaje) as fecha,time(fechaHoraMensaje) as hora FROM mensaje WHERE tipoMensaje=1 ORDER BY fechaHoraMensaje DESC");
             } else {
-                rs = declaracion.executeQuery(query);
+                rs = u.seleccionar(q[0], q[1], q[2]);
+                //rs = declaracion.executeQuery(query);
             }
 
             String[] fila = new String[5];
-            //rs.beforeFirst();
+            rs.beforeFirst();
             while (rs.next()) {
                 if (!esGerente) {
                     if (rs.getInt("visto") == 0) {
@@ -536,12 +545,12 @@ public final class Bandeja extends javax.swing.JFrame {
                 tabla.getTableHeader().getColumnModel().getColumn(1).setMaxWidth(0);
                 tabla.getTableHeader().getColumnModel().getColumn(1).setMinWidth(0);
             }
-            gm.cerrarConexiones();
-
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e, null, JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e, null, JOptionPane.ERROR_MESSAGE);
+        }finally{
+            u.cerrarConexionBase();
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
