@@ -2,7 +2,6 @@ package pantallas.perfiles;
 
 import pantallas.mensajeria.NotificacionNueva;
 import pantallas.mensajeria.errorNuevo;
-import pantallas.gerente.GenerarGraficas;
 import pantallas.auditor.ModificarAuditoria;
 import clases.Orden;
 import clases.Usuario;
@@ -35,7 +34,7 @@ import pantallas.general.MenuPpal;
 public final class Perfiles extends javax.swing.JFrame {
 
     public Calendar c;
-    private Usuario u;
+    private final Usuario u;
     public NotificacionNueva n;
     public errorNuevo e;
     public TextAutoCompleter nombreAgente;

@@ -389,7 +389,6 @@ public final class Bandeja extends javax.swing.JFrame {
             ed_table_in_out_box.setValueAt("leido", this.ed_table_in_out_box.getSelectedRow(), 0);
         }
         String aux = ed_table_in_out_box.getValueAt(this.ed_table_in_out_box.getSelectedRow(), 1).toString().trim();
-        //query = "SELECT asunto,contenido FROM mensaje WHERE idMensaje=" + aux + ";";
         try {
             rs = u.seleccionar("asunto,contenido", "mensaje", "idMensaje=" + aux);
             this.ed_textarea1.setText("Asunto:\n" + rs.getString(1) + ".\n\n" + "Mensaje: \n" + rs.getString(2) + ".\n\n (Fin del mensaje.)");
@@ -403,13 +402,6 @@ public final class Bandeja extends javax.swing.JFrame {
                         "user='" + user + "' AND mensaje.idMensaje=gestiona.idMensaje "
                         + "AND gestiona.idMensaje=" + aux + " AND mensaje.tipoMensaje =2");
             }
-            /*
-             UPDATE gestiona,mensaje 
-             * SET gestiona.visto =1 
-             * WHERE user =  'jfuentes' 
-             * AND mensaje.idMensaje = gestiona.idMensaje 
-             * AND mensaje.tipoMensaje =1
-             */
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
@@ -474,7 +466,6 @@ public final class Bandeja extends javax.swing.JFrame {
      */
     public void refrescarTabla(JTable tabla) {
         //Esta funcion permite la recuperacion de mensajes desde la base de datos hacia la bandeja de mensajes
-
         String[] titulos = {"Estado", "Codigo", "Fecha", "Hora", "Asunto"};
         String[] q = new String[3];
         if (tipoBand.equals("mensaje")) {
@@ -490,10 +481,6 @@ public final class Bandeja extends javax.swing.JFrame {
                 q[2] = "mensaje.idMensaje = gestiona.idMensaje "
                         + "AND gestiona.user = \"" + user + "\" AND gestiona.oculto = '0'"
                         + " AND mensaje.tipoMensaje=1 ORDER BY fechaHoraMensaje DESC";
-//                query = "SELECT distinct mensaje.idMensaje,asunto,date(fechaHoraMensaje) as fecha,time(fechaHoraMensaje) as hora,visto FROM mensaje, gestiona WHERE "
-//                        + "mensaje.idMensaje = gestiona.idMensaje "
-//                        + "AND gestiona.user = \"" + user + "\" AND gestiona.oculto = '0'"
-//                        + " AND mensaje.tipoMensaje=1 ORDER BY fechaHoraMensaje DESC;";
             }
         } else {//notificacion
             q[0] = "distinct mensaje.idMensaje,asunto,date(fechaHoraMensaje) as fecha,time(fechaHoraMensaje) as hora,visto";
@@ -501,25 +488,16 @@ public final class Bandeja extends javax.swing.JFrame {
             q[2] = "mensaje.idMensaje = gestiona.idMensaje "
                     + "AND gestiona.user = \"" + user + "\" AND gestiona.oculto = '0'"
                     + " AND mensaje.tipoMensaje=2 ORDER BY fechaHoraMensaje DESC";
-//            query = "SELECT distinct mensaje.idMensaje,asunto,date(fechaHoraMensaje) as fecha,time(fechaHoraMensaje) as hora,visto FROM mensaje, gestiona WHERE "
-//                    + "( mensaje.idMensaje = gestiona.idMensaje "
-//                    + "AND gestiona.user = \"" + user + "\" AND gestiona.oculto = "
-//                    + "'0' AND mensaje.tipoMensaje=2) ORDER BY fechaHoraMensaje DESC;";
         }
-        //System.out.println(query);
-        //declaracion = null;
         rs = null;
         DefaultTableModel model = new DefaultTableModel(null, titulos);
         try {
             //declaracion = ;
             if (esGerente) {
                 rs = u.seleccionar("idMensaje,asunto,date(fechaHoraMensaje) as fecha,time(fechaHoraMensaje) as hora", "mensaje", "tipoMensaje=1 ORDER BY fechaHoraMensaje DESC");
-                //rs = declaracion.executeQuery("SELECT idMensaje,asunto,date(fechaHoraMensaje) as fecha,time(fechaHoraMensaje) as hora FROM mensaje WHERE tipoMensaje=1 ORDER BY fechaHoraMensaje DESC");
             } else {
                 rs = u.seleccionar(q[0], q[1], q[2]);
-                //rs = declaracion.executeQuery(query);
             }
-
             String[] fila = new String[5];
             rs.beforeFirst();
             while (rs.next()) {
@@ -549,7 +527,7 @@ public final class Bandeja extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e, null, JOptionPane.ERROR_MESSAGE);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e, null, JOptionPane.ERROR_MESSAGE);
-        }finally{
+        } finally {
             u.cerrarConexionBase();
         }
     }

@@ -26,7 +26,7 @@ public final class ActualizarTipoDeUsuario extends javax.swing.JFrame {
      *
      */
     public Calendar c;
-    private Usuario u;
+    private final Usuario u;
     private Usuario us;
     public NotificacionNueva n;
     public errorNuevo e;
@@ -557,11 +557,9 @@ public final class ActualizarTipoDeUsuario extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Tipo de Usuario actualizado exitosamente",
                         "Actualizar Tipo de usuario", JOptionPane.INFORMATION_MESSAGE);
             }
-        } catch (Exception e) {
+        } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Seleccione un usuario primero", "Error", JOptionPane.ERROR_MESSAGE);
         }
-
-        //}
     }//GEN-LAST:event_actualizarUsuario_carlActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
@@ -575,9 +573,7 @@ public final class ActualizarTipoDeUsuario extends javax.swing.JFrame {
         String tipos = "";
         ResultSet r;
         try {
-            r = u.seleccionar("count(*) as filas", "usuario", "user != '" + u.getUser() + "'");
-            filas = Integer.parseInt(r.getString("filas"));
-            u.cerrarConexionBase();
+            filas = u.contadorFilas("usuario", "user != '" + u.getUser() + "'");//Integer.parseInt(r.getString("filas"));
             r = u.seleccionar("user,nombre,apellido,correlativoUSA,userFilebound,fechaIngreso,usuarioActivo,foto", "usuario", "user != '" + u.getUser() + "'");
             r.first();
             Usuario usu = new Usuario();

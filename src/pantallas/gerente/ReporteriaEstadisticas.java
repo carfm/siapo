@@ -21,7 +21,7 @@ public class ReporteriaEstadisticas extends javax.swing.JFrame {
     String q;
     ButtonGroup g = new ButtonGroup();
     public Calendar c;
-    private Usuario u;
+    private final Usuario u;
     public NotificacionNueva n;
     public errorNuevo e;
     public int valorBarra;
@@ -38,10 +38,6 @@ public class ReporteriaEstadisticas extends javax.swing.JFrame {
         this.u.setListaTiposUsuario(u.getListaTiposUsuario());
         this.e = e;
         this.n = n;
-        //g.add(rb_mensual);
-        //g.add(rb_quincenal);
-        //g.add(rb_diario);
-        // this.add(g);
         initComponents();
         setSize(1024, 680);
         setLocationRelativeTo(null);
@@ -68,8 +64,6 @@ public class ReporteriaEstadisticas extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jButton10 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
-        jLabel14 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
         listaTipoReporte = new javax.swing.JComboBox();
@@ -217,22 +211,6 @@ public class ReporteriaEstadisticas extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Generar Reportes");
 
-        jButton6.setBackground(new java.awt.Color(60, 117, 207));
-        jButton6.setForeground(new java.awt.Color(60, 117, 207));
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/estadisticas.png"))); // NOI18N
-        jButton6.setBorderPainted(false);
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-
-        jLabel14.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel14.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setText("Graficos");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -248,17 +226,10 @@ public class ReporteriaEstadisticas extends javax.swing.JFrame {
                         .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36)))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(19, 19, 19)
+                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel13)
                 .addContainerGap())
@@ -268,15 +239,11 @@ public class ReporteriaEstadisticas extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(9, 9, 9)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -587,12 +554,6 @@ public class ReporteriaEstadisticas extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton12ActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-        new GenerarGraficas(u, n, e, false).setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_jButton6ActionPerformed
-
     private void listaTipoReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaTipoReporteActionPerformed
         // TODO add your handling code here:
         this.listaTipoReporte.setEnabled(false);
@@ -621,7 +582,6 @@ public class ReporteriaEstadisticas extends javax.swing.JFrame {
                         this.rb_quincenal.setEnabled(false);
                     }
                 } else {
-//                    this.cb_año.setEnabled(true);
                     this.cb_mes.setEnabled(true);
                 }
                 break;
@@ -647,14 +607,12 @@ public class ReporteriaEstadisticas extends javax.swing.JFrame {
         desabilitarPredeterminados();
         primera.setEnabled(true);
         segunda.setEnabled(true);
-        //       this.cb_año.setEnabled(true);
         this.cb_mes.setEnabled(true);
     }//GEN-LAST:event_rb_quincenalActionPerformed
 
     private void rb_mensualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_mensualActionPerformed
         // TODO add your handling code here:
         desabilitarPredeterminados();
-//        this.cb_año.setEnabled(true);
         this.cb_mes.setEnabled(true);
     }//GEN-LAST:event_rb_mensualActionPerformed
 
@@ -702,66 +660,6 @@ public class ReporteriaEstadisticas extends javax.swing.JFrame {
         this.randon.clearSelection();
     }
 
-    public int numero(int mes) {
-
-        switch (mes) {
-            case 1:
-                return 31;
-            case 2:
-                return 28;
-            case 3:
-                return 31;
-            case 4:
-                return 30;
-            case 5:
-                return 31;
-            case 6:
-                return 30;
-            case 7:
-                return 31;
-            case 8:
-                return 31;
-            case 9:
-                return 30;
-            case 10:
-                return 31;
-            case 11:
-                return 30;
-            case 12:
-                return 31;
-        }
-        return 0;
-    }
-
-    public String mes(int mes) {
-        switch (mes) {
-            case 1:
-                return "Enero";
-            case 2:
-                return "Febrero";
-            case 3:
-                return "Marzo";
-            case 4:
-                return "Abril";
-            case 5:
-                return "Mayo";
-            case 6:
-                return "Junio";
-            case 7:
-                return "Julio";
-            case 8:
-                return "Agosto";
-            case 9:
-                return "Septiembre";
-            case 10:
-                return "Octubre";
-            case 11:
-                return "Noviembre";
-            case 12:
-                return "Diciembre";
-        }
-        return "";
-    }
     /**
      * **********************FIN
      * cancelarActionPerformed**************************
@@ -781,11 +679,9 @@ public class ReporteriaEstadisticas extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser inicio;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton12;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -857,7 +753,7 @@ public class ReporteriaEstadisticas extends javax.swing.JFrame {
                         int mess = cb_mes.getSelectedIndex();
                         mess = mess + 1;
                         if (rb_mensual.isSelected()) {
-                            int dia2 = numero(mess);
+                            int dia2 = u.numero(mess);
                             String fechanueva1 = año + "-" + mess + "-" + "01";
                             String fechai1 = año + "-" + mess + "-" + "15";
                             String fechai2 = año + "-" + mess + "-" + "16";
@@ -879,12 +775,12 @@ public class ReporteriaEstadisticas extends javax.swing.JFrame {
                             String nombreReporte = "";
                             if (this.primera.isSelected()) {
                                 r.reporteQuincena(Integer.toString(mess), "2014", 1);
-                                parametro.put("periodo", "De la primera quincena del mes de " + mes(mess));
+                                parametro.put("periodo", "De la primera quincena del mes de " + u.obtenerMes(mess));
                                 nombreReporte = "procesadasQuincena";
                             } else {
                                 if (this.segunda.isSelected()) {
                                     r.reporteQuincena(Integer.toString(mess), "2014", 2);
-                                    parametro.put("periodo", "De la segunda quincena del mes de " + mes(mess));
+                                    parametro.put("periodo", "De la segunda quincena del mes de " + u.obtenerMes(mess));
                                     nombreReporte = "procesadasQuincenaSegunda";
                                 }
                             }
@@ -900,7 +796,7 @@ public class ReporteriaEstadisticas extends javax.swing.JFrame {
                     if (rb_mensual.isSelected()) {
                         int mess = cb_mes.getSelectedIndex();
                         mess = mess + 1;
-                        int dia2 = numero(mess);
+                        int dia2 = u.numero(mess);
                         String fechanueva = año + "-" + mess + "-" + "01"; //calcular el anho
                         String fechai = año + "-" + mess + "-" + "15";
                         String fechaf = año + "-" + mess + "-" + dia2;
@@ -940,7 +836,7 @@ public class ReporteriaEstadisticas extends javax.swing.JFrame {
                     if (rb_quincenal.isSelected()) {
                         int mess = cb_mes.getSelectedIndex();
                         mess = mess + 1;
-                        String ms = mes(mess);
+                        String ms = u.obtenerMes(mess);
                         if (this.primera.isSelected()) {
                             q = "Primera";
                             String p = "('" + (año + "-" + mess + "-" + "01") + "','" + (año + "-" + mess + "-" + "02") + "','" + (año + "-" + mess + "-" + "03") + "','" + (año + "-" + mess + "-" + "04") + "','" + (año + "-" + mess + "-" + "05") + "','" + (año + "-" + mess + "-" + "06") + "','" + (año + "-" + mess + "-" + "07") + "','" + (año + "-" + mess + "-" + "08") + "','" + (año + "-" + mess + "-" + "09") + "','" + (año + "-" + mess + "-" + "10") + "','" + (año + "-" + mess + "-" + "01") + "','" + (año + "-" + mess + "-" + "11") + "','" + (año + "-" + mess + "-" + "12") + "','" + (año + "-" + mess + "-" + "13") + "','" + (año + "-" + mess + "-" + "14") + "','" + (año + "-" + mess + "-" + "15") + "')";
@@ -1002,35 +898,6 @@ public class ReporteriaEstadisticas extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "No se pudo generar el reporte", "Reporte", JOptionPane.ERROR_MESSAGE);
                         ErroresSiapo.agregar(ex, "codigo 39");
                     }
-//                    int mess = cb_mes.getSelectedIndex();
-//                    if (rb_mensual.isSelected()) {
-//                        mess = mess + 1;
-//                        int dia2 = numero(mess);
-//                        String fechanueva11 = año + "-" + mess + "-" + "01";
-//                        String fechaf11 = año + "-" + mess + "-" + dia2;
-//                        ///-------------  ojo fechas 1 enero -31 de enero user_agent
-//                        String p = "('" + fechanueva11 + "','" + fechaf11 + "')";
-//                        if (u.ejecutarSP(p, "errores_globales_anual")) {
-//                            v = u.runReporte("reporte_errores_mensual", parametro);
-//                            v.setTitle("Reporte de errores mensuales");
-//                            v.setVisible(true);
-//                        } else {
-//                            System.out.println("mal");
-//                        }
-//                    } else {
-//                        if (rb_diario.isSelected()) {
-//
-//                            if (usuario.getText().isEmpty()) {
-//                                JOptionPane.showMessageDialog(null, "Ingrese Usuario tipo Agente", "Error", JOptionPane.ERROR_MESSAGE);
-//                            } else {
-//                                parametro.put("periodo", "el dia ");
-//                                parametro.put("user_agent", usuario.getText());
-//                                v = u.runReporte("reporte_errores_diarios", parametro);
-//                                v.setTitle("Reporte diario de errores");
-//                                v.setVisible(true);
-//                            }
-//                        }
-//                    }
                     break;
                 case 3:
                     
@@ -1040,9 +907,9 @@ public class ReporteriaEstadisticas extends javax.swing.JFrame {
                         parametro.put("PERIODO", "Del " + u.fechaReves(fechainicio) + " al " + u.fechaReves(fechafin));
                     } else {
                         String m = Integer.toString(this.cb_mes.getSelectedIndex() + 1);
-                        fechafin = año + "-" + m + "-" + numero(this.cb_mes.getSelectedIndex() + 1);
+                        fechafin = año + "-" + m + "-" + u.numero(this.cb_mes.getSelectedIndex() + 1);
                         fechainicio = año + "-" + m + "-01";
-                        parametro.put("PERIODO", "Del mes de " + mes(this.cb_mes.getSelectedIndex() + 1) + " del año " + año);
+                        parametro.put("PERIODO", "Del mes de " + u.obtenerMes(this.cb_mes.getSelectedIndex() + 1) + " del año " + año);
                     }
                     String p = "('" + fechainicio + "','" + fechafin + "')";
                     if (u.ejecutarSP(p, "ERRORES")) {

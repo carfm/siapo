@@ -57,7 +57,7 @@ public class Usuario extends Sistema {
     public void ingresarUsuario() {
         String s = "'" + getUser() + "',NULL,'" + contraseña + "','" + userFilebound + "',"
                 + correlativoUSA + ",'" + getFechaIngreso() + "','"
-                + getNombreUsuario() + "','" + getApellido() + "',1,NULL,1,0";
+                + getNombreUsuario() + "','" + getApellido() + "',1,NULL,1,1";
         insertar("usuario", s);
     }
 //metodo

@@ -29,6 +29,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     private boolean correlativo;// es una variable que permite no ingresar este valor a los tipo de usuario gerente y administrador
     public NotificacionNueva n;
     public errorNuevo e;
+
     /**
      * **********************INICIO AGREGARUSUARIO**************************
      */
@@ -52,7 +53,8 @@ public class AgregarUsuario extends javax.swing.JFrame {
      * **********************FIN AGREGARUSUARIO**************************
      */
     /**
-     * ********************INICIO CODIGO GENERADO POR NETBEANS*************************
+     * ********************INICIO CODIGO GENERADO POR
+     * NETBEANS*************************
      */
     /*  Nombre del modulo : initComponents
      *  Objetivo: inicializar todos los componentes del JFrame
@@ -612,7 +614,8 @@ public class AgregarUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
-     * ********************FIN CODIGO GENERADO POR NETBEANS*************************
+     * ********************FIN CODIGO GENERADO POR
+     * NETBEANS*************************
      */
     /**
      * **********************INICIO
@@ -624,7 +627,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
      */
     private void ingresarUsuario_carlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresarUsuario_carlActionPerformed
         Usuario usuario = new Usuario();
-        SimpleDateFormat variableFecha = new SimpleDateFormat("dd-MM-yyyy");        
+        SimpleDateFormat variableFecha = new SimpleDateFormat("dd-MM-yyyy");
         try {
             String fecha = variableFecha.format(jDateChooser1.getDate());
             if (user_carl1.getText().isEmpty() || userF_carl1.getText().isEmpty()
@@ -762,18 +765,18 @@ public class AgregarUsuario extends javax.swing.JFrame {
      */
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
-        new ActualizarUsuario(u,this.n,this.e).setVisible(true);
+        new ActualizarUsuario(u, this.n, this.e).setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        new EliminarUsuario(u,this.n,this.e).setVisible(true);
+        new EliminarUsuario(u, this.n, this.e).setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        new AgregarUsuario(u,this.n,this.e).setVisible(true);
+        new AgregarUsuario(u, this.n, this.e).setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton13ActionPerformed
     /**
@@ -814,7 +817,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelarActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        new MenuPpal(u,false,this.n,this.e).setVisible(true);
+        new MenuPpal(u, false, this.n, this.e).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton12ActionPerformed
     /**
