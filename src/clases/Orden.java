@@ -81,21 +81,22 @@ public class Orden extends Sistema {
                  * 1: ingreso de orden
                  * 2: auditoria de orden
                  */
-            } else {
-                // YA HAY REGISTROS 
-                //comprobaremos que los registros sean de estos dias 
-                r = seleccionar("user", "procesa_audita", "specimen = '" + getSpecimen() + "' and fecha = curdate( ) and tipoOperacion=1");
-                if (!r.last()) {
-                    esteDia = false; // no son de este dia asi que no se le agrega el registro
-                    trayIcon.displayMessage("Orden de otro dia", this.getSpecimen(), TrayIcon.MessageType.INFO);
-                }
-                r.close();
-                this.cerrarConexionBase();
-            }
-            if (esteDia) {
-                insertar("procesa_audita(specimen,user,tipoOperacion,fecha,horaInicio)", "'" + getSpecimen() + "','" + user + "',1,CURDATE(),CURTIME()");
-                trayIcon.displayMessage("Nuevo registro de specimen", this.getSpecimen(), TrayIcon.MessageType.INFO);
-            }
+            } //else {
+            // YA HAY REGISTROS 
+            //comprobaremos que los registros sean de estos dias 
+//                r = seleccionar("user", "procesa_audita", "specimen = '" + getSpecimen() + "' and fecha = curdate( ) and tipoOperacion=1");
+//                if (!r.last()) {
+//                    esteDia = false; // no son de este dia asi que no se le agrega el registro
+//                    trayIcon.displayMessage("Orden de otro dia", this.getSpecimen(), TrayIcon.MessageType.INFO);
+//                }
+//                r.close();
+//                this.cerrarConexionBase();
+//            }
+            insertar("procesa_audita(specimen,user,tipoOperacion,fecha,horaInicio)", "'" + getSpecimen() + "','" + user + "',1,CURDATE(),CURTIME()");
+            trayIcon.displayMessage("Nuevo registro de specimen", this.getSpecimen(), TrayIcon.MessageType.INFO);
+//            if (esteDia) {
+//                
+//            }
         } catch (Exception ex) {
             //System.out.println(ex);
             ErroresSiapo.agregar(ex, "codigo 26");
