@@ -500,21 +500,22 @@ public class Orden extends Sistema {
     public void obtenerInfoOrden(JTable historial, JComboBox nombreLocation, JComboBox tipoOrden) {
         try {
             ResultSet r;
-            r = seleccionar("nombrelocation, tipoOrden,user,horaInicio,(SELECT CASE WHEN horaFin is null  THEN '-' ELSE horaFin END),comentarioAgente",
+            r = seleccionar("nombrelocation, tipoOrden,user,horaInicio,(SELECT CASE WHEN horaFin is null  THEN '-' ELSE horaFin END),fecha,comentarioAgente",
                     "procesa_audita a, orden b, location c",
                     "a.specimen = b.specimen AND a.specimen = '" + specimen + "' AND c.codigoLocation = b.codigoLocation and tipoOperacion=1 ORDER BY idProcAud ");
             if (r.last()) {
                 r.first();
                 //nombreLocation.setSelectedItem(r.getString("nombrelocation"));14190481
-                tipoOrden.setSelectedIndex(Integer.parseInt(r.getString("tipoOrden")) - 1);
+                this.setTipoOrden(Integer.parseInt(r.getString("tipoOrden")));
+                tipoOrden.setSelectedIndex(this.tipoOrden - 1);
                 this.comentarioAgente = r.getString("comentarioAgente");
                 this.setUser(r.getString("user"));
                 DefaultTableModel modelo = (DefaultTableModel) historial.getModel();
                 int i;
                 r.beforeFirst();
                 while (r.next()) {
-                    Object[] fila = new Object[3];
-                    for (i = 0; i < 3; i++) {
+                    Object[] fila = new Object[4];
+                    for (i = 0; i < 4; i++) {
                         fila[i] = r.getObject(i + 3);
                     }
                     modelo.addRow(fila);
