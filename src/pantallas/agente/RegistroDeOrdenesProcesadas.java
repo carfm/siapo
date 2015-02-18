@@ -961,11 +961,11 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
 
             },
             new String [] {
-                "user", "Hora Inicio", "Hora Finalizacion"
+                "User", "Hora Inicio", "Hora Finalizacion", "Fecha"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -978,6 +978,8 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
             historial.getColumnModel().getColumn(0).setPreferredWidth(10);
             historial.getColumnModel().getColumn(1).setResizable(false);
             historial.getColumnModel().getColumn(2).setResizable(false);
+            historial.getColumnModel().getColumn(3).setResizable(false);
+            historial.getColumnModel().getColumn(3).setPreferredWidth(0);
         }
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -2150,7 +2152,8 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
         ventanaEmergente.cambiarColor(1);
         String texto = "SPECIMEN ACTUAL: " + this.specAlmacenado
                 + " \nLOCATION: " + nombreLocation.getSelectedItem().toString() + " # " + l.getCodigoLocationUSA()
-                + " \nTIPO DE ORDEN: " + tipoOrden.getSelectedItem().toString().toUpperCase();
+                + " \nTIPO DE ORDEN: " + tipoOrden.getSelectedItem().toString().toUpperCase()
+                + " \nFECHA: " + this.historial.getValueAt(0, 3);
 
         if (this.almacenado) {
             texto = texto + "\nHORA INICIO: " + this.historial.getValueAt(0, 1) + " HORA FIN: " + this.historial.getValueAt(0, 2)
