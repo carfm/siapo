@@ -68,8 +68,6 @@ public class EliminarAuditoria extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jButton12 = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
-        jButton10 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         jButton13 = new javax.swing.JButton();
@@ -126,7 +124,7 @@ public class EliminarAuditoria extends javax.swing.JFrame {
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 540, Short.MAX_VALUE)
                         .addComponent(jLabel16)))
                 .addContainerGap())
         );
@@ -178,23 +176,6 @@ public class EliminarAuditoria extends javax.swing.JFrame {
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("Menú principal");
 
-        jButton10.setBackground(new java.awt.Color(60, 117, 207));
-        jButton10.setForeground(new java.awt.Color(60, 117, 207));
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/actualizarRegistroOrden.png"))); // NOI18N
-        jButton10.setBorderPainted(false);
-        jButton10.setEnabled(false);
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Modificar Auditoria");
-        jLabel3.setEnabled(false);
-
         jButton6.setBackground(new java.awt.Color(60, 117, 207));
         jButton6.setForeground(new java.awt.Color(60, 117, 207));
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/elimarRegistroOrden.png"))); // NOI18N
@@ -240,23 +221,17 @@ public class EliminarAuditoria extends javax.swing.JFrame {
                         .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addGroup(headerLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel14)
                     .addGroup(headerLayout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(headerLayout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel8))
                     .addGroup(headerLayout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jLabel8)))
+                        .addGap(32, 32, 32)
+                        .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel13)
                 .addContainerGap())
@@ -271,15 +246,9 @@ public class EliminarAuditoria extends javax.swing.JFrame {
                     .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(headerLayout.createSequentialGroup()
                             .addGap(1, 1, 1)
-                            .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(headerLayout.createSequentialGroup()
-                                    .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(headerLayout.createSequentialGroup()
-                                    .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(headerLayout.createSequentialGroup()
                             .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -544,12 +513,6 @@ public class EliminarAuditoria extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton12ActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
-        new ModificarAuditoria(u, this.n, this.e).setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jButton10ActionPerformed
-
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
         new EliminarAuditoria(u, this.n, this.e).setVisible(true);
@@ -607,7 +570,7 @@ public class EliminarAuditoria extends javax.swing.JFrame {
         String spec = listaOrdenes.getValueAt(listaOrdenes.getSelectedRow(), 1).toString();
         int resulta;
         resulta = JOptionPane.showConfirmDialog(null, "¿Desea cancelar la auditoria en el specimen: "
-                + spec+"?", "Cancelar auditoria",
+                + spec + "?", "Cancelar auditoria",
                 JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         if (resulta == JOptionPane.YES_OPTION) {
             String user = listaOrdenes.getValueAt(listaOrdenes.getSelectedRow(), 2).toString();
@@ -624,7 +587,7 @@ public class EliminarAuditoria extends javax.swing.JFrame {
                 } else {
                     JOptionPane.showMessageDialog(null, "Lo sentimos. Fallo la eliminacion.");
                 }
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Lo sentimos. Fallo la eliminacion.");
             }
         }
@@ -663,7 +626,6 @@ public class EliminarAuditoria extends javax.swing.JFrame {
     private javax.swing.JRadioButton fechaRadio;
     private javax.swing.JPanel footer;
     private javax.swing.JPanel header;
-    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton6;
@@ -675,7 +637,6 @@ public class EliminarAuditoria extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -688,9 +649,10 @@ public class EliminarAuditoria extends javax.swing.JFrame {
         int i, j, filas;//i fila j colummna  
         ResultSet r;
         try {
-            r = u.seleccionar("count(*) as filas", "puede_tener", "specimen='" + orden + "'");
-            filas = r.getInt("filas");
-            u.cerrarConexionBase();
+            //r = u.seleccionar("count(*) as filas", "puede_tener", );
+            filas = u.contadorFilas("puede_tener", "specimen='" + orden + "'");
+            //r.getInt("filas");
+            //u.cerrarConexionBase();
             r = u.seleccionar("puede_tener.idPuedeTener,puede_tener.codigoError, Error.nombreError, "
                     + "orden.comentarioAuditor, error.aprobado", "puede_tener, error, orden",
                     "(puede_tener.specimen ='" + orden + "' AND puede_tener.specimen = "
@@ -751,7 +713,7 @@ public class EliminarAuditoria extends javax.swing.JFrame {
                 campos = "count(*) as filas";
                 tablas = "procesa_audita b";
                 condicion = "tipoOperacion=2 AND DATE(fecha)=curdate()";
-                cam = "fecha,specimen,(SELECT user from procesa_audita WHERE specimen = b.specimen limit 1) as agente";
+                cam = "fecha,specimen,(SELECT user from procesa_audita WHERE specimen = b.specimen order by idProcAud limit 1 ) as agente";
                 break;
 
             case "specimen":
@@ -759,7 +721,7 @@ public class EliminarAuditoria extends javax.swing.JFrame {
                 campos = "count(*) as filas";
                 tablas = "procesa_audita b";
                 condicion = "tipoOperacion=2 and specimen='" + dato + "'";
-                cam = "fecha,specimen,(SELECT user from procesa_audita WHERE specimen = b.specimen limit 1) as agente";
+                cam = "fecha,specimen,(SELECT user from procesa_audita WHERE specimen = b.specimen order by idProcAud limit 1) as agente";
                 break;
 
             case "user":
@@ -767,7 +729,7 @@ public class EliminarAuditoria extends javax.swing.JFrame {
                 campos = "count(*) as filas";
                 tablas = "procesa_audita b";
                 condicion = "tipoOperacion=2 and user='" + dato + "'and DATE(fecha)=curdate()";
-                cam = "fecha,specimen,(SELECT user from procesa_audita WHERE specimen = b.specimen limit 1) as agente";
+                cam = "fecha,specimen,(SELECT user from procesa_audita WHERE specimen = b.specimen order by idProcAud limit 1) as agente";
                 break;
 
         }
@@ -797,10 +759,10 @@ public class EliminarAuditoria extends javax.swing.JFrame {
                         }
                     }
                     r.next();
-                }                
+                }
             }
         } catch (SQLException | NumberFormatException ex) {
-        }finally{
+        } finally {
             u.cerrarConexionBase();
         }
     }
