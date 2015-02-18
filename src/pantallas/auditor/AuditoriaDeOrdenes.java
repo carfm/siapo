@@ -25,7 +25,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import pantallas.general.MenuPpal;
 import pantallas.mensajeria.NotificacionNueva;
@@ -125,8 +124,6 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
         jLabel14 = new javax.swing.JLabel();
         jButton12 = new javax.swing.JButton();
         jLabel18 = new javax.swing.JLabel();
-        jButton10 = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
         jLabel19 = new javax.swing.JLabel();
         jButton13 = new javax.swing.JButton();
@@ -164,7 +161,6 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
         ed_button_viewError = new javax.swing.JButton();
         ed_button_reg = new javax.swing.JButton();
         ed_button_cancel = new javax.swing.JButton();
-        ed_button_audi = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
@@ -446,7 +442,7 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 559, Short.MAX_VALUE)
                         .addComponent(jLabel16)))
                 .addContainerGap())
         );
@@ -499,23 +495,6 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setText("Menú principal");
 
-        jButton10.setBackground(new java.awt.Color(60, 117, 207));
-        jButton10.setForeground(new java.awt.Color(60, 117, 207));
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/actualizarRegistroOrden.png"))); // NOI18N
-        jButton10.setBorderPainted(false);
-        jButton10.setEnabled(false);
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
-            }
-        });
-
-        jLabel7.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Modificar Auditoria");
-        jLabel7.setEnabled(false);
-
         jButton6.setBackground(new java.awt.Color(60, 117, 207));
         jButton6.setForeground(new java.awt.Color(60, 117, 207));
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/elimarRegistroOrden.png"))); // NOI18N
@@ -561,12 +540,6 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
                         .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addGroup(headerLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel19)
                     .addGroup(headerLayout.createSequentialGroup()
                         .addGap(17, 17, 17)
@@ -597,12 +570,9 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
                             .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
-                            .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jButton10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jButton13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -930,20 +900,12 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
             }
         });
 
-        ed_button_audi.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        ed_button_audi.setText("Lista de Auditores");
-        ed_button_audi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ed_button_audiActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(111, 111, 111)
+                .addGap(183, 183, 183)
                 .addComponent(ed_button_verAudi, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ed_button_viewError)
@@ -951,9 +913,7 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
                 .addComponent(ed_button_reg)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ed_button_cancel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ed_button_audi)
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -963,8 +923,7 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
                     .addComponent(ed_button_verAudi)
                     .addComponent(ed_button_viewError)
                     .addComponent(ed_button_reg)
-                    .addComponent(ed_button_cancel)
-                    .addComponent(ed_button_audi))
+                    .addComponent(ed_button_cancel))
                 .addContainerGap())
         );
 
@@ -1208,12 +1167,6 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
         this.dispose();
     }//GEN-LAST:event_jButton12ActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        detenerHilo();
-        new ModificarAuditoria(u, this.n, this.e).setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jButton10ActionPerformed
-
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         detenerHilo();
         new EliminarAuditoria(u, this.n, this.e).setVisible(true);
@@ -1292,34 +1245,6 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
         // TODO add your handling code here:
     }//GEN-LAST:event_ed_text_locationActionPerformed
 
-    private void ed_button_audiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ed_button_audiActionPerformed
-        try {
-            // TODO add your handling code here:
-            /*
-             select
-             auditor,e.user as agente
-             from
-             procesa_audita e join (select a.specimen,auditor from procesa_audita a join (select user as auditor,max(idProcAud) as id from procesa_audita c where c.tipooperacion = 2 and fecha = curdate() group by auditor) b on a.idProcAud = b.id) d on d.specimen = e.specimen group by auditor
-             */
-            String tabla = "";
-            ResultSet r;
-            r = u.seleccionar("auditor,e.user as agente", "procesa_audita e join "
-                    + "(select a.specimen,auditor from procesa_audita a join "
-                    + "(select user as auditor,max(idProcAud) as id from procesa_audita c where c.tipooperacion = 2 and fecha = curdate() group by auditor) b "
-                    + "on a.idProcAud = b.id) d on d.specimen = e.specimen group by auditor",
-                    "");
-            r.beforeFirst();
-            while (r.next()) {
-                tabla = tabla + r.getString("auditor") + " audita a " + r.getString("agente") + "\n";
-            }
-            JOptionPane.showMessageDialog(this, tabla, "Lista de Auditores / Agentes", JOptionPane.PLAIN_MESSAGE);
-            u.cerrarConexionBase();
-        } catch (SQLException ex) {
-            Logger.getLogger(AuditoriaDeOrdenes.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }//GEN-LAST:event_ed_button_audiActionPerformed
-
     private boolean recuperarDatosOrden() {
         /*Modulo que tiene por objetivo la recuperacion de los datos basicos de
          * una orden procesada a la cual se le aplicara auditoria.
@@ -1388,7 +1313,6 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
     private javax.swing.JTextField buscar;
     private javax.swing.JToggleButton buscar_btn;
     private javax.swing.JLabel conError;
-    private javax.swing.JButton ed_button_audi;
     private javax.swing.JButton ed_button_cancel;
     private javax.swing.JButton ed_button_iError;
     private javax.swing.JButton ed_button_reg;
@@ -1408,7 +1332,6 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
     private javax.swing.JPanel footer;
     private javax.swing.JPanel header;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton2;
@@ -1441,7 +1364,6 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel10;
