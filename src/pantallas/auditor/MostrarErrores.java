@@ -53,7 +53,7 @@ public class MostrarErrores extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(94, 112, 144));
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Universidad de El Salvador Copyright ©  2013 ");
+        jLabel1.setText("Universidad de El Salvador ©Copyright "+Sistema.años);
         jPanel2.add(jLabel1);
 
         button_aceptar.setText("Aceptar");

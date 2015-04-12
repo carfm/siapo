@@ -2,13 +2,12 @@ package pantallas.gerente;
 
 import clases.ErroresSiapo;
 import clases.Reporte;
+import clases.Sistema;
 import clases.Usuario;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import net.sf.jasperreports.view.JasperViewer;
@@ -102,7 +101,7 @@ public class ReporteriaEstadisticas extends javax.swing.JFrame {
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Universidad de El Salvador ©Copyright 2013 ");
+        jLabel1.setText("Universidad de El Salvador ©Copyright "+Sistema.años);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -975,7 +974,7 @@ public class ReporteriaEstadisticas extends javax.swing.JFrame {
                         try {
                             Thread.sleep(100);
                         } catch (InterruptedException ex) {
-                            Logger.getLogger(GenerarGraficas.class.getName()).log(Level.SEVERE, null, ex);
+//                            Logger.getLogger(GenerarGraficas.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
                     if (hiloCargando.isAlive()) {

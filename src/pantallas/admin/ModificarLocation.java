@@ -4,15 +4,11 @@
  */
 package pantallas.admin;
 
-import pantallas.admin.AgregarLocation;
 import clases.Sistema;
 import clases.Usuario;
 import java.awt.HeadlessException;
-
-
 import java.sql.*;
 import java.util.Calendar;
-
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import pantallas.general.MenuPpal;
@@ -336,7 +332,7 @@ public class ModificarLocation extends javax.swing.JFrame {
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Universidad de El Salvador ©Copyright 2013 ");
+        jLabel1.setText("Universidad de El Salvador ©Copyright "+Sistema.años);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);

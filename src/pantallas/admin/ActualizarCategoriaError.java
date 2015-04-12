@@ -182,12 +182,13 @@ public final class ActualizarCategoriaError extends javax.swing.JFrame {
         DatosTipoErrorLayout.setVerticalGroup(
             DatosTipoErrorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DatosTipoErrorLayout.createSequentialGroup()
-                .addGroup(DatosTipoErrorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tf_codigoerror1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel47, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(DatosTipoErrorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(DatosTipoErrorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(tf_dialimite1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel48)))
+                        .addComponent(jLabel48))
+                    .addGroup(DatosTipoErrorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tf_codigoerror1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel47, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(21, 21, 21)
                 .addGroup(DatosTipoErrorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(DatosTipoErrorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -221,7 +222,7 @@ public final class ActualizarCategoriaError extends javax.swing.JFrame {
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Universidad de El Salvador ©Copyright 2013 ");
+        jLabel1.setText("Universidad de El Salvador ©Copyright "+Sistema.años);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);

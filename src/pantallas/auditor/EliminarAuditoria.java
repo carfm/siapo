@@ -4,13 +4,13 @@
  */
 package pantallas.auditor;
 
+import clases.Sistema;
 import clases.Usuario;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import pantallas.general.MenuPpal;
 import pantallas.mensajeria.NotificacionNueva;
@@ -34,7 +34,6 @@ public class EliminarAuditoria extends javax.swing.JFrame {
         this.n = n;
         initComponents();
         fecha.setEnabled(false);
-        llenarOrdenes("user", u.getUser(), true);
         setSize(1024, 680);
         setLocationRelativeTo(null);
     }
@@ -45,7 +44,6 @@ public class EliminarAuditoria extends javax.swing.JFrame {
         initComponents();
         setSize(1024, 680);
         setLocationRelativeTo(null);
-        llenarOrdenes("user", u.getUser(), true);
     }
 
     /**
@@ -68,8 +66,6 @@ public class EliminarAuditoria extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jButton12 = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
-        jButton10 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         jButton13 = new javax.swing.JButton();
@@ -80,17 +76,19 @@ public class EliminarAuditoria extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         listaOrdenes = new javax.swing.JTable();
         buscarSpecimen = new javax.swing.JRadioButton();
-        buscarUser = new javax.swing.JRadioButton();
         buscar = new javax.swing.JTextField();
         buscar_btn = new javax.swing.JToggleButton();
         fechaRadio = new javax.swing.JRadioButton();
         fecha = new com.toedter.calendar.JDateChooser();
+        dia = new javax.swing.JRadioButton();
+        auditor = new javax.swing.JRadioButton();
         erroresDeOrden = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         errores = new javax.swing.JTable();
         botones = new javax.swing.JPanel();
         borrar = new javax.swing.JToggleButton();
         cancelar = new javax.swing.JToggleButton();
+        cancelar1 = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gestion de Auditorias - Eliminar Auditoria");
@@ -126,7 +124,7 @@ public class EliminarAuditoria extends javax.swing.JFrame {
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 540, Short.MAX_VALUE)
                         .addComponent(jLabel16)))
                 .addContainerGap())
         );
@@ -178,23 +176,6 @@ public class EliminarAuditoria extends javax.swing.JFrame {
         jLabel15.setForeground(new java.awt.Color(255, 255, 255));
         jLabel15.setText("Menú principal");
 
-        jButton10.setBackground(new java.awt.Color(60, 117, 207));
-        jButton10.setForeground(new java.awt.Color(60, 117, 207));
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/actualizarRegistroOrden.png"))); // NOI18N
-        jButton10.setBorderPainted(false);
-        jButton10.setEnabled(false);
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Modificar Auditoria");
-        jLabel3.setEnabled(false);
-
         jButton6.setBackground(new java.awt.Color(60, 117, 207));
         jButton6.setForeground(new java.awt.Color(60, 117, 207));
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/elimarRegistroOrden.png"))); // NOI18N
@@ -240,23 +221,17 @@ public class EliminarAuditoria extends javax.swing.JFrame {
                         .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addGroup(headerLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel14)
                     .addGroup(headerLayout.createSequentialGroup()
                         .addGap(17, 17, 17)
                         .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(headerLayout.createSequentialGroup()
-                        .addGap(43, 43, 43)
-                        .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel8))
                     .addGroup(headerLayout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jLabel8)))
+                        .addGap(32, 32, 32)
+                        .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel13)
                 .addContainerGap())
@@ -271,15 +246,9 @@ public class EliminarAuditoria extends javax.swing.JFrame {
                     .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(headerLayout.createSequentialGroup()
                             .addGap(1, 1, 1)
-                            .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(headerLayout.createSequentialGroup()
-                                    .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(headerLayout.createSequentialGroup()
-                                    .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(headerLayout.createSequentialGroup()
                             .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -297,7 +266,7 @@ public class EliminarAuditoria extends javax.swing.JFrame {
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Universidad de El Salvador ©Copyright 2013 ");
+        jLabel1.setText("Universidad de El Salvador ©Copyright "+Sistema.años);
 
         javax.swing.GroupLayout footerLayout = new javax.swing.GroupLayout(footer);
         footer.setLayout(footerLayout);
@@ -341,11 +310,7 @@ public class EliminarAuditoria extends javax.swing.JFrame {
 
         busqueda.add(buscarSpecimen);
         buscarSpecimen.setSelected(true);
-        buscarSpecimen.setText("Specimen");
-
-        busqueda.add(buscarUser);
-        buscarUser.setText("User");
-        buscarUser.setEnabled(false);
+        buscarSpecimen.setText("specimen");
 
         buscar_btn.setText("Buscar");
         buscar_btn.addActionListener(new java.awt.event.ActionListener() {
@@ -356,7 +321,6 @@ public class EliminarAuditoria extends javax.swing.JFrame {
 
         busqueda.add(fechaRadio);
         fechaRadio.setText("fecha");
-        fechaRadio.setEnabled(false);
         fechaRadio.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 fechaRadioItemStateChanged(evt);
@@ -366,47 +330,55 @@ public class EliminarAuditoria extends javax.swing.JFrame {
         fecha.setDateFormatString("dd-MM-yyyy");
         fecha.setEnabled(false);
 
+        busqueda.add(dia);
+        dia.setText("del dia");
+
+        busqueda.add(auditor);
+        auditor.setText("auditor");
+
         javax.swing.GroupLayout ordenesAuditadasLayout = new javax.swing.GroupLayout(ordenesAuditadas);
         ordenesAuditadas.setLayout(ordenesAuditadasLayout);
         ordenesAuditadasLayout.setHorizontalGroup(
             ordenesAuditadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ordenesAuditadasLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(ordenesAuditadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(ordenesAuditadasLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
+                        .addComponent(buscarSpecimen)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(fechaRadio)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(dia)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(auditor))
+                    .addGroup(ordenesAuditadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(ordenesAuditadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(ordenesAuditadasLayout.createSequentialGroup()
-                                .addGroup(ordenesAuditadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(buscar)
-                                    .addGroup(ordenesAuditadasLayout.createSequentialGroup()
-                                        .addComponent(buscarSpecimen)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(buscarUser)))
-                                .addGap(18, 18, 18)
-                                .addGroup(ordenesAuditadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(fechaRadio)
-                                    .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(ordenesAuditadasLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(buscar_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(14, 14, 14)
+                                .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(ordenesAuditadasLayout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(buscar_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
         ordenesAuditadasLayout.setVerticalGroup(
             ordenesAuditadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ordenesAuditadasLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(6, 6, 6)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(ordenesAuditadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buscarSpecimen)
-                    .addComponent(buscarUser)
-                    .addComponent(fechaRadio))
+                    .addComponent(fechaRadio)
+                    .addComponent(dia)
+                    .addComponent(auditor))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(ordenesAuditadasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addComponent(buscar_btn))
         );
 
@@ -417,11 +389,11 @@ public class EliminarAuditoria extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Codigo Error", "Descripcion", "Comentario", "Recurrencia", "Aprobado", "id"
+                "Codigo error", "Error", "Comentario", "id"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -439,12 +411,6 @@ public class EliminarAuditoria extends javax.swing.JFrame {
             errores.getColumnModel().getColumn(2).setMinWidth(200);
             errores.getColumnModel().getColumn(2).setPreferredWidth(200);
             errores.getColumnModel().getColumn(2).setMaxWidth(200);
-            errores.getColumnModel().getColumn(3).setMinWidth(90);
-            errores.getColumnModel().getColumn(3).setPreferredWidth(90);
-            errores.getColumnModel().getColumn(3).setMaxWidth(90);
-            errores.getColumnModel().getColumn(4).setMinWidth(90);
-            errores.getColumnModel().getColumn(4).setPreferredWidth(90);
-            errores.getColumnModel().getColumn(4).setMaxWidth(90);
         }
 
         javax.swing.GroupLayout erroresDeOrdenLayout = new javax.swing.GroupLayout(erroresDeOrden);
@@ -453,7 +419,7 @@ public class EliminarAuditoria extends javax.swing.JFrame {
             erroresDeOrdenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, erroresDeOrdenLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 659, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         erroresDeOrdenLayout.setVerticalGroup(
@@ -465,7 +431,6 @@ public class EliminarAuditoria extends javax.swing.JFrame {
 
         borrar.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         borrar.setText("Eliminar Auditoria");
-        borrar.setEnabled(false);
         borrar.setMaximumSize(new java.awt.Dimension(145, 27));
         borrar.setMinimumSize(new java.awt.Dimension(145, 27));
         borrar.setPreferredSize(new java.awt.Dimension(145, 27));
@@ -477,7 +442,6 @@ public class EliminarAuditoria extends javax.swing.JFrame {
 
         cancelar.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         cancelar.setText("Cancelar");
-        cancelar.setEnabled(false);
         cancelar.setMaximumSize(new java.awt.Dimension(145, 27));
         cancelar.setMinimumSize(new java.awt.Dimension(145, 27));
         cancelar.setPreferredSize(new java.awt.Dimension(145, 27));
@@ -487,25 +451,39 @@ public class EliminarAuditoria extends javax.swing.JFrame {
             }
         });
 
+        cancelar1.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        cancelar1.setText("Eliminar errores");
+        cancelar1.setMaximumSize(new java.awt.Dimension(145, 27));
+        cancelar1.setMinimumSize(new java.awt.Dimension(145, 27));
+        cancelar1.setPreferredSize(new java.awt.Dimension(145, 27));
+        cancelar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelar1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout botonesLayout = new javax.swing.GroupLayout(botones);
         botones.setLayout(botonesLayout);
         botonesLayout.setHorizontalGroup(
             botonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(botonesLayout.createSequentialGroup()
-                .addGap(344, 344, 344)
+                .addGap(278, 278, 278)
                 .addComponent(borrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cancelar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         botonesLayout.setVerticalGroup(
             botonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(botonesLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, botonesLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(botonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(borrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(borrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cancelar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -513,14 +491,14 @@ public class EliminarAuditoria extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(header, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(ordenesAuditadas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(erroresDeOrden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(footer, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(botones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(ordenesAuditadas, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(63, 63, 63)
+                .addComponent(erroresDeOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -528,9 +506,11 @@ public class EliminarAuditoria extends javax.swing.JFrame {
                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ordenesAuditadas, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(erroresDeOrden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
+                    .addComponent(ordenesAuditadas, javax.swing.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(erroresDeOrden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -543,12 +523,6 @@ public class EliminarAuditoria extends javax.swing.JFrame {
         new MenuPpal(u, false, this.n, this.e).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton12ActionPerformed
-
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
-        new ModificarAuditoria(u, this.n, this.e).setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
@@ -564,8 +538,8 @@ public class EliminarAuditoria extends javax.swing.JFrame {
     private void listaOrdenesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaOrdenesMouseClicked
         String orden = listaOrdenes.getValueAt(listaOrdenes.getSelectedRow(), 1).toString();
         String user = listaOrdenes.getValueAt(listaOrdenes.getSelectedRow(), 2).toString();
-        limpiarTabla(errores);
-        llenarErrores(orden, user, true);
+        u.limpiarTabla(errores);
+        llenarErrores(orden, user);
         borrar.setEnabled(true);
         cancelar.setEnabled(true);
     }//GEN-LAST:event_listaOrdenesMouseClicked
@@ -584,19 +558,21 @@ public class EliminarAuditoria extends javax.swing.JFrame {
             } catch (Exception ex) {
 
             } finally {
-                limpiarTabla(listaOrdenes);
-                llenarOrdenes("user", u.getUser(), true);
+                u.limpiarTabla(listaOrdenes);
+                llenarOrdenes("fecha", u.getUser());
             }
         } else {
-            if (buscar.getText().equals("")) {
-                limpiarTabla(listaOrdenes);
-                llenarOrdenes("user", u.getUser(), true);
-
+            if (buscar.getText().equals("") && !dia.isSelected()) {
+                JOptionPane.showMessageDialog(null, "No hay nada que buscar", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 if (buscarSpecimen.isSelected()) {
-                    llenarOrdenes("specimen", buscar.getText(), true);
+                    llenarOrdenes("specimen", buscar.getText());
                 } else {
-                    llenarOrdenes("user", buscar.getText(), true);
+                    if (auditor.isSelected()) {
+                        llenarOrdenes("user", buscar.getText());
+                    } else {
+                        llenarOrdenes("", buscar.getText());
+                    }
                 }
             }
         }
@@ -607,31 +583,30 @@ public class EliminarAuditoria extends javax.swing.JFrame {
         String spec = listaOrdenes.getValueAt(listaOrdenes.getSelectedRow(), 1).toString();
         int resulta;
         resulta = JOptionPane.showConfirmDialog(null, "¿Desea cancelar la auditoria en el specimen: "
-                + spec+"?", "Cancelar auditoria",
+                + spec + "?", "Cancelar auditoria",
                 JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         if (resulta == JOptionPane.YES_OPTION) {
-            String user = listaOrdenes.getValueAt(listaOrdenes.getSelectedRow(), 2).toString();
-            boolean exito = u.borrar("procesa_audita", "specimen='" + spec + "' and tipoOperacion=2 and user= '" + u.getUser() + "'");
+            boolean exito = u.borrar("procesa_audita", "specimen='" + spec + "' and user= '" + u.getUser() + "' and tipoOperacion=2");
             if (exito) {
-                if (errores.getColumnCount() >= 1) {
-                    exito = u.borrar("puede_tener", "specimen='" + spec + "' and user= '" + user + "'");
+                if (errores.getRowCount() >= 1) {
+                    String id = errores.getValueAt(0, 3).toString();
+                    exito = u.borrar("puede_tener", "idProcAud=" + id);
                 }
                 if (exito) {
                     JOptionPane.showMessageDialog(null, "La auditoria ha sido eliminada.");
-                    limpiarTabla(listaOrdenes);
-                    limpiarTabla(errores);
-                    llenarOrdenes("user", u.getUser(), true);
+                    u.limpiarTabla(errores);
+                    u.limpiarTabla(listaOrdenes);
                 } else {
                     JOptionPane.showMessageDialog(null, "Lo sentimos. Fallo la eliminacion.");
                 }
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Lo sentimos. Fallo la eliminacion.");
             }
         }
     }//GEN-LAST:event_borrarActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
-        limpiarTabla(errores);
+        u.limpiarTabla(errores);
     }//GEN-LAST:event_cancelarActionPerformed
 
     private void fechaRadioItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_fechaRadioItemStateChanged
@@ -644,26 +619,48 @@ public class EliminarAuditoria extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_fechaRadioItemStateChanged
 
+    private void cancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelar1ActionPerformed
+        // TODO add your handling code here:
+        String spec = listaOrdenes.getValueAt(listaOrdenes.getSelectedRow(), 1).toString();
+        String id = errores.getValueAt(0, 3).toString();
+        int resulta;
+        resulta = JOptionPane.showConfirmDialog(null, "¿Desea eliminar el(los) error(es) del specimen: "
+                + spec + "?", "Errores",
+                JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (resulta == JOptionPane.YES_OPTION) {
+            boolean exito = u.borrar("puede_tener", "idProcAud=" + id);
+            if (exito) {
+                u.actualizar("procesa_audita", "tipoProcAud=4", "user='" + u.getUser() + "' and specimen = '" + spec + "' and tipoOperacion=2");
+                JOptionPane.showMessageDialog(null, "La el(los) error(es) ha(n) sido eliminado(s).");
+                u.limpiarTabla(errores);
+                u.limpiarTabla(listaOrdenes);
+            } else {
+                JOptionPane.showMessageDialog(null, "Lo sentimos. Fallo la eliminacion.");
+            }
+        }
+    }//GEN-LAST:event_cancelar1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton auditor;
     private javax.swing.JToggleButton borrar;
     private javax.swing.JPanel botones;
     private javax.swing.JTextField buscar;
     private javax.swing.JRadioButton buscarSpecimen;
-    private javax.swing.JRadioButton buscarUser;
     private javax.swing.JToggleButton buscar_btn;
     private javax.swing.ButtonGroup busqueda;
     private javax.swing.JToggleButton cancelar;
+    private javax.swing.JToggleButton cancelar1;
+    private javax.swing.JRadioButton dia;
     private javax.swing.JTable errores;
     private javax.swing.JPanel erroresDeOrden;
     private com.toedter.calendar.JDateChooser fecha;
     private javax.swing.JRadioButton fechaRadio;
     private javax.swing.JPanel footer;
     private javax.swing.JPanel header;
-    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton6;
@@ -675,7 +672,6 @@ public class EliminarAuditoria extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -684,137 +680,69 @@ public class EliminarAuditoria extends javax.swing.JFrame {
     private javax.swing.JTable listaOrdenes;
     private javax.swing.JPanel ordenesAuditadas;
     // End of variables declaration//GEN-END:variables
- private void llenarErrores(String orden, String user, boolean primeraVez) {
-        int i, j, filas;//i fila j colummna  
+
+    private void llenarErrores(String orden, String user) {
         ResultSet r;
         try {
-            r = u.seleccionar("count(*) as filas", "puede_tener", "specimen='" + orden + "'");
-            filas = r.getInt("filas");
-            u.cerrarConexionBase();
-            r = u.seleccionar("puede_tener.idPuedeTener,puede_tener.codigoError, Error.nombreError, "
-                    + "orden.comentarioAuditor, error.aprobado", "puede_tener, error, orden",
-                    "(puede_tener.specimen ='" + orden + "' AND puede_tener.specimen = "
-                    + "orden.specimen AND puede_tener.codigoError = error.codigoError)");
-
+            r = u.seleccionar(" a.codigoError,nombreError,comentarioAuditor,a.idProcAud",
+                    "puede_tener a inner join error b on a.codigoError=b.codigoError inner join procesa_audita c on c.idProcAud=a.idProcAud",
+                    "user = '" + user + "' and specimen='" + orden + "' and tipoOperacion = 1");
             r.beforeFirst();
-            if (r.next()) {
-                for (i = 0; i < filas; i++) {
-                    if (primeraVez) {
-                        ((DefaultTableModel) errores.getModel()).setRowCount(errores.getRowCount() + 1);// agrega filas dinamicamente
-                    }
-                    for (j = 0; j < 6; j++) {
-                        //fila,colummna
-                        switch (j) {
-                            case 0:
-                                errores.setValueAt(r.getString("puede_tener.codigoError"), i, j);
-                                break;
-                            case 1:
-                                errores.setValueAt(r.getString("error.nombreError"), i, j);
-                                break;
-                            case 2:
-                                errores.setValueAt(r.getString("orden.comentarioAuditor"), i, j);
-                                break;
-                            case 3:
-                                errores.setValueAt("", i, j);//recurrencia
-                                break;
-                            case 4:
-                                if (r.getString("error.aprobado").equals("1")) {
-                                    errores.setValueAt("SI", i, j);
-                                } else {
-                                    errores.setValueAt("NO", i, j);
-                                }
-                                break;
-                            case 5:
-                                errores.setValueAt(r.getString("puede_tener.idPuedeTener"), i, j);
-
-                        }
-                    }
-                    r.next();
+            while (r.next()) {
+                // Se crea un array que será una de las filas de la tabla.
+                Object[] fila = new Object[4]; // Hay cuatro columnas en la tabla
+                // Se rellena cada posición del array con una de las columnas de la tabla en base de datos.
+                for (int i = 0; i < 4; i++) {
+                    fila[i] = r.getObject(i + 1); // El primer indice en rs es el 1, no el cero, por eso se suma 1.
                 }
+                // Se añade al modelo la fila completa.
+                ((DefaultTableModel) errores.getModel()).addRow(fila);
             }
-            u.cerrarConexionBase();
         } catch (SQLException | NumberFormatException ex) {
+            System.out.println(ex);
+        } finally {
             u.cerrarConexionBase();
         }
     }
 
-    private void llenarOrdenes(String registros, String datos, boolean primeraVez) {
-        int i, j, filas;//i fila j colummna  
+    private void llenarOrdenes(String registros, String datos) {
         String tipo = registros, dato = datos;
-        String campos, tablas, condicion, cam;
+        String tablas, condicion, cam;
         ResultSet r;
-        if (fechaHoy.isEmpty()) {
-            fechaHoy = c.get(Calendar.YEAR) + "-" + (c.get(Calendar.MONTH) + 1) + "-" + c.get(Calendar.DATE);
-        }
+        this.buscar.setText("");
+        u.limpiarTabla(listaOrdenes);
+        cam = "fecha,specimen,(SELECT user from procesa_audita WHERE specimen = b.specimen order by idProcAud limit 1 ) as agente";
+        tablas = "procesa_audita b";
         switch (tipo) {
             default:
-                campos = "count(*) as filas";
-                tablas = "procesa_audita b";
-                condicion = "tipoOperacion=2 AND DATE(fecha)=curdate()";
-                cam = "fecha,specimen,(SELECT user from procesa_audita WHERE specimen = b.specimen limit 1) as agente";
+                condicion = "tipoOperacion=2 and user='" + u.getUser() + "'and fecha=curdate()";
                 break;
-
             case "specimen":
-                limpiarTabla(listaOrdenes);
-                campos = "count(*) as filas";
-                tablas = "procesa_audita b";
                 condicion = "tipoOperacion=2 and specimen='" + dato + "'";
-                cam = "fecha,specimen,(SELECT user from procesa_audita WHERE specimen = b.specimen limit 1) as agente";
                 break;
-
             case "user":
-                limpiarTabla(listaOrdenes);
-                campos = "count(*) as filas";
-                tablas = "procesa_audita b";
-                condicion = "tipoOperacion=2 and user='" + dato + "'and DATE(fecha)=curdate()";
-                cam = "fecha,specimen,(SELECT user from procesa_audita WHERE specimen = b.specimen limit 1) as agente";
+                condicion = "tipoOperacion=2 and user='" + dato + "'and fecha=curdate()";
                 break;
-
+            case "fecha":
+                condicion = "tipoOperacion=2 and user='" + u.getUser() + "'and fecha='" + fechaHoy + "'";
+                break;
         }
         try {
-            r = u.seleccionar(campos, tablas, condicion);
-            filas = Integer.parseInt(r.getString("filas"));
-            u.cerrarConexionBase();
             r = u.seleccionar(cam, tablas, condicion);
             r.beforeFirst();
-            if (r.next()) {
-                for (i = 0; i < filas; i++) {
-                    if (primeraVez) {
-                        ((DefaultTableModel) listaOrdenes.getModel()).setRowCount(listaOrdenes.getRowCount() + 1);// agrega filas dinamicamente
-                    }
-                    for (j = 0; j < 3; j++) {
-                        //fila,colummna
-                        switch (j) {
-                            case 0:
-                                listaOrdenes.setValueAt(r.getString("fecha"), i, j);
-                                break;
-                            case 1:
-                                listaOrdenes.setValueAt(r.getString("specimen"), i, j);
-                                break;
-                            case 2:
-                                listaOrdenes.setValueAt(r.getString("agente"), i, j);
-                                break;
-                        }
-                    }
-                    r.next();
-                }                
+            while (r.next()) {
+                // Se crea un array que será una de las filas de la tabla.
+                Object[] fila = new Object[3]; // Hay cuatro columnas en la tabla
+                // Se rellena cada posición del array con una de las columnas de la tabla en base de datos.
+                for (int i = 0; i < 3; i++) {
+                    fila[i] = r.getObject(i + 1); // El primer indice en rs es el 1, no el cero, por eso se suma 1.
+                }
+                // Se añade al modelo la fila completa.
+                ((DefaultTableModel) listaOrdenes.getModel()).addRow(fila);
             }
         } catch (SQLException | NumberFormatException ex) {
-        }finally{
+        } finally {
             u.cerrarConexionBase();
         }
     }
-
-    public void limpiarTabla(JTable tabla) {
-        try {
-            DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
-            int filas = tabla.getRowCount();
-            for (int i = 0; filas > i; i++) {
-                modelo.removeRow(0);
-            }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error al limpiar la tabla.");
-        }
-    }
-
 }

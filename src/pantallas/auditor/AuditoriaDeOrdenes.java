@@ -9,6 +9,7 @@ import clases.Orden;
 import clases.Usuario;
 import clases.Error;
 import clases.ErroresSiapo;
+import clases.Sistema;
 import com.mxrck.autocompleter.TextAutoCompleter;
 import java.awt.AWTException;
 import java.awt.MenuItem;
@@ -25,7 +26,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import pantallas.general.MenuPpal;
 import pantallas.mensajeria.NotificacionNueva;
@@ -125,8 +125,6 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
         jLabel14 = new javax.swing.JLabel();
         jButton12 = new javax.swing.JButton();
         jLabel18 = new javax.swing.JLabel();
-        jButton10 = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
         jButton6 = new javax.swing.JButton();
         jLabel19 = new javax.swing.JLabel();
         jButton13 = new javax.swing.JButton();
@@ -148,8 +146,6 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
         jLabel15 = new javax.swing.JLabel();
         ed_panel_error = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        ed_label_descrip = new javax.swing.JLabel();
         ed_text_codError = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         ed_comment_aud = new javax.swing.JTextArea();
@@ -157,14 +153,12 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
         ed_button_iError = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         nombreError = new javax.swing.JLabel();
-        resultados = new javax.swing.JCheckBox();
         errorLabo = new javax.swing.JCheckBox();
         jPanel10 = new javax.swing.JPanel();
         ed_button_verAudi = new javax.swing.JButton();
         ed_button_viewError = new javax.swing.JButton();
         ed_button_reg = new javax.swing.JButton();
         ed_button_cancel = new javax.swing.JButton();
-        ed_button_audi = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
@@ -446,7 +440,7 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 559, Short.MAX_VALUE)
                         .addComponent(jLabel16)))
                 .addContainerGap())
         );
@@ -499,23 +493,6 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
         jLabel18.setForeground(new java.awt.Color(255, 255, 255));
         jLabel18.setText("Menú principal");
 
-        jButton10.setBackground(new java.awt.Color(60, 117, 207));
-        jButton10.setForeground(new java.awt.Color(60, 117, 207));
-        jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/actualizarRegistroOrden.png"))); // NOI18N
-        jButton10.setBorderPainted(false);
-        jButton10.setEnabled(false);
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
-            }
-        });
-
-        jLabel7.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Modificar Auditoria");
-        jLabel7.setEnabled(false);
-
         jButton6.setBackground(new java.awt.Color(60, 117, 207));
         jButton6.setForeground(new java.awt.Color(60, 117, 207));
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/elimarRegistroOrden.png"))); // NOI18N
@@ -561,12 +538,6 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
                         .addComponent(jButton12, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addGroup(headerLayout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel19)
                     .addGroup(headerLayout.createSequentialGroup()
                         .addGap(17, 17, 17)
@@ -597,12 +568,9 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
                             .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headerLayout.createSequentialGroup()
-                            .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jButton10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jButton13, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(headerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -614,7 +582,7 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Universidad de El Salvador ©Copyright 2013 ");
+        jLabel1.setText("Universidad de El Salvador ©Copyright "+Sistema.años);
 
         javax.swing.GroupLayout footerLayout = new javax.swing.GroupLayout(footer);
         footer.setLayout(footerLayout);
@@ -638,14 +606,14 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
 
             },
             new String [] {
-                "Codigo de Error", "Nombre de Error", "Descripcion", "Comentario", "errorLab"
+                "Codigo de Error", "Nombre de Error", "Comentario", "errorLab"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -661,9 +629,9 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
         jScrollPane2.setViewportView(ed_table_errores);
         if (ed_table_errores.getColumnModel().getColumnCount() > 0) {
             ed_table_errores.getColumnModel().getColumn(0).setPreferredWidth(10);
-            ed_table_errores.getColumnModel().getColumn(4).setMinWidth(0);
-            ed_table_errores.getColumnModel().getColumn(4).setPreferredWidth(0);
-            ed_table_errores.getColumnModel().getColumn(4).setMaxWidth(0);
+            ed_table_errores.getColumnModel().getColumn(3).setMinWidth(0);
+            ed_table_errores.getColumnModel().getColumn(3).setPreferredWidth(0);
+            ed_table_errores.getColumnModel().getColumn(3).setMaxWidth(0);
         }
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -784,18 +752,13 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
                     .addComponent(ed_text_location, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         ed_panel_error.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Error en orden", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 18))); // NOI18N
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setText("Codigo error:");
-
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel5.setText("Descripcion:");
-
-        ed_label_descrip.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
         ed_text_codError.setEnabled(false);
         ed_text_codError.setMaximumSize(new java.awt.Dimension(80, 30));
@@ -828,9 +791,6 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
 
         nombreError.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
-        resultados.setText("Tiene resultado");
-        resultados.setEnabled(false);
-
         errorLabo.setText("Error de Laboratorio");
         errorLabo.setEnabled(false);
 
@@ -840,35 +800,24 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
             ed_panel_errorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ed_panel_errorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(ed_panel_errorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ed_panel_errorLayout.createSequentialGroup()
-                        .addGroup(ed_panel_errorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ed_panel_errorLayout.createSequentialGroup()
-                                .addGroup(ed_panel_errorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel2))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(ed_panel_errorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(nombreError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(ed_panel_errorLayout.createSequentialGroup()
-                                        .addComponent(ed_text_codError, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ed_panel_errorLayout.createSequentialGroup()
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ed_panel_errorLayout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ed_label_descrip, javax.swing.GroupLayout.PREFERRED_SIZE, 436, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(ed_panel_errorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(ed_panel_errorLayout.createSequentialGroup()
-                        .addComponent(resultados)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(errorLabo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(ed_button_iError)
-                        .addGap(83, 83, 83))))
+                        .addComponent(ed_button_iError, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ed_panel_errorLayout.createSequentialGroup()
+                        .addGroup(ed_panel_errorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(ed_panel_errorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ed_text_codError, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nombreError, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, ed_panel_errorLayout.createSequentialGroup()
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1)))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         ed_panel_errorLayout.setVerticalGroup(
             ed_panel_errorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -877,24 +826,16 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ed_text_codError, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(ed_panel_errorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(nombreError, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(ed_panel_errorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(ed_panel_errorLayout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(14, 14, 14))
-                    .addGroup(ed_panel_errorLayout.createSequentialGroup()
-                        .addComponent(ed_label_descrip, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                    .addComponent(nombreError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 20, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(ed_panel_errorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(ed_panel_errorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(ed_panel_errorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ed_button_iError)
-                    .addComponent(resultados)
                     .addComponent(errorLabo)))
         );
 
@@ -930,20 +871,12 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
             }
         });
 
-        ed_button_audi.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        ed_button_audi.setText("Lista de Auditores");
-        ed_button_audi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ed_button_audiActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(111, 111, 111)
+                .addGap(183, 183, 183)
                 .addComponent(ed_button_verAudi, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ed_button_viewError)
@@ -951,9 +884,7 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
                 .addComponent(ed_button_reg)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ed_button_cancel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ed_button_audi)
-                .addContainerGap(102, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -963,8 +894,7 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
                     .addComponent(ed_button_verAudi)
                     .addComponent(ed_button_viewError)
                     .addComponent(ed_button_reg)
-                    .addComponent(ed_button_cancel)
-                    .addComponent(ed_button_audi))
+                    .addComponent(ed_button_cancel))
                 .addContainerGap())
         );
 
@@ -1036,9 +966,9 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ed_panel_error, javax.swing.GroupLayout.PREFERRED_SIZE, 536, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(ed_panel_error, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
             .addComponent(footer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -1046,14 +976,14 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
             .addGroup(layout.createSequentialGroup()
                 .addComponent(header, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ed_panel_error, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ed_panel_error, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(35, 35, 35)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(footer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1078,14 +1008,14 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
             Object[] datosFila = {
                 ed_text_codError.getText(),
                 nombreError.getText(),
-                ed_label_descrip.getText(),
+                //ed_label_descrip.getText(),
                 ed_comment_aud.getText(),
                 errorLaboratorio,};
             modeloDeLaTabla.addRow(datosFila);
             ed_table_errores.setModel(modeloDeLaTabla);
             ed_text_codError.setText("");
             nombreError.setText("");
-            ed_label_descrip.setText("");
+            //ed_label_descrip.setText("");
             ed_comment_aud.setText("");
         }
     }//GEN-LAST:event_ed_button_iErrorActionPerformed
@@ -1099,14 +1029,14 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
             String texto = ed_text_codError.getText();
             if (texto.isEmpty() || texto.length() < 5) {
                 nombreError.setText("");
-                ed_label_descrip.setText("");
+//                ed_label_descrip.setText("");
                 ed_text_codError.setText("");
             } else {
                 Error error = new Error();
                 error = error.buscarError(errores, texto.substring(0, 5));
                 if (error != null) {
                     this.nombreError.setText(error.getNombreError());
-                    this.ed_label_descrip.setText(error.getDescripcion());
+//                    this.ed_label_descrip.setText(error.getDescripcion());
                 } else {
                     JOptionPane.showMessageDialog(null, "Codigo no registrado", "", JOptionPane.ERROR_MESSAGE);
                 }
@@ -1146,26 +1076,33 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
         if (!this.nombreError.getText().isEmpty()) {
             ed_button_iError.doClick();
         }
-        for (int i = 0; i < ed_table_errores.getRowCount(); i++) {
+        int contadorErrores = ed_table_errores.getRowCount();
+        //tipoProcAud 4: orden sin error tipoProcAud 5: orden con error
+        int tipoAuditoria = 4;
+        for (int i = 0; i < contadorErrores; i++) {
             deLab = ed_table_errores.getValueAt(i, 4).toString().trim();
             codError = ed_table_errores.getValueAt(i, 0).toString().trim().substring(0, 5);
             nombreError = ed_table_errores.getValueAt(i, 1).toString().trim();
-            comentario = ed_table_errores.getValueAt(0, 3).toString();
+            comentario = ed_table_errores.getValueAt(i, 3).toString();
             Orden o;
             //se guarda el comentario hecho por el auditor
-            enviarComentarioAud(comentario, nSpecimen);
+            //enviarComentarioAud(comentario, nSpecimen);
             if (deLab.equals("1")) {
                 //error de laboratorio
                 o = new Orden(nSpecimen, true, agente, codError, nombreError);
                 exito = o.agregarError(false, comentario);
             } else {
+                System.out.println(comentario);
                 //error de no laboratorio
                 o = new Orden(nSpecimen, false, agente, codError, nombreError);
                 exito = o.agregarError(false, comentario);
             }
         }
         if (exito) {
-            if (u.insertar("procesa_audita", "NULL,'" + u.getUser() + "', '" + nSpecimen + "',CURDATE(),CURTIME(),CURTIME(),2")) {
+            if (contadorErrores > 0) {
+                tipoAuditoria = 5;
+            }
+            if (u.insertar("procesa_audita", "NULL,'" + u.getUser() + "', '" + nSpecimen + "',CURDATE(),CURTIME(),CURTIME(),2," + tipoAuditoria)) {
                 //se reinician todos los controles del  frame.
                 this.u.limpiarTabla(ed_table_errores);
                 limpiarControles();
@@ -1182,11 +1119,6 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
             JOptionPane.showMessageDialog(null, "No se pudo auditar la orden.");
             return false;
         }
-    }
-
-    private void enviarComentarioAud(String texto, String nSpecimen) {
-        //El objetivo de este modulo es guardar el comentario hecho por el auditor hacia la orden que se ha auditado
-        u.actualizar("orden", "comentarioAuditor='" + texto + "'", "specimen = '" + nSpecimen + "'");
     }
 
     private void ed_button_verAudiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ed_button_verAudiActionPerformed
@@ -1207,12 +1139,6 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
         new MenuPpal(u, false, this.n, this.e).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton12ActionPerformed
-
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        detenerHilo();
-        new ModificarAuditoria(u, this.n, this.e).setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         detenerHilo();
@@ -1292,34 +1218,6 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
         // TODO add your handling code here:
     }//GEN-LAST:event_ed_text_locationActionPerformed
 
-    private void ed_button_audiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ed_button_audiActionPerformed
-        try {
-            // TODO add your handling code here:
-            /*
-             select
-             auditor,e.user as agente
-             from
-             procesa_audita e join (select a.specimen,auditor from procesa_audita a join (select user as auditor,max(idProcAud) as id from procesa_audita c where c.tipooperacion = 2 and fecha = curdate() group by auditor) b on a.idProcAud = b.id) d on d.specimen = e.specimen group by auditor
-             */
-            String tabla = "";
-            ResultSet r;
-            r = u.seleccionar("auditor,e.user as agente", "procesa_audita e join "
-                    + "(select a.specimen,auditor from procesa_audita a join "
-                    + "(select user as auditor,max(idProcAud) as id from procesa_audita c where c.tipooperacion = 2 and fecha = curdate() group by auditor) b "
-                    + "on a.idProcAud = b.id) d on d.specimen = e.specimen group by auditor",
-                    "");
-            r.beforeFirst();
-            while (r.next()) {
-                tabla = tabla + r.getString("auditor") + " audita a " + r.getString("agente") + "\n";
-            }
-            JOptionPane.showMessageDialog(this, tabla, "Lista de Auditores / Agentes", JOptionPane.PLAIN_MESSAGE);
-            u.cerrarConexionBase();
-        } catch (SQLException ex) {
-            Logger.getLogger(AuditoriaDeOrdenes.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }//GEN-LAST:event_ed_button_audiActionPerformed
-
     private boolean recuperarDatosOrden() {
         /*Modulo que tiene por objetivo la recuperacion de los datos basicos de
          * una orden procesada a la cual se le aplicara auditoria.
@@ -1327,11 +1225,11 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
         boolean fallo = false;
         try {
             ResultSet r;
-            r = u.seleccionar("a.user,nombreLocation,comentarioAgente,tipoOrden,horaInicio", "procesa_audita a, orden b, location c",
+            r = u.seleccionar("a.user,nombreLocation,comentarioAgente,tipoProcAud,horaInicio", "procesa_audita a, orden b, location c",
                     "a.specimen = b.specimen AND c.codigoLocation = b.codigoLocation AND tipoOperacion=1 and a.specimen = '" + this.specAlmacenado + "' limit 1");
             r.first();
             String tipo = "";
-            switch (r.getInt("tipoOrden")) {
+            switch (r.getInt("tipoProcAud")) {
                 case 1:
                     tipo = "Completa";
                     break;
@@ -1345,12 +1243,11 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
             ed_text_tOrden.setText(tipo);
             ed_text_agent.setText(r.getString("user"));
             ed_text_location.setText(r.getString("nombreLocation"));
-//            ed_coment_agent.setText(r.getString("comentarioAgente"));
             habilitarControles(true);
             ed_button_reg.setEnabled(true);
             ed_button_cancel.setEnabled(true);
             errorLabo.setEnabled(true);
-            resultados.setEnabled(true);
+//            resultados.setEnabled(true);
             u.cerrarConexionBase();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Hubo un problema al cargar la informacion de la orden", "", JOptionPane.ERROR_MESSAGE);
@@ -1375,7 +1272,7 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
 
     private void limpiarControles() {
         this.ed_text_codError.setText("");
-        this.ed_label_descrip.setText("");
+//        this.ed_label_descrip.setText("");
         this.nombreError.setText("");
         this.ed_comment_aud.setText("");
         this.ed_text_specimen.setText("");
@@ -1388,14 +1285,12 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
     private javax.swing.JTextField buscar;
     private javax.swing.JToggleButton buscar_btn;
     private javax.swing.JLabel conError;
-    private javax.swing.JButton ed_button_audi;
     private javax.swing.JButton ed_button_cancel;
     private javax.swing.JButton ed_button_iError;
     private javax.swing.JButton ed_button_reg;
     private javax.swing.JButton ed_button_verAudi;
     private javax.swing.JButton ed_button_viewError;
     private javax.swing.JTextArea ed_comment_aud;
-    private javax.swing.JLabel ed_label_descrip;
     private javax.swing.JPanel ed_panel_error;
     private javax.swing.JTable ed_table_errores;
     private javax.swing.JTextField ed_text_agent;
@@ -1408,7 +1303,6 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
     private javax.swing.JPanel footer;
     private javax.swing.JPanel header;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton2;
@@ -1439,9 +1333,7 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel10;
@@ -1461,7 +1353,6 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
     private javax.swing.JTextPane mensaje;
     private javax.swing.JLabel nombreError;
     private javax.swing.JTextField para;
-    private javax.swing.JCheckBox resultados;
     private javax.swing.JLabel sinError;
     private javax.swing.JTable table_auditoria;
     private javax.swing.JLabel total;
@@ -1469,7 +1360,6 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
 
     @Override
     public void run() {
-
         while (!stop) {
             try {
                 Thread.sleep(2000);
@@ -1528,7 +1418,7 @@ public final class AuditoriaDeOrdenes extends javax.swing.JFrame implements Runn
             }
             u.cerrarConexionBase();
         } catch (SQLException ex) {
-            Logger.getLogger(ModificarAuditoria.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(ModificarAuditoria.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }

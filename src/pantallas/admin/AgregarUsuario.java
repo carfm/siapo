@@ -8,6 +8,7 @@
  */
 package pantallas.admin;
 
+import clases.Sistema;
 import clases.Usuario;
 import java.awt.Image;
 import java.text.SimpleDateFormat;
@@ -118,7 +119,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Universidad de El Salvador ©Copyright 2013 ");
+        jLabel1.setText("Universidad de El Salvador ©Copyright "+Sistema.años);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);

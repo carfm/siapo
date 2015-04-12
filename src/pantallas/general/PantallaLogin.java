@@ -6,6 +6,7 @@
  */
 package pantallas.general;
 
+import clases.Sistema;
 import clases.Usuario;
 import java.util.Calendar;
 import java.util.logging.Level;
@@ -94,7 +95,7 @@ public class PantallaLogin extends javax.swing.JFrame {
 
         copyrigth_label.setForeground(new java.awt.Color(255, 255, 255));
         copyrigth_label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        copyrigth_label.setText("Universidad de El Salvador ©Copyright 2013 ");
+        copyrigth_label.setText("Universidad de El Salvador ©Copyright "+Sistema.años);
 
         javax.swing.GroupLayout panelInferiorLayout = new javax.swing.GroupLayout(panelInferior);
         panelInferior.setLayout(panelInferiorLayout);

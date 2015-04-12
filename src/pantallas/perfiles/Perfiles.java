@@ -2,8 +2,8 @@ package pantallas.perfiles;
 
 import pantallas.mensajeria.NotificacionNueva;
 import pantallas.mensajeria.errorNuevo;
-import pantallas.auditor.ModificarAuditoria;
 import clases.Orden;
+import clases.Sistema;
 import clases.Usuario;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,8 +24,6 @@ import javax.swing.JOptionPane;
 import com.mxrck.autocompleter.TextAutoCompleter;
 import java.awt.HeadlessException;
 import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
@@ -663,7 +661,7 @@ public final class Perfiles extends javax.swing.JFrame {
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Universidad de El Salvador ©Copyright 2013 ");
+        jLabel1.setText("Universidad de El Salvador ©Copyright "+Sistema.años);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -1291,7 +1289,7 @@ public final class Perfiles extends javax.swing.JFrame {
             u.cerrarConexion();
             u.cerrarConexionBase();
         } catch (SQLException ex) {
-            Logger.getLogger(ModificarAuditoria.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(ModificarAuditoria.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     /**

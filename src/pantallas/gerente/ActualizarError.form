@@ -33,17 +33,14 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="jPanel4" alignment="0" max="32767" attributes="0"/>
           <Component id="jPanel1" max="32767" attributes="0"/>
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="342" max="32767" attributes="0"/>
-          </Group>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="67" max="32767" attributes="0"/>
               <Component id="jPanel9" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jPanel7" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
           </Group>
+          <Component id="jPanel5" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -55,7 +52,7 @@
                   <Component id="jPanel9" max="32767" attributes="0"/>
                   <Component id="jPanel7" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="74" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="32767" attributes="0"/>
               <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
@@ -400,7 +397,9 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Universidad de El Salvador &#xa9;Copyright 2013 "/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="&quot;Universidad de El Salvador &#xa9;Copyright &quot;+Sistema.a&#xf1;os" type="code"/>
+            </Property>
           </Properties>
         </Component>
       </SubComponents>

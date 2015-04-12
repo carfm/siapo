@@ -354,7 +354,9 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Universidad de El Salvador &#xa9;Copyright 2013 "/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="&quot;Universidad de El Salvador &#xa9;Copyright &quot;+Sistema.a&#xf1;os" type="code"/>
+            </Property>
           </Properties>
         </Component>
       </SubComponents>

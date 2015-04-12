@@ -70,7 +70,7 @@ public class cambiarPass extends javax.swing.JFrame {
 
         jLabel28.setForeground(new java.awt.Color(255, 255, 255));
         jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel28.setText("Universidad de El Salvador ©Copyright 2013 ");
+        jLabel28.setText("Universidad de El Salvador ©Copyright "+Sistema.años);
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
         jPanel13.setLayout(jPanel13Layout);

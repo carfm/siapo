@@ -9,6 +9,7 @@
 package pantallas.mensajeria;
 
 import clases.Mensaje;
+import clases.Sistema;
 import clases.Usuario;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -110,7 +111,7 @@ public final class Bandeja extends javax.swing.JFrame {
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Universidad de El Salvador ©Copyright 2013 ");
+        jLabel1.setText("Universidad de El Salvador ©Copyright "+Sistema.años);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);

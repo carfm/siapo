@@ -8,6 +8,7 @@ import clases.ErroresSiapo;
 import clases.Location;
 import clases.Orden;
 import clases.Razon;
+import clases.Sistema;
 import clases.Usuario;
 import com.mxrck.autocompleter.TextAutoCompleter;
 import java.awt.*;
@@ -878,7 +879,7 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Universidad de El Salvador ©Copyright 2013 ");
+        jLabel1.setText("Universidad de El Salvador ©Copyright "+Sistema.años);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -961,11 +962,11 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
 
             },
             new String [] {
-                "user", "Hora Inicio", "Hora Finalizacion"
+                "User", "Hora Inicio", "Hora Finalizacion", "Fecha"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -978,6 +979,8 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
             historial.getColumnModel().getColumn(0).setPreferredWidth(10);
             historial.getColumnModel().getColumn(1).setResizable(false);
             historial.getColumnModel().getColumn(2).setResizable(false);
+            historial.getColumnModel().getColumn(3).setResizable(false);
+            historial.getColumnModel().getColumn(3).setPreferredWidth(0);
         }
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -1505,6 +1508,7 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                         lo.setCodigoLocation();
                         o.setCodigoLocation(lo.getCodigoLocation());
                         o.setTipoOrden(cb_tipoOrden.getSelectedIndex() + 1);
+                        o.setUser(u.getUser());
                         if (o.getTipoOrden() == 2 || o.getTipoOrden() == 3) {
                             o.borrarMandadaPor(u.getUser());
                             String comentarioActual = this.comentaAgente.getText();
@@ -2150,7 +2154,8 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
         ventanaEmergente.cambiarColor(1);
         String texto = "SPECIMEN ACTUAL: " + this.specAlmacenado
                 + " \nLOCATION: " + nombreLocation.getSelectedItem().toString() + " # " + l.getCodigoLocationUSA()
-                + " \nTIPO DE ORDEN: " + tipoOrden.getSelectedItem().toString().toUpperCase();
+                + " \nTIPO DE ORDEN: " + tipoOrden.getSelectedItem().toString().toUpperCase()
+                + " \nFECHA: " + this.historial.getValueAt(0, 3);
 
         if (this.almacenado) {
             texto = texto + "\nHORA INICIO: " + this.historial.getValueAt(0, 1) + " HORA FIN: " + this.historial.getValueAt(0, 2)
