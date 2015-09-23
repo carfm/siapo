@@ -44,76 +44,12 @@ public class Sistema {
     private ResultSet resultado;
     private Statement sentencia;
     private Connection conexion;
-    public final static String servidor = "jdbc:mysql://10.8.40.99:3306/pruebadsi";
-    public final static String usu = "WIN-6C6NJ898UGM";
-    public final static String pass = "hmcr";
+    public final static String servidor = "jdbc:mysql://localhost:44444/siapo";//10.8.40.99:3306/siapo
+    public final static String usu = "root";//hmcr_siapo
+    public final static String pass = "admin";//eamJpymB8nTmTVXd
+    public final static String años = "2013-2015";
     private String para, asunto, mensaje;
 
-//    public Sistema() {
-//        try {
-////            FileInputStream fstream;
-////            DataInputStream entrada;
-////            // Abrimos el archivo
-////            // Obtenemos los directorios raiz de cada disco disponible
-////            File[] roots = File.listRoots();
-////            boolean continuar = true;
-////            int i = 0;
-////            File fichero = null;
-////            while (continuar && i < roots.length) {
-////                fichero = new File(roots[i].toString() + "Archivos de programa/Siapo/SIAPO/losCambios.dat");
-////                if (fichero.exists()) {
-////                    continuar = false;
-////                    //System.out.println("El fichero " + roots[i].toString() + " existe");
-////                } else {
-////                    fichero = new File(roots[i].toString() + "Program Files/Siapo/SIAPO/losCambios.dat");
-////                    if (fichero.exists()) {
-////                        continuar = false;
-////                        // System.out.println("El fichero " + roots[i].toString() + " existe");
-////                    } else {
-////                        fichero = new File(roots[i].toString() + "Program Files (x86)/Siapo/SIAPO/losCambios.dat");
-////                        if (fichero.exists()) {
-////                            continuar = false;
-////                            // System.out.println("El fichero " + roots[i].toString() + " existe");
-////                        }
-////                        //System.out.println("Pues va a ser que no");
-////                    }
-////                    //System.out.println("Pues va a ser que no");
-////                }
-////                i++;
-////            }
-////            if (!continuar) {
-////                fstream = new FileInputStream(fichero.getPath());
-////                entrada = new DataInputStream(fstream);
-////                // Creamos el Buffer de Lectura
-////                BufferedReader buffer = new BufferedReader(new InputStreamReader(entrada));
-////                String strLinea;
-////                // Leer el archivo linea por linea
-////                String t[];
-////                t = new String[4];
-////                i = 0;
-////                while ((strLinea = buffer.readLine()) != null) {
-////                    // Imprimimos la línea por pantalla
-////                    //System.out.println(strLinea);
-////                    t[i] = strLinea;
-////                    i++;
-////                }
-////                // Cerramos el archivo
-////                entrada.close();
-////                servidor = "jdbc:mysql://" + t[0] + ":3306/" + t[1];
-////                usu = t[2];
-////                pass = t[3];
-////            } else {
-////                System.err.println("Ocurrio un error");
-////            }
-//            servidor = "jdbc:mysql://10.8.40.99:3306/pruebadsi";
-//            usu = "WIN-6C6NJ898UGM";
-//            pass = "hmcr";
-//        } catch (Exception e) { //Catch de excepciones
-//            ErroresSiapo.agregar(e, "codigo 6");
-//
-//            //System.err.println("Ocurrio un error: " + e.getMessage());
-//        }
-//    }
     public boolean insertar(String tabla, String valores) {
         boolean bien = true;
         try {
@@ -194,7 +130,7 @@ public class Sistema {
             } else {
                 sql_str = "SELECT " + campo + " FROM " + tabla + " WHERE " + condicion;
             }
-            //System.out.println(sql_str);
+//            System.out.println(sql_str);
             setSentencia(getConexion().createStatement());
             resultado = getSentencia().executeQuery(sql_str);
             resultado.next();
