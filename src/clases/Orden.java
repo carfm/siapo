@@ -168,6 +168,7 @@ public class Orden extends Sistema {
 
     public boolean agregarError(boolean aproErrorlab, String comentario) {
         boolean exito;
+        // boolean aproErrorlab es para cuando es error de lab y ya fue revisado por el gerente
         if (this.errorLab) {
             exito = insertar("puede_tener", "NULL, '" + codError + "', '" + specimen + "', '" + getUser() + "',NULL, 0,1,NULL,'" + comentario + "'");
         } else {

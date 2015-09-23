@@ -8,6 +8,8 @@ package clases;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -45,31 +47,32 @@ public class Razon extends Sistema {
                 valido = true;
             }
         } catch (Exception ex) {
-            
-        }finally{
-           this.cerrarConexionBase(); 
+
+        } finally {
+            this.cerrarConexionBase();
         }
         return valido;
     }
 
-    public ArrayList<Razon> obtenerRazones() {
-        ArrayList<Razon> razones = new ArrayList();
+    public void obtenerRazones(JTable listaRazones) {
         try {
+            DefaultTableModel modelo = (DefaultTableModel) listaRazones.getModel();
+            int i;
             ResultSet r = seleccionar("codigoRazon,nombreRazon", "razon", "");
             r.beforeFirst();
             while (r.next()) {
-                Razon raz = new Razon();
-                raz.setCodigoRazon(r.getString("codigoRazon"));
-                raz.setNombreRazon(r.getString("nombreRazon"));
-                razones.add(raz);
-            }           
+                Object[] fila = new Object[2];
+                for (i = 0; i < 2; i++) {
+                    fila[i] = r.getObject(i);
+                }
+                modelo.addRow(fila);
+            }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "No se pueden cargar las razones");
-            System.exit(1);
-        }finally{
+            //System.exit(1);
+        } finally {
             this.cerrarConexionBase();
         }
-        return razones;
     }
 
     public boolean validarRazon() {
@@ -79,23 +82,23 @@ public class Razon extends Sistema {
             r.beforeFirst();
             if (!r.next()) {
                 valido = true;
-            }           
+            }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "No existe la razón de envio");
-        }finally{
+        } finally {
             this.cerrarConexionBase();
         }
         return valido;
     }
-    
-    public void obtenerNombreRazon(){
+
+    public void obtenerNombreRazon() {
         try {
             ResultSet r = seleccionar("nombreRazon", "razon", "codigoRazon='" + this.codigoRazon + "'");
             this.setNombreRazon(r.getString("nombreRazon"));
-            
+
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "No existe la razón de envio");
-        }finally{
+        } finally {
             this.cerrarConexionBase();
         }
     }

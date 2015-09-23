@@ -1192,7 +1192,7 @@ public final class Perfiles extends javax.swing.JFrame {
                     if (totales[3] == 0) {
                         JOptionPane.showMessageDialog(this.historico, "No se encontraron registros", "Mensaje", JOptionPane.PLAIN_MESSAGE);
                     } else {
-                        r = u.seleccionar("count(*) as completas", "procesa_audita a,orden b", "a.specimen = b.specimen and tipoOrden = 1 and user = '" + userCRT + "' AND tipoOperacion =1 AND date( fecha ) BETWEEN '" + fechainicio + "' AND '" + fechafin + "'");
+                        r = u.seleccionar("count(*) as completas", "procesa_audita", " tipoProcAud = 1 and user = '" + userCRT + "' AND tipoOperacion =1 AND fecha BETWEEN '" + fechainicio + "' AND '" + fechafin + "'");
                         int completas = Integer.parseInt(r.getString("completas"));
                         for (int i = 0; i < 6; i++) {
                             if (i < 4) {
