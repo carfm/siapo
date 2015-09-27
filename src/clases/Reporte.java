@@ -52,7 +52,7 @@ public class Reporte extends Sistema {
                 this.insertar("temporal1(agente)", "'" + agentes.getString(2) + "'");
                 for (int i = 1; i <= num; i++) {
                     // obtenemos la cantidad de ordenes de ese dia
-                    t = o.cantidadTipoOrdenes(agentes.getString("user"), "fecha='" + fechas.getString("fecha") + "'");
+                    t = o.cantidadTipoOrdenes(agentes.getString("user"), "fecha='" + fechas.getString("fecha") + "'",1);
                     // actualizamos los campos correspondientes  a el dia
                     this.actualizar("temporal1", "i" + (fechas.getInt("dia") - dif) + "=" + t[1] + ",s" + (fechas.getInt("dia") - dif) + "=" + t[2] + ",c" + (fechas.getInt("dia") - dif) + "=" + t[0],
                             "agente='" + agentes.getString("nombreCom") + "'");

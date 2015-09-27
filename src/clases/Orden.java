@@ -26,12 +26,12 @@ public class Orden extends Sistema {
     private String codigoLocation;
     private int tipoOrden;
     private String comentarioAgente;
+    private String comentarioCallCenter;
     private ArrayList<Razon> razones;
     private ArrayList<Error> errores;
     private boolean errorLab;
     private String user;
     private String codError;
-    private String nomError;
     private String fecha;
     private String horaInicio;
     private String horaFin;
@@ -41,7 +41,6 @@ public class Orden extends Sistema {
         this.errorLab = errorLab;
         this.user = user;
         this.codError = codError;
-        this.nomError = nomError;
     }
 
     public Orden() {
@@ -52,7 +51,7 @@ public class Orden extends Sistema {
         return insertar("orden", s);
     }
 
-    public boolean actualizarOrden() {
+    public boolean actualizarOrden() { // para orden ya ingresada
         boolean bien;
         String campos = " codigolocation='" + codigoLocation + "',comentarioAgente='" + comentarioAgente + "'";
         String condicion = " specimen = '" + specimen + "'";
@@ -67,12 +66,12 @@ public class Orden extends Sistema {
         return actualizar("orden", "codigolocation='" + codigoLocation + "'", " specimen = '" + specimen + "'");
     }
 
-    public Boolean ingresarRegistro(String user, TrayIcon trayIcon) {
+    public Boolean ingresarRegistro(String user, TrayIcon trayIcon, int tabla) {
 
         Boolean registrada = true;
         try {
             if (!tieneRegistros()) {
-                // NO HAY REGISTRO DEL SPECIMEN
+                // NO HAY REGISTRO DEL SPECIMEN en tabla orden
                                         /* tipo orden
                  * 1: completa
                  * 2: incompleta
@@ -85,11 +84,20 @@ public class Orden extends Sistema {
                  * 2: auditoria de orden
                  */
             }
-            insertar("procesa_audita(specimen,user,tipoOperacion,fecha,horaInicio,tipoProcAud)",
-                    "'" + getSpecimen() + "','" + user + "',1,CURDATE(),CURTIME()," + getTipoOrden());
+            if (tabla == 1) {
+                insertar("procesa_audita(specimen,user,tipoOperacion,fecha,horaInicio,tipoProcAud)",
+                        "'" + getSpecimen() + "','" + user + "',1,CURDATE(),CURTIME()," + getTipoOrden());
+            } else {
+
+                insertar("callcenter(specimen,user,fecha,horaInicio,horaFin,tipoProcAud,comentarioCallCenter)",
+                        "'" + getSpecimen() + "','" + user + "',CURDATE(),CURTIME(),DEFAULT," + getTipoOrden() + ",' '");
+            }
+            /*            insertar("procesa_audita(specimen,user,tipoOperacion,fecha,horaInicio,tipoProcAud)",
+             "'" + getSpecimen() + "','" + user + "',1,CURDATE(),CURTIME()," + getTipoOrden());*/
             trayIcon.displayMessage("Nuevo registro de specimen", this.getSpecimen(), TrayIcon.MessageType.INFO);
         } catch (Exception ex) {
-            ErroresSiapo.agregar(ex, "codigo 26");
+            System.out.println(ex);
+            //ErroresSiapo.agregar(ex, "codigo 26");
             JOptionPane.showMessageDialog(null, "No se pudo procesar la orden ");
             registrada = null;
         }
@@ -115,11 +123,15 @@ public class Orden extends Sistema {
         return tiene;
     }
 
-    public Boolean noMismoUser(String user, String specimen) {
+    public Boolean noMismoUser(String user, String specimen, int tabla) {
         ResultSet r;
         Boolean nomismo = false;
         try {
-            r = seleccionar("user", "procesa_audita", "specimen = '" + specimen + "' and user = '" + user + "' and tipoOperacion=1");
+            if (tabla == 1) {
+                r = seleccionar("user", "procesa_audita", "specimen = '" + specimen + "' and user = '" + user + "' and tipoOperacion=1");
+            } else {
+                r = seleccionar("user", "callcenter", "specimen = '" + specimen + "' and user = '" + user + "'");
+            }
             if (!r.last()) {
                 // solo el tiene el registro de esa orden
                 nomismo = true;
@@ -179,7 +191,7 @@ public class Orden extends Sistema {
         return exito;
     }
 
-    public int[] cantidadTipoOrdenes(String user, String periodo) {
+    public int[] cantidadTipoOrdenes(String user, String periodo, int tabla) {
         try {
             int t[];
             /*
@@ -188,8 +200,8 @@ public class Orden extends Sistema {
              * 2:sin hacer nada
              * 3 poner el total
              */
-            t = new int[4];
-            t[0] = t[1] = t[2] = 0;
+            t = new int[6];
+            t[0] = t[1] = t[2] = t[4] = t[5] = 0;
             ResultSet r;
             //select tipoProcAud,count(*) from procesa_audita where user = 'cfuentes' and fecha between '2014-07-01' and '2014-07-30' and tipoOperacion = 1 group by tipoProcAud
             r = seleccionar("tipoProcAud,count(*) as totales",
@@ -208,8 +220,23 @@ public class Orden extends Sistema {
                     }
                 }
             }
-            t[3] = t[0] + t[1] + t[2];
+            if (tabla == 2) {
+                this.cerrarConexionBase();
+                r = seleccionar("tipoProcAud,count(*) as totales",
+                        "callcenter",
+                        "user = '" + user + "' AND  " + periodo + " GROUP BY tipoProcAud");
+                r.beforeFirst();
+                while (r.next()) {
+                    if (Integer.parseInt(r.getString("tipoProcAud")) == 6) { // resuelta cs
+                        t[4] = Integer.parseInt(r.getString("totales"));
+                    } else {
+                        t[5] = Integer.parseInt(r.getString("totales")); // pendiente cs
+                    }
+                }
+            }
+            t[3] = t[0] + t[1] + t[2] + t[4] + t[5];
             r.close();
+
             return t;
         } catch (SQLException | NumberFormatException ex) {
             return null;
@@ -390,12 +417,23 @@ public class Orden extends Sistema {
                 + " (SELECT idProcAud FROM procesa_audita WHERE user = '" + user + "' and specimen = '" + specimen + "' and tipoOperacion=1)");
     }
 
-    public boolean borrarOrden(String user) {
-        int cont = contadorFilas("procesa_audita", "specimen = '" + getSpecimen() + "' and tipoOperacion=1");
+    public boolean borrarOrden(String user, int tabla) {
+        int cont;
+        String t, c;
+        if (tabla == 1) {
+            cont = contadorFilas("procesa_audita", "specimen = '" + getSpecimen() + "' and tipoOperacion=1");
+            t = "procesa_audita";
+            c = " and tipoOperacion=1";
+        } else {
+            cont = contadorFilas("callcenter", "specimen = '" + getSpecimen() + "'");
+            t = "callcenter";
+            c = "";
+        }
+
         boolean bien;
         if (cont > 1) {
             //si tiene mas registros solo borramos el registro del actual agente
-            bien = borrar("procesa_audita", "user = '" + user + "' and specimen = '" + getSpecimen() + "' and tipoOperacion=1");
+            bien = borrar(t, "user = '" + user + "' and specimen = '" + getSpecimen() + "'" + c);
 //            if (this.getTipoOrden() != 1) {
 //                bien = borrar("mandada_por", "user = '" + user + "' and specimen = '" + getSpecimen() + "'");
 //            }
@@ -407,7 +445,7 @@ public class Orden extends Sistema {
         return bien;
     }
 
-    public boolean actualizarOrden(boolean almacenado, String user) {
+    public boolean actualizarOrden(boolean almacenado, String user, int tabla) {
         boolean bien;
         if (!almacenado) {
             //se actualiza el registro completo 
@@ -417,7 +455,9 @@ public class Orden extends Sistema {
              orden ya almacenada
              Actualmente 
              */
-            actualizar("orden", "comentarioAgente='" + this.getComentarioAgente() + "',codigoLocation='" + getCodigoLocation() + "'", "specimen = '" + this.getSpecimen() + "'");
+            if (tabla == 1) { //para la tabla procesa_audita
+                actualizar("orden", "comentarioAgente='" + this.getComentarioAgente() + "',codigoLocation='" + getCodigoLocation() + "'", "specimen = '" + this.getSpecimen() + "'");
+            }
         }
         // si se le ha cambiado el tipo de orden a regresada si se actualiza
         if (!this.razones.isEmpty()) {
@@ -428,14 +468,22 @@ public class Orden extends Sistema {
             mandadaPor(specimen, user);
             this.razones.clear();
         }
-        bien = actualizar("procesa_audita", "horaFin=CURTIME()", "specimen = '" + specimen + "'and user='" + user + "' and tipoOperacion =1");
+        if (tabla == 1) {
+            bien = actualizar("procesa_audita", "horaFin=CURTIME()", "specimen = '" + specimen + "'and user='" + user + "' and tipoOperacion =1");
+        } else {
+            bien = actualizar("callcenter", "horaFin=CURTIME(),tipoProcAud=" + this.getTipoOrden()
+                    + ",comentarioCallCenter='" + this.getComentarioCallCenter() + "'", "specimen = '" + specimen + "'and user='" + user + "'"
+            );
+            this.setComentarioCallCenter("");
+        }
+
         return bien;
     }
 
     public void obtenerInfoOrden(JTable historial, JComboBox nombreLocation, JComboBox tipoOrden) {
         try {
             ResultSet r;
-            r = seleccionar("nombrelocation, tipoProcAud,user,horaInicio,"
+            r = seleccionar("idProcAud,nombrelocation, tipoProcAud,user,horaInicio,"
                     + "(SELECT CASE WHEN horaFin is null  THEN '-' ELSE horaFin END),fecha,comentarioAgente",
                     "procesa_audita a, orden b, location c",
                     "a.specimen = b.specimen AND a.specimen = '" + specimen + "' AND c.codigoLocation = b.codigoLocation and tipoOperacion=1 ORDER BY idProcAud ");
@@ -452,11 +500,34 @@ public class Orden extends Sistema {
                 while (r.next()) {
                     Object[] fila = new Object[4];
                     for (i = 0; i < 4; i++) {
-                        fila[i] = r.getObject(i + 3);
+                        fila[i] = r.getObject(i + 4);
+                    }
+                    modelo.addRow(fila);
+                }
+            } else {
+                cerrarConexionBase();
+                r = seleccionar("idProCallCenter,nombrelocation, tipoProcAud,user,horaInicio,"
+                        + "(SELECT CASE WHEN horaFin ='00:00:00'  THEN '-' ELSE horaFin END),fecha,comentarioCallCenter",
+                        "callCenter a, orden b, location c",
+                        "a.specimen = b.specimen AND a.specimen = '" + specimen + "' AND c.codigoLocation = b.codigoLocation ORDER BY idProCallCenter ");
+                r.first();
+                //nombreLocation.setSelectedItem(r.getString("nombrelocation"));14190481
+                this.setTipoOrden(Integer.parseInt(r.getString("tipoProcAud")));
+                tipoOrden.setSelectedIndex(this.tipoOrden - 3);
+                this.comentarioAgente = r.getString("comentarioCallCenter");
+                this.setUser(r.getString("user"));
+                DefaultTableModel modelo = (DefaultTableModel) historial.getModel();
+                int i;
+                r.beforeFirst();
+                while (r.next()) {
+                    Object[] fila = new Object[4];
+                    for (i = 0; i < 4; i++) {
+                        fila[i] = r.getObject(i + 4);
                     }
                     modelo.addRow(fila);
                 }
             }
+
             historial.repaint();
 
         } catch (SQLException | NumberFormatException ex) {
@@ -521,7 +592,7 @@ public class Orden extends Sistema {
                     + "(SELECT CASE WHEN tipoProcAud = 4  THEN 'Sin error' ELSE 'Con error' END) as error,horaInicio,"
                     + "(SELECT comentarioAuditor from puede_tener where idProcAud ="
                     + "(SELECT idProcAud from procesa_audita WHERE specimen = b.specimen and user=agente and tipoOperacion=1 ORDER BY idProcAud limit 1)limit 1) as comentarioAuditor",
-                    "procesa_audita b","user = '" + user + "' and tipoOperacion=2 and fecha " + periodo + " ORDER BY fecha desc,horaInicio desc ");
+                    "procesa_audita b", "user = '" + user + "' and tipoOperacion=2 and fecha " + periodo + " ORDER BY fecha desc,horaInicio desc ");
             r.beforeFirst();
             while (r.next()) {
                 ((DefaultTableModel) listaOrdenes.getModel()).setRowCount(listaOrdenes.getRowCount() + 1);
@@ -678,5 +749,19 @@ public class Orden extends Sistema {
      */
     public void setUser(String user) {
         this.user = user;
+    }
+
+    /**
+     * @return the comentarioCallCenter
+     */
+    public String getComentarioCallCenter() {
+        return comentarioCallCenter;
+    }
+
+    /**
+     * @param comentarioCallCenter the comentarioCallCenter to set
+     */
+    public void setComentarioCallCenter(String comentarioCallCenter) {
+        this.comentarioCallCenter = comentarioCallCenter;
     }
 }

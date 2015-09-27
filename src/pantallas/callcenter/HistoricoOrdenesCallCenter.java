@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pantallas.agente;
+package pantallas.callcenter;
 
 import clases.Orden;
 import clases.Sistema;
@@ -18,7 +18,7 @@ import pantallas.mensajeria.errorNuevo;
  *
  * @author joel flores
  */
-public class HistoricoOrdenes extends javax.swing.JFrame {
+public class HistoricoOrdenesCallCenter extends javax.swing.JFrame {
 
     /**
      * Creates new form HistoricoOrdenes
@@ -28,7 +28,7 @@ public class HistoricoOrdenes extends javax.swing.JFrame {
     public NotificacionNueva n;
     public errorNuevo e;
 
-    public HistoricoOrdenes(Usuario u, NotificacionNueva n, errorNuevo e) {
+    public HistoricoOrdenesCallCenter(Usuario u, NotificacionNueva n, errorNuevo e) {
         c = Calendar.getInstance();
         this.u = new Usuario();
         this.u.setUser(u.getUser());

@@ -78,10 +78,12 @@ public final class ActualizarTipoDeUsuario extends javax.swing.JFrame {
         auditor1 = new javax.swing.JCheckBox();
         gerente1 = new javax.swing.JCheckBox();
         administrador1 = new javax.swing.JCheckBox();
+        call = new javax.swing.JCheckBox();
         jPanel7 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         actualizarUsuario_carl = new javax.swing.JButton();
 
@@ -313,6 +315,8 @@ public final class ActualizarTipoDeUsuario extends javax.swing.JFrame {
 
         administrador1.setText("Administrador");
 
+        call.setText("Call Center");
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
@@ -320,6 +324,7 @@ public final class ActualizarTipoDeUsuario extends javax.swing.JFrame {
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(call, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(administrador1)
                     .addComponent(gerente1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(auditor1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -337,7 +342,9 @@ public final class ActualizarTipoDeUsuario extends javax.swing.JFrame {
                 .addComponent(gerente1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(administrador1)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(call)
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tipos permitidos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 18))); // NOI18N
@@ -348,16 +355,20 @@ public final class ActualizarTipoDeUsuario extends javax.swing.JFrame {
 
         jLabel11.setText("Gerente-Administrador");
 
+        jLabel14.setText("Call Center - Auditor");
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addContainerGap(25, Short.MAX_VALUE)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(19, 19, 19))
         );
         jPanel7Layout.setVerticalGroup(
@@ -369,7 +380,9 @@ public final class ActualizarTipoDeUsuario extends javax.swing.JFrame {
                 .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel11)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel14)
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         actualizarUsuario_carl.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
@@ -421,8 +434,8 @@ public final class ActualizarTipoDeUsuario extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(126, 126, 126)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -457,6 +470,7 @@ public final class ActualizarTipoDeUsuario extends javax.swing.JFrame {
             auditor1.setSelected(false);
             gerente1.setSelected(false);
             administrador1.setSelected(false);
+            call.setSelected(false);
             t = us.getListaTiposUsuario().get(0);
             switch (t.getCodigoTipoUser()) {
                 case 1://Agente
@@ -464,14 +478,20 @@ public final class ActualizarTipoDeUsuario extends javax.swing.JFrame {
                     if (us.getListaTiposUsuario().size() == 2) {
                         auditor1.setSelected(true);
                     }
-                    //Solo pueden activarse la de Auditor
+                    //Solo pueden activarse la de Auditor y call center
                     gerente1.setEnabled(false);
                     administrador1.setEnabled(false);
                     break;
                 case 2://Auditor
                     auditor1.setSelected(true);
                     if (us.getListaTiposUsuario().size() == 2) {
-                        agente1.setSelected(true);
+                        if(us.getListaTiposUsuario().get(1).getCodigoTipoUser()==5){
+                            call.setSelected(true);
+                            agente1.setEnabled(false); // no puede volver a ser agente
+                        }else{
+                            agente1.setSelected(true);
+                        }
+                        
                     }
                     //Solo puede activarse la de Agente
                     gerente1.setEnabled(false);
@@ -502,6 +522,16 @@ public final class ActualizarTipoDeUsuario extends javax.swing.JFrame {
                     auditor1.setEnabled(false);
                     //El admin no pude cambiar a otro tipo de usuario
                     break;
+                case 5:// Call Center
+                    call.setSelected(true);
+                    if (us.getListaTiposUsuario().size() == 2) {
+                        auditor1.setSelected(true);
+                    }
+                    //Solo puede activarse la de Auditor
+                    gerente1.setEnabled(false);
+                    administrador1.setEnabled(false);
+                    agente1.setEnabled(false);
+                    break;
             }
         } catch (Exception ex) {
             System.out.println(ex);
@@ -513,17 +543,16 @@ public final class ActualizarTipoDeUsuario extends javax.swing.JFrame {
         // () {
         try {
             TipoUsuario t;
-            int i;
             t = us.getListaTiposUsuario().get(0);
             boolean error = false;
             switch (t.getCodigoTipoUser()) {
                 case 1://Agente
-                    if (!(agente1.isSelected() || auditor1.isSelected())) {
+                    if (!(agente1.isSelected() || auditor1.isSelected() || call.isSelected())) {
                         error = true;
                     }
                     break;
                 case 2://Auditor
-                    if (!(agente1.isSelected() || auditor1.isSelected())) {
+                    if (!(agente1.isSelected() || auditor1.isSelected() || call.isSelected())) {
                         error = true;
                     }
                     break;
@@ -537,13 +566,20 @@ public final class ActualizarTipoDeUsuario extends javax.swing.JFrame {
                         error = true;
                     }
                     break;
+                case 5://Call Center
+                    if (!(call.isSelected() || auditor1.isSelected())) {
+                        error = true;
+                    }
+                    break;
             }
             if (error) {
                 JOptionPane.showMessageDialog(null, "No puede dejar al usuario sin ningún tipo", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 us.borrar("es", "user='" + us.getUser() + "'");
                 if (agente1.isSelected()) {//es agente
-                    us.insertar("es(user,codigoTipoUser)", "'" + us.getUser() + "',1");
+                    if(!call.isSelected()){
+                        us.insertar("es(user,codigoTipoUser)", "'" + us.getUser() + "',1");
+                    }                    
                 }
                 if (auditor1.isSelected()) {//es auditor
                     us.insertar("es(user,codigoTipoUser)", "'" + us.getUser() + "',2");
@@ -551,9 +587,12 @@ public final class ActualizarTipoDeUsuario extends javax.swing.JFrame {
                 if (gerente1.isSelected()) {//es gerente
                     us.insertar("es(user,codigoTipoUser)", "'" + us.getUser() + "',3");
                 }
-                if (administrador1.isSelected()) {
+                if (administrador1.isSelected()) {//es administrador
                     us.insertar("es(user,codigoTipoUser)", "'" + us.getUser() + "',4");
-                }//es administrador
+                }
+                if (call.isSelected()) {//es call center
+                    us.insertar("es(user,codigoTipoUser)", "'" + us.getUser() + "',5");
+                }
                 actualizarListaUsuarios(false);
                 JOptionPane.showMessageDialog(null, "Tipo de Usuario actualizado exitosamente",
                         "Actualizar Tipo de usuario", JOptionPane.INFORMATION_MESSAGE);
@@ -620,6 +659,7 @@ public final class ActualizarTipoDeUsuario extends javax.swing.JFrame {
     private javax.swing.JCheckBox administrador1;
     private javax.swing.JCheckBox agente1;
     private javax.swing.JCheckBox auditor1;
+    private javax.swing.JCheckBox call;
     private javax.swing.JCheckBox gerente1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton12;
@@ -628,6 +668,7 @@ public final class ActualizarTipoDeUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;

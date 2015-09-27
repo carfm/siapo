@@ -21,7 +21,7 @@ public class ErroresSiapo {
         PrintWriter pw;
         java.util.Date fecha = new Date();
         File fi = new File("c:/prueba.txt");
-
+        System.out.println(ex);
         try {
             fichero = new FileWriter("c:/prueba.txt", true);
             pw = new PrintWriter(fichero);

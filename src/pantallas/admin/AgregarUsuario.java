@@ -244,7 +244,7 @@ public class AgregarUsuario extends javax.swing.JFrame {
             }
         });
 
-        tipoUser_carl1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Agente", "Auditor", "Gerente", "Administrador" }));
+        tipoUser_carl1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Agente", "Auditor", "Gerente", "Administrador", "Call Center" }));
         tipoUser_carl1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tipoUser_carl1ActionPerformed(evt);
@@ -663,7 +663,11 @@ public class AgregarUsuario extends javax.swing.JFrame {
                             if (tipoUser_carl1.getSelectedItem().toString().equalsIgnoreCase("Gerente")) {//es gerente
                                 usuario.insertar("es(user,codigoTipoUser)", "'" + usuario.getUser() + "',3");
                             } else {
-                                usuario.insertar("es(user,codigoTipoUser)", "'" + usuario.getUser() + "',4");//es administrador
+                                if(tipoUser_carl1.getSelectedItem().toString().equalsIgnoreCase("Administrador")){
+                                    usuario.insertar("es(user,codigoTipoUser)", "'" + usuario.getUser() + "',4");//es administrador
+                                }else{
+                                    usuario.insertar("es(user,codigoTipoUser)", "'" + usuario.getUser() + "',5");//es administrador
+                                }                            
                             }
                         }
                     }

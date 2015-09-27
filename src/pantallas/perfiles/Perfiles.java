@@ -1086,9 +1086,9 @@ public final class Perfiles extends javax.swing.JFrame {
                         u.cerrarConexionBase();
                         r = u.seleccionar("count( DISTINCT date( fecha ) ) as dias", "procesa_audita", "user = '" + userCRT + "' AND tipoOperacion =1 AND date( fecha ) BETWEEN '" + fechainicioBase + "01' AND '" + fechafinBase + "31'");
                         int dias = Integer.parseInt(r.getString("dias"));
-                        totalesMesAnterior = o.cantidadTipoOrdenes(userCRT, " fecha between '" + fechainicioAnterior + "01' and '" + fechafinAnterior + "31'");
-                        totalesQuincena1 = o.cantidadTipoOrdenes(userCRT, " fecha between '" + fechainicioBase + "01' and '" + fechafinBase + "15'");
-                        totalesQuincena2 = o.cantidadTipoOrdenes(userCRT, " fecha between '" + fechafinBase + "16' and '" + fechafinBase + "31'");
+                        totalesMesAnterior = o.cantidadTipoOrdenes(userCRT, " fecha between '" + fechainicioAnterior + "01' and '" + fechafinAnterior + "31'",1);
+                        totalesQuincena1 = o.cantidadTipoOrdenes(userCRT, " fecha between '" + fechainicioBase + "01' and '" + fechafinBase + "15'",1);
+                        totalesQuincena2 = o.cantidadTipoOrdenes(userCRT, " fecha between '" + fechafinBase + "16' and '" + fechafinBase + "31'",1);
                         totalesErroresMesAnterior = o.cantidadCategoriaErrores(userCRT, " d.fecha between '" + fechainicioAnterior + "01' and '" + fechafinAnterior + "31'");
                         totalesErroresQuincena1 = o.cantidadCategoriaErrores(userCRT, " d.fecha between '" + fechainicioBase + "01' and '" + fechafinBase + "15'");
                         totalesErroresQuincena2 = o.cantidadCategoriaErrores(userCRT, " d.fecha between '" + fechafinBase + "16' and '" + fechafinBase + "31'");
@@ -1187,7 +1187,7 @@ public final class Perfiles extends javax.swing.JFrame {
                     int totales1[];
                     String userCRT = user.getText();
                     Orden o = new Orden();
-                    totales = o.cantidadTipoOrdenes(userCRT, " fecha between '" + fechainicio + "' and '" + fechafin + "'");
+                    totales = o.cantidadTipoOrdenes(userCRT, " fecha between '" + fechainicio + "' and '" + fechafin + "'",1);
                     totales1 = o.cantidadCategoriaErrores(userCRT, " date(d.fecha) between '" + fechainicio + "' and '" + fechafin + "'");
                     if (totales[3] == 0) {
                         JOptionPane.showMessageDialog(this.historico, "No se encontraron registros", "Mensaje", JOptionPane.PLAIN_MESSAGE);

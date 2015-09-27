@@ -54,6 +54,9 @@ public class Hilo extends Thread {
             case 4:// la orden ya esta siendo/ha sido ingresada por otra persona
                 getVentana().getTextoPane().setBackground(Color.GREEN);
                 break;
+            case 5:
+                getVentana().getTextoPane().setBackground(Color.ORANGE);
+                break;
                          
         }
 //        if (tipoColor == 1) {

@@ -29,6 +29,7 @@ import java.sql.ResultSet;
 import java.util.Calendar;
 import pantallas.auditor.AuditoriaDeOrdenesAgente;
 import pantallas.auditor.HistoricoOrdenesAuditadas;
+import pantallas.callcenter.RegistroDeOrdenesProcesadasCallCenter;
 import pantallas.gerente.ReporteriaEstadisticas;
 
 /*
@@ -92,7 +93,7 @@ public class MenuPpal extends javax.swing.JFrame {
             if (u.getListaTiposUsuario().get(0).getCodigoTipoUser() == 3) {
                 this.e = new errorNuevo(u, primeraVez);
             }
-            if (u.getListaTiposUsuario().get(0).getCodigoTipoUser() == 1 || u.getListaTiposUsuario().get(0).getCodigoTipoUser() == 2) {
+            if (u.getListaTiposUsuario().get(0).getCodigoTipoUser() == 1 || u.getListaTiposUsuario().get(0).getCodigoTipoUser() == 2||u.getListaTiposUsuario().get(0).getCodigoTipoUser() == 5) {
                 this.n = new NotificacionNueva(u, primeraVez);
             }
         } else {
@@ -120,7 +121,7 @@ public class MenuPpal extends javax.swing.JFrame {
         int[] permisos;
         TipoUsuario per = new TipoUsuario();
         permisos = per.permisos(user);
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             if ((permisos[0] != (i + 1)) && (permisos[1] != (i + 1)) && (permisos[2] != (i + 1)) && (permisos[3] != (i + 1))) {
                 switch (i) {
                     case 0:
@@ -134,6 +135,9 @@ public class MenuPpal extends javax.swing.JFrame {
                         break;
                     case 3:
                         panelOpciones.remove(pestanaAdmin);
+                        break;
+                    case 4:
+                        panelOpciones.remove(pestanaCallcenter);
                         break;
                 }
             }
@@ -199,6 +203,16 @@ public class MenuPpal extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         gestionTipoUsuario1 = new javax.swing.JButton();
         jLabel20 = new javax.swing.JLabel();
+        pestanaCallcenter = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        registar1 = new javax.swing.JButton();
+        historico2 = new javax.swing.JButton();
+        registrar_label1 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        notificacion1 = new javax.swing.JButton();
+        jLabel21 = new javax.swing.JLabel();
+        registroAud2 = new javax.swing.JButton();
+        jLabel22 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jLabel29 = new javax.swing.JLabel();
@@ -742,6 +756,129 @@ public class MenuPpal extends javax.swing.JFrame {
 
         panelOpciones.addTab("Administrador", pestanaAdmin);
 
+        pestanaCallcenter.setForeground(new java.awt.Color(60, 117, 207));
+        pestanaCallcenter.setToolTipText("");
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Seleccione Una Opción", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 14))); // NOI18N
+
+        registar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Window-Add-icon.png"))); // NOI18N
+        registar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registar1ActionPerformed(evt);
+            }
+        });
+
+        historico2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/historico.png"))); // NOI18N
+        historico2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                historico2ActionPerformed(evt);
+            }
+        });
+
+        registrar_label1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        registrar_label1.setText("Registro de Ordenes");
+
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("Ver Notificaciones");
+
+        notificacion1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Apps-preferences-desktop-notification-icon.png"))); // NOI18N
+        notificacion1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                notificacion1ActionPerformed(evt);
+            }
+        });
+
+        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel21.setText("Histórico");
+
+        registroAud2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/Actions-insert-table-icon.png"))); // NOI18N
+        registroAud2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registroAud2ActionPerformed(evt);
+            }
+        });
+
+        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel22.setText("Auditoría");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(registar1)
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGap(24, 24, 24)
+                                .addComponent(registroAud2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE))
+                            .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel9)
+                            .addComponent(notificacion1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                                .addComponent(historico2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(32, 32, 32))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())))))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(registrar_label1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(registar1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(registrar_label1))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(registroAud2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel22)))
+                .addGap(23, 23, 23)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(notificacion1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(historico2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel21))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout pestanaCallcenterLayout = new javax.swing.GroupLayout(pestanaCallcenter);
+        pestanaCallcenter.setLayout(pestanaCallcenterLayout);
+        pestanaCallcenterLayout.setHorizontalGroup(
+            pestanaCallcenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pestanaCallcenterLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        pestanaCallcenterLayout.setVerticalGroup(
+            pestanaCallcenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pestanaCallcenterLayout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(64, Short.MAX_VALUE))
+        );
+
+        panelOpciones.addTab("Call Center", pestanaCallcenter);
+
         jPanel10.setBackground(new java.awt.Color(60, 117, 207));
 
         jPanel11.setBackground(new java.awt.Color(47, 63, 79));
@@ -907,35 +1044,35 @@ public class MenuPpal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void aprobarErrorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aprobarErrorActionPerformed
-
-        new AprobarError(u, true, this.n, this.e).setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_aprobarErrorActionPerformed
-
-    private void gestionMsjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionMsjActionPerformed
-        new Bandeja(u, "mensaje").setVisible(true);
-    }//GEN-LAST:event_gestionMsjActionPerformed
-
-    private void registarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registarActionPerformed
-        // TODO add your handling code here:
-        this.setVisible(false);
-        new RegistroDeOrdenesProcesadas(u, this.n, this.e);
-    }//GEN-LAST:event_registarActionPerformed
-
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         if (this.u.getListaTiposUsuario().get(0).getCodigoTipoUser() == 3) {
             e.setBandera(false);
             e.getTray().remove(e.getTrayIcon());
         }
         if (u.getListaTiposUsuario().get(0).getCodigoTipoUser() == 1
-                || u.getListaTiposUsuario().get(0).getCodigoTipoUser() == 2) {
+                || u.getListaTiposUsuario().get(0).getCodigoTipoUser() == 2
+                || u.getListaTiposUsuario().get(0).getCodigoTipoUser() == 5) {
             n.setBandera(false);
             n.getTray().remove(n.getTrayIcon());
         }
         this.setVisible(false);
         new PantallaLogin(0, "nouser").setVisible(true);
     }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void mensajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mensajeActionPerformed
+        // TODO add your handling code here:
+        if (u.getListaTiposUsuario().get(0).getCodigoTipoUser() == 3) {
+            new sendMessage().setVisible(true);
+        } else {
+            new Bandeja(u, "mensaje").setVisible(true);
+        }
+    }//GEN-LAST:event_mensajeActionPerformed
+
+    private void gestionTipoUsuario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionTipoUsuario1ActionPerformed
+        // TODO add your handling code here:
+        new AgregarRazon(u,this.n, this.e).setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_gestionTipoUsuario1ActionPerformed
 
     private void gestionTipoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionTipoUsuarioActionPerformed
         // TODO add your handling code here:
@@ -959,25 +1096,44 @@ public class MenuPpal extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_gestionTipoErrorrActionPerformed
 
-    private void gestionErrorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionErrorActionPerformed
-        new AgregarError(u, this.n, this.e).setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_gestionErrorActionPerformed
-
-    private void mensajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mensajeActionPerformed
+    private void historico1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historico1ActionPerformed
         // TODO add your handling code here:
-        if (u.getListaTiposUsuario().get(0).getCodigoTipoUser() == 3) {
-            new sendMessage().setVisible(true);
-        } else {
-            new Bandeja(u, "mensaje").setVisible(true);
-        }
-    }//GEN-LAST:event_mensajeActionPerformed
+        new HistoricoOrdenesAuditadas(u, this.n, this.e).setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_historico1ActionPerformed
+
+    private void perfilesAuditorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perfilesAuditorActionPerformed
+        // TODO add your handling code here:
+        new Perfiles(u, this.n, this.e).setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_perfilesAuditorActionPerformed
 
     private void registroAudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registroAudActionPerformed
         // TODO add your handling code here:
         new AuditoriaDeOrdenes(u, this.n, this.e).setVisible(false);
         this.setVisible(false);
     }//GEN-LAST:event_registroAudActionPerformed
+
+    private void gestionErrorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionErrorActionPerformed
+        new AgregarError(u, this.n, this.e).setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_gestionErrorActionPerformed
+
+    private void perfilesGerenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perfilesGerenteActionPerformed
+        // TODO add your handling code here:
+        new Perfiles(u, this.n, this.e).setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_perfilesGerenteActionPerformed
+
+    private void aprobarErrorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aprobarErrorActionPerformed
+
+        new AprobarError(u, true, this.n, this.e).setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_aprobarErrorActionPerformed
+
+    private void gestionMsjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionMsjActionPerformed
+        new Bandeja(u, "mensaje").setVisible(true);
+    }//GEN-LAST:event_gestionMsjActionPerformed
 
     private void errorLabGerenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_errorLabGerenteActionPerformed
         // TODO add your handling code here:
@@ -991,17 +1147,11 @@ public class MenuPpal extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_reporteActionPerformed
 
-    private void perfilesGerenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perfilesGerenteActionPerformed
+    private void registroAud1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registroAud1ActionPerformed
         // TODO add your handling code here:
-        new Perfiles(u, this.n, this.e).setVisible(true);
+        new AuditoriaDeOrdenesAgente(u, this.n, this.e).setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_perfilesGerenteActionPerformed
-
-    private void perfilesAuditorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perfilesAuditorActionPerformed
-        // TODO add your handling code here:
-        new Perfiles(u, this.n, this.e).setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_perfilesAuditorActionPerformed
+    }//GEN-LAST:event_registroAud1ActionPerformed
 
     private void notificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_notificacionActionPerformed
         // TODO add your handling code here:
@@ -1014,23 +1164,33 @@ public class MenuPpal extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_historicoActionPerformed
 
-    private void gestionTipoUsuario1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionTipoUsuario1ActionPerformed
+    private void registarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registarActionPerformed
         // TODO add your handling code here:
-        new AgregarRazon(u,this.n, this.e).setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_gestionTipoUsuario1ActionPerformed
+        new RegistroDeOrdenesProcesadas(u, this.n, this.e);
+    }//GEN-LAST:event_registarActionPerformed
 
-    private void historico1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historico1ActionPerformed
+    private void registar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registar1ActionPerformed
         // TODO add your handling code here:
-        new HistoricoOrdenesAuditadas(u, this.n, this.e).setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_historico1ActionPerformed
+        new RegistroDeOrdenesProcesadasCallCenter(u, this.n, this.e);
+    }//GEN-LAST:event_registar1ActionPerformed
 
-    private void registroAud1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registroAud1ActionPerformed
+    private void historico2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_historico2ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_historico2ActionPerformed
+
+    private void notificacion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_notificacion1ActionPerformed
+        // TODO add your handling code here:
+        new Bandeja(u, "notificacion").setVisible(true);
+    }//GEN-LAST:event_notificacion1ActionPerformed
+
+    private void registroAud2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registroAud2ActionPerformed
         // TODO add your handling code here:
         new AuditoriaDeOrdenesAgente(u, this.n, this.e).setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_registroAud1ActionPerformed
+    }//GEN-LAST:event_registroAud2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aprobarError;
@@ -1045,6 +1205,7 @@ public class MenuPpal extends javax.swing.JFrame {
     private javax.swing.JButton gestionUsuario;
     private javax.swing.JButton historico;
     private javax.swing.JButton historico1;
+    private javax.swing.JButton historico2;
     private javax.swing.JButton jButton12;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1057,6 +1218,8 @@ public class MenuPpal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
@@ -1069,6 +1232,7 @@ public class MenuPpal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -1076,9 +1240,11 @@ public class MenuPpal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JLabel lblMensaje;
     private javax.swing.JButton mensaje;
     private javax.swing.JButton notificacion;
+    private javax.swing.JButton notificacion1;
     private javax.swing.JPanel panelInferior;
     private javax.swing.JTabbedPane panelOpciones;
     private javax.swing.JButton perfilesAuditor;
@@ -1086,11 +1252,15 @@ public class MenuPpal extends javax.swing.JFrame {
     private javax.swing.JPanel pestanaAdmin;
     private javax.swing.JPanel pestanaAgente;
     private javax.swing.JPanel pestanaAuditor;
+    private javax.swing.JPanel pestanaCallcenter;
     private javax.swing.JPanel pestanaGerente;
     private javax.swing.JButton registar;
+    private javax.swing.JButton registar1;
     private javax.swing.JLabel registrar_label;
+    private javax.swing.JLabel registrar_label1;
     private javax.swing.JButton registroAud;
     private javax.swing.JButton registroAud1;
+    private javax.swing.JButton registroAud2;
     private javax.swing.JButton reporte;
     // End of variables declaration//GEN-END:variables
 }

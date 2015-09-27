@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package pantallas.agente;
+package pantallas.callcenter;
 
 import clases.ErroresSiapo;
 import clases.Location;
@@ -32,7 +32,7 @@ import pantallas.mensajeria.errorNuevo;
  *
  * @author Administrador
  */
-public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implements Runnable {
+public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFrame implements Runnable {
 
     /**
      * Creates new form RegistroDeOrdenesProcesadas
@@ -60,7 +60,7 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
     private final Orden ordenActual = new Orden();
     Hilo ventanaEmergente;
 
-    public RegistroDeOrdenesProcesadas(Usuario u, NotificacionNueva n, errorNuevo e) {
+    public RegistroDeOrdenesProcesadasCallCenter(Usuario u, NotificacionNueva n, errorNuevo e) {
         c = Calendar.getInstance();
         this.u = new Usuario();
         this.u.setUser(u.getUser());
@@ -72,7 +72,7 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
         this.tray = n.getTray();
         this.primerIngreso = true;
         initComponents();
-        l.llenarTablaLocations(listaLocation,1);
+        l.llenarTablaLocations(listaLocation, 3);
         listaLocations.setSize(800, 600);
         listaLocations.setLocationRelativeTo(null);
         ///escogiendo la primera location       
@@ -141,6 +141,15 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
         jDialogAceptar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel32 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        tipoOrden = new javax.swing.JComboBox();
+        jLabel10 = new javax.swing.JLabel();
+        comentario = new javax.swing.JTextField();
+        nombreLocation = new javax.swing.JComboBox();
+        specimen = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
@@ -148,6 +157,23 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
         definirLocation = new javax.swing.JButton();
         listaProcesadas = new javax.swing.JButton();
         cancelarRegistro = new javax.swing.JButton();
+        listaProcesadas1 = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        historial = new javax.swing.JTable();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        total = new javax.swing.JLabel();
+        nada = new javax.swing.JLabel();
+        incompletas = new javax.swing.JLabel();
+        completas = new javax.swing.JLabel();
+        pendientes = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
+        resueltas = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
@@ -161,27 +187,6 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
         jLabel15 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        tipoOrden = new javax.swing.JComboBox();
-        jLabel10 = new javax.swing.JLabel();
-        comentario = new javax.swing.JTextField();
-        nombreLocation = new javax.swing.JComboBox();
-        specimen = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        historial = new javax.swing.JTable();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        total = new javax.swing.JLabel();
-        nada = new javax.swing.JLabel();
-        incompletas = new javax.swing.JLabel();
-        completas = new javax.swing.JLabel();
 
         listaDeOrdenes.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         listaDeOrdenes.setTitle("Lista de Ordenes Procesadas");
@@ -798,6 +803,86 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                 formWindowIconified(evt);
             }
         });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Orden Actual", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 18))); // NOI18N
+
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Specimen");
+
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("Location");
+
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("Tipo de Orden Procesada");
+
+        tipoOrden.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tipoOrden.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Completa", "Regresada Incompleta", "Regresada sin hacer nada", "Resuelta", "Pendiente" }));
+        tipoOrden.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tipoOrdenActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("Comentario");
+
+        comentario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        comentario.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+
+        nombreLocation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nombreLocationActionPerformed(evt);
+            }
+        });
+
+        specimen.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(nombreLocation, 0, 208, Short.MAX_VALUE)
+                    .addComponent(specimen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(tipoOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(comentario))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(specimen, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel7)
+                        .addComponent(jLabel9)
+                        .addComponent(tipoOrden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel10)
+                    .addComponent(comentario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nombreLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 176, 972, -1));
 
         jPanel5.setBackground(new java.awt.Color(94, 112, 144));
         jPanel5.setForeground(new java.awt.Color(94, 112, 144));
@@ -819,6 +904,8 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 644, 1023, -1));
 
         ingresarOrden.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         ingresarOrden.setText("Ingresar orden");
@@ -852,12 +939,20 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
             }
         });
 
+        listaProcesadas1.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        listaProcesadas1.setText("Lista ordenes CS");
+        listaProcesadas1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listaProcesadas1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(236, 236, 236)
+                .addGap(147, 147, 147)
                 .addComponent(ingresarOrden)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(definirLocation)
@@ -865,19 +960,170 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                 .addComponent(listaProcesadas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cancelarRegistro)
-                .addContainerGap(202, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(listaProcesadas1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ingresarOrden)
                     .addComponent(definirLocation)
                     .addComponent(listaProcesadas)
-                    .addComponent(cancelarRegistro))
+                    .addComponent(cancelarRegistro)
+                    .addComponent(listaProcesadas1))
+                .addContainerGap())
+        );
+
+        getContentPane().add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 589, 1023, -1));
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Historial de orden", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 18))); // NOI18N
+
+        historial.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        historial.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "User", "Hora Inicio", "Hora Finalizacion", "Fecha"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(historial);
+        if (historial.getColumnModel().getColumnCount() > 0) {
+            historial.getColumnModel().getColumn(0).setResizable(false);
+            historial.getColumnModel().getColumn(1).setResizable(false);
+            historial.getColumnModel().getColumn(2).setResizable(false);
+            historial.getColumnModel().getColumn(2).setHeaderValue("Hora Finalizacion");
+            historial.getColumnModel().getColumn(3).setResizable(false);
+            historial.getColumnModel().getColumn(3).setPreferredWidth(0);
+            historial.getColumnModel().getColumn(3).setHeaderValue("Fecha");
+        }
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 304, 972, -1));
+
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Totales", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 18))); // NOI18N
+
+        jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel4.setText("Ordenes Procesadas:");
+
+        jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel5.setText("Sin hacer nada:");
+
+        jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel6.setText("Incompletas:");
+
+        jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel3.setText("Completas:");
+
+        total.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        total.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        total.setText("200");
+
+        nada.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        nada.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nada.setText("200");
+
+        incompletas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        incompletas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        incompletas.setText("200");
+
+        completas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        completas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        completas.setText("200");
+
+        pendientes.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        pendientes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        pendientes.setText("200");
+
+        jLabel37.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel37.setText("Pendientes CS:");
+
+        jLabel38.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel38.setText("Resueltas CS:");
+
+        resueltas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        resueltas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        resueltas.setText("200");
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addGap(5, 5, 5)
+                .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel5)
+                .addGap(5, 5, 5)
+                .addComponent(nada, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addGap(5, 5, 5)
+                .addComponent(incompletas, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(completas, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel38)
+                .addGap(5, 5, 5)
+                .addComponent(resueltas, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel37)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pendientes, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(resueltas, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(pendientes, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(nada, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(incompletas, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(completas, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(20, 20, 20))
+        );
+
+        getContentPane().add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 451, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(60, 117, 207));
 
@@ -1028,222 +1274,9 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                 .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Orden Actual", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 18))); // NOI18N
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1023, -1));
 
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Specimen");
-
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Location");
-
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Tipo de Orden Procesada");
-
-        tipoOrden.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        tipoOrden.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Completa", "Regresada Incompleta", "Regresada sin hacer nada" }));
-        tipoOrden.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tipoOrdenActionPerformed(evt);
-            }
-        });
-
-        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setText("Comentario");
-
-        comentario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        comentario.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-
-        nombreLocation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreLocationActionPerformed(evt);
-            }
-        });
-
-        specimen.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(nombreLocation, 0, 208, Short.MAX_VALUE)
-                    .addComponent(specimen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(comentario, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tipoOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(specimen, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel7)
-                        .addComponent(jLabel9)
-                        .addComponent(tipoOrden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel10)
-                    .addComponent(comentario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nombreLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-        );
-
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Historial de orden", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 18))); // NOI18N
-
-        historial.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        historial.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "User", "Hora Inicio", "Hora Finalizacion", "Fecha"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(historial);
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 641, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Totales", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 18))); // NOI18N
-
-        jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel4.setText("Ordenes Procesadas:");
-
-        jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel5.setText("Sin hacer nada:");
-
-        jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel6.setText("Incompletas:");
-
-        jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel3.setText("Completas:");
-
-        total.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        total.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        total.setText("200");
-
-        nada.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        nada.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        nada.setText("200");
-
-        incompletas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        incompletas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        incompletas.setText("200");
-
-        completas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        completas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        completas.setText("200");
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4)
-                .addGap(5, 5, 5)
-                .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
-                .addGap(5, 5, 5)
-                .addComponent(nada, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
-                .addGap(5, 5, 5)
-                .addComponent(incompletas, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(completas, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(total, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nada, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(incompletas, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(completas, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(162, 162, 162)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(163, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 394, Short.MAX_VALUE)
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(173, 173, 173)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(18, 18, 18)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(108, Short.MAX_VALUE)))
-        );
-
-        setBounds(0, 0, 1016, 682);
+        setBounds(0, 0, 1039, 720);
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -1275,7 +1308,7 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                 Orden o = new Orden();
                 o.setSpecimen(specAlmacenado);
                 o.setTipoOrden(this.tipoOrden.getSelectedIndex() + 1);
-                if (o.borrarOrden(u.getUser(),1)) {
+                if (o.borrarOrden(u.getUser(), l.getLocationActivo())) {
                     JOptionPane.showMessageDialog(null, "Se ha cancelado el registro",
                             "Cancelar registro de orden", JOptionPane.INFORMATION_MESSAGE);
                     if (!cerrando) {
@@ -1329,7 +1362,7 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                 h.start();
                 // de base de datos
                 llenarTotales();
-                listaDeLocations = l.obtenerLocations("LocationActivo=1");
+                listaDeLocations = l.obtenerLocations("LocationActivo=1 or LocationActivo=3");
                 l.llenarComboBoxLocations(locations, listaDeLocations);
                 l.llenarComboBoxLocations(nombreLocation, listaDeLocations);
                 codigoRazon = new TextAutoCompleter(jDialogRazon);
@@ -1353,6 +1386,9 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                 }
             }
             nombreLocation.setSelectedItem(nombre);
+            if (l.getLocationActivo() == 3) {
+                tipoOrden.setSelectedIndex(3);
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Tiene que elegir una location", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -1372,6 +1408,30 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
         new MenuPpal(u, false, this.n, this.e).setVisible(true);
         this.dispose();
     }//GEN-LAST:event_menuActionPerformed
+
+    private void tipoOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoOrdenActionPerformed
+        Boolean a = this.specimen.getText().isEmpty(), b = this.historial.getRowCount() > 0;
+        int tipo = this.tipoOrden.getSelectedIndex();
+        if (!a && b) {
+            if (tipo > 0 && tipo != 3) {
+                if (tipo < 3) {
+                    this.jDialogComentario.setSize(340, 140);
+                    this.jDialogComentario.setLocationRelativeTo(null);
+                    this.jDialogComentario.setVisible(true);
+                } else {
+                    String comentarioCallCenter = JOptionPane.showInputDialog("Ingrese algun comentario para la orden pendiente");
+                    ordenActual.setComentarioCallCenter(comentarioCallCenter);
+                    this.comentario.setText(comentarioCallCenter);
+                    actualizarVentanaEmergente();
+                }
+            } else {
+                this.comentario.setText("");
+                this.ordenActual.setComentarioAgente("");
+                this.ordenActual.setComentarioCallCenter("");
+                this.ordenActual.getRazones().clear();
+            }
+        }
+    }//GEN-LAST:event_tipoOrdenActionPerformed
 
     private void listaLocationsWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_listaLocationsWindowClosing
         if (this.primerIngreso) {
@@ -1419,14 +1479,20 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                         if (!o.contieneErrores()) {
                             // comprobar si es una orden auditada
                             if (!o.estaAuditada()) {
-                                o.borrarOrden(u.getUser(),1);
+                                o.borrarOrden(u.getUser(), 1);
                                 this.inicializarPortapapeles(false);
                                 JOptionPane.showMessageDialog(null, " Registro de orden borrado", "Eliminar registro de Orden", JOptionPane.INFORMATION_MESSAGE);
                                 actualizarListaRegistro();
 //                                this.listaDeOrdenes.repaint();
 //                                listaOrdenes.repaint();
                                 llenarTotales();
-                                trayIcon.setToolTip("PR:" + this.total.getText() + " CO:" + this.completas.getText() + " IN:" + this.incompletas.getText() + " SN:" + this.nada.getText());
+                                trayIcon.setToolTip("PR:" + this.total.getText()
+                                        + " CO:" + this.completas.getText()
+                                        + " IN:" + this.incompletas.getText()
+                                        + " SN:" + this.nada.getText()
+                                        + " RS:" + this.resueltas.getText()
+                                        + " PN:" + this.pendientes.getText()
+                                );
                             } else {
                                 JOptionPane.showMessageDialog(null, " La orden ya fue auditada asi que no puede ser eliminado el registro", "Error", JOptionPane.INFORMATION_MESSAGE);
                             }
@@ -1682,25 +1748,15 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
 
     }//GEN-LAST:event_agregarActionPerformed
 
-    private void tipoOrdenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipoOrdenActionPerformed
-        Boolean a = this.specimen.getText().isEmpty(), b = this.historial.getRowCount() > 0;
-        if (!a && b) {
-            if (this.tipoOrden.getSelectedIndex() > 0) {
-                this.jDialogComentario.setSize(340, 140);
-                this.jDialogComentario.setLocationRelativeTo(null);
-                this.jDialogComentario.setVisible(true);
-            } else {
-                this.comentario.setText("");
-                this.ordenActual.setComentarioAgente("");
-                this.ordenActual.getRazones().clear();
-            }
-        }
-    }//GEN-LAST:event_tipoOrdenActionPerformed
-
     private void nombreLocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreLocationActionPerformed
         // TODO add your handling code here:
         l = l.buscarLocation(listaDeLocations, this.nombreLocation.getSelectedItem().toString());
     }//GEN-LAST:event_nombreLocationActionPerformed
+
+    private void listaProcesadas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaProcesadas1ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_listaProcesadas1ActionPerformed
 
     public Action getAccion(Action[] acciones, String nombreAccion) {
         Hashtable<Object, Action> acc = new Hashtable<>();
@@ -1786,6 +1842,15 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                     ingresarOrden(false);
                 }
             };
+            //Pendiente
+            ActionListener a4;
+            a4 = new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    tipoOrden.setSelectedIndex(4);
+                    //ventanaEmergente.cambiarColor(3);
+                }
+            };
             // Activar automatizacion
             ActionListener activar;
             activar = new ActionListener() {
@@ -1823,6 +1888,7 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
             };
             //Aquí se crea un popup menu  
             PopupMenu popup = new PopupMenu();
+            MenuItem pend = new MenuItem("Poner Orden Pendiente");
             MenuItem inc = new MenuItem("Poner Orden Incompleta");
             MenuItem nad = new MenuItem("Poner Orden sin hacer nada");
             MenuItem ingr = new MenuItem("Ingresar Orden");
@@ -1842,7 +1908,9 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
             b.addActionListener(locat);
             ex.addActionListener(cancel);
             lis.addActionListener(abrirLista);
+            pend.addActionListener(a4);
             // se agregan al menu
+            popup.add(pend);
             popup.add(inc);
             popup.add(nad);
             popup.add(ingr);
@@ -1938,6 +2006,8 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1972,13 +2042,16 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
     private javax.swing.JFrame listaLocations;
     private javax.swing.JTable listaOrdenes;
     private javax.swing.JButton listaProcesadas;
+    private javax.swing.JButton listaProcesadas1;
     private javax.swing.JComboBox locations;
     private javax.swing.JButton menu;
     private javax.swing.JLabel nada;
     private javax.swing.JComboBox nombreLocation;
     private javax.swing.JMenuItem pegar;
+    private javax.swing.JLabel pendientes;
     private javax.swing.JButton quitar;
     private javax.swing.JButton registro;
+    private javax.swing.JLabel resueltas;
     private javax.swing.JTextField spec;
     private javax.swing.JLabel specimen;
     private javax.swing.JComboBox tipoOrden;
@@ -2000,7 +2073,7 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                                     // PROCESO DE REGISTRO
                                     // si es el mismo user el que ya la ingreso no se registra
                                     //ordenActual.setSpecimen(texto);
-                                    Boolean noMismo = ordenActual.noMismoUser(u.getUser(), texto,1);
+                                    Boolean noMismo = ordenActual.noMismoUser(u.getUser(), texto, l.getLocationActivo());
                                     if (noMismo != null) {
                                         if (noMismo) {//6
                                             //comprobamos si es primera vez que se realiza la automatizacion
@@ -2015,11 +2088,15 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                                                 limpiar();
                                                 specAlmacenado = texto;
                                                 ordenActual.setSpecimen(specAlmacenado);
-                                                ordenActual.setTipoOrden(tipoOrden.getSelectedIndex() + 1);
+                                                if (l.getLocationActivo() == 1) {
+                                                    ordenActual.setTipoOrden(tipoOrden.getSelectedIndex() + 1);
+                                                } else {
+                                                    ordenActual.setTipoOrden(tipoOrden.getSelectedIndex() + 6);
+                                                }
                                                 ordenActual.setCodigoLocation(l.getCodigoLocation());
                                                 ordenActual.setComentarioAgente(comentario.getText());
                                                 // comprobamos si la orden ya tiene registro he ingresamos la orden
-                                                Boolean comprobar = ordenActual.ingresarRegistro(u.getUser(), this.trayIcon,l.getLocationActivo());
+                                                Boolean comprobar = ordenActual.ingresarRegistro(u.getUser(), this.trayIcon, l.getLocationActivo());
                                                 if (comprobar != null) {
                                                     // la orden no se ha registrado aun
                                                     almacenado = comprobar;
@@ -2074,7 +2151,13 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
             limpiar();
         }
         llenarTotales();
-        trayIcon.setToolTip("PR:" + this.total.getText() + " CO:" + this.completas.getText() + " IN:" + this.incompletas.getText() + " SN:" + this.nada.getText());
+        trayIcon.setToolTip("PR:" + this.total.getText()
+                + " CO:" + this.completas.getText()
+                + " IN:" + this.incompletas.getText()
+                + " SN:" + this.nada.getText()
+                + " RS:" + this.resueltas.getText()
+                + " PN:" + this.pendientes.getText()
+        );
         if (this.listaDeOrdenes.isVisible()) {
             actualizarListaRegistro();
 
@@ -2108,12 +2191,14 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
 
     private void llenarTotales() {
         int t[];
-        t = ordenActual.cantidadTipoOrdenes(u.getUser(), "fecha = curdate()",1);
+        t = ordenActual.cantidadTipoOrdenes(u.getUser(), "fecha = curdate()", 2);
         if (t != null) {
             completas.setText(Integer.toString(t[0]));
             incompletas.setText(Integer.toString(t[1]));
             nada.setText(Integer.toString(t[2]));
             total.setText(Integer.toString(t[3]));
+            resueltas.setText(Integer.toString(t[4]));
+            pendientes.setText(Integer.toString(t[5]));
         }
     }
 
@@ -2135,13 +2220,18 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
     public boolean actualizarOrden() {
         this.ordenActual.setComentarioAgente(comentario.getText());
         //this.ordenActual.setCodigoLocation(l.getCodigoLocation());
-        this.ordenActual.setTipoOrden(tipoOrden.getSelectedIndex() + 1);
+        if (l.getLocationActivo() == 1) {
+            ordenActual.setTipoOrden(tipoOrden.getSelectedIndex() + 1);
+        } else {
+            ordenActual.setTipoOrden(tipoOrden.getSelectedIndex() + 3);
+        }
+        //this.ordenActual.setTipoOrden(tipoOrden.getSelectedIndex() + 1);
         try {
             this.ordenActual.setSpecimen(specimen.getText());
         } catch (Exception ex) {
             this.ordenActual.setSpecimen(specAlmacenado);
         }
-        return this.ordenActual.actualizarOrden(almacenado, u.getUser(),1);
+        return this.ordenActual.actualizarOrden(almacenado, u.getUser(), l.getLocationActivo());
     }
 
     public void actualizarVentanaEmergente() {
@@ -2159,9 +2249,16 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
             texto = texto + "\nHORA INICIO: " + this.historial.getValueAt(0, 1)
                     + "\n";
         }
-        if (tipoOrden.getSelectedIndex() > 0) {
+        //System.out.println(tipoOrden.getSelectedIndex());
+        if (tipoOrden.getSelectedIndex() > 0 && tipoOrden.getSelectedIndex() < 3) {
             ventanaEmergente.cambiarColor(3);
             texto = texto + "\nMANDADA POR: " + ordenActual.getComentarioAgente();
+        } else {
+            if (tipoOrden.getSelectedIndex() == 4) {
+                ventanaEmergente.cambiarColor(1);
+            } else {
+                ventanaEmergente.cambiarColor(5);
+            }
         }
         this.ventanaEmergente.agregarTexto(texto, 3);
     }

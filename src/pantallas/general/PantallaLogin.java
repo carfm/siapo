@@ -347,7 +347,7 @@ public class PantallaLogin extends javax.swing.JFrame {
             hiloCargando = new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    System.out.println("inicio" + inicioDeEnvio + "\nFIN" + finDeEnvio);
+                    //System.out.println("inicio" + inicioDeEnvio + "\nFIN" + finDeEnvio);
                     while (inicioDeEnvio > finDeEnvio) {
                         try {
                             Thread.sleep(100);

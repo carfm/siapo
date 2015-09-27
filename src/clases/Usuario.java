@@ -160,6 +160,9 @@ public class Usuario extends Sistema {
                     case 4:
                         t.setNombreTipo("Administrador");
                         break;
+                    case 5:
+                        t.setNombreTipo("Call Center");
+                        break;
                 }
                 getListaTiposUsuario().add(t);
                 getResultado().next();
@@ -253,6 +256,7 @@ public class Usuario extends Sistema {
                         getResultado().close();
                         this.cerrarConexionBase();
                         this.setTiposUsuario();
+//                        System.out.println(this.getListaTiposUsuario().get(0));
                         new cambiarPass(this).setVisible(true);
                         //System.exit(1);
                     } else {

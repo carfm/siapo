@@ -22,6 +22,7 @@ public class Location extends Sistema {
     private String nombreLocation;
     private int prioridad;
     private int codigoLocationUSA;
+    private int locationActivo;
 
     /**
      * @return the codigoLocation
@@ -32,7 +33,7 @@ public class Location extends Sistema {
 
     public void agregarLocation() {
         insertar("location", "'" + this.getCodigoLocation() + "',"
-                + "'" + this.getNombreLocation() + "'," + this.getPrioridad() + ",1,'" + this.getCodigoLocationUSA() + "'");
+                + "'" + this.getNombreLocation() + "'," + this.getPrioridad() + ","+this.getLocationActivo()+",'" + this.getCodigoLocationUSA() + "'");
     }
 
     public boolean generarCodigoLocation() {
@@ -108,8 +109,13 @@ public class Location extends Sistema {
     }
 
     // funcion que llena un jtable con las locations
-    public void llenarTablaLocations(JTable listaLocation) {
-        ResultSet r = seleccionar("nombreLocation,(SELECT CASE WHEN prioridad =1 THEN 'PRIORIDAD' WHEN prioridad =0 THEN 'NO PRIORIDAD' END),codigoLocationUSA,codigoLocation", "location", "LocationActivo=1");
+    public void llenarTablaLocations(JTable listaLocation,int filtro) {
+        ResultSet r;
+        if(filtro ==1){
+           r = seleccionar("nombreLocation,(SELECT CASE WHEN prioridad =1 THEN 'PRIORIDAD' WHEN prioridad =0 THEN 'NO PRIORIDAD' END),codigoLocationUSA,codigoLocation", "location", "LocationActivo="+filtro); 
+        }else{
+           r = seleccionar("nombreLocation,(SELECT CASE WHEN prioridad =1 THEN 'PRIORIDAD' WHEN prioridad =0 THEN 'NO PRIORIDAD' END),codigoLocationUSA,codigoLocation", "location", "LocationActivo="+filtro+" or LocationActivo=1");  
+        }
         try {
             r.beforeFirst();
             while (r.next()) {
@@ -140,10 +146,10 @@ public class Location extends Sistema {
         }
     }
 
-    public ArrayList<Location> obtenerLocations() {
+    public ArrayList<Location> obtenerLocations(String filtro) {
         ArrayList<Location> locations = new ArrayList();
         try {
-            ResultSet r = seleccionar("nombreLocation,codigoLocationUSA,prioridad,codigoLocation", "location", "LocationActivo=1");
+            ResultSet r = seleccionar("nombreLocation,codigoLocationUSA,prioridad,codigoLocation,locationActivo", "location", filtro);
             r.beforeFirst();
             while (r.next()) {
                 Location l = new Location();
@@ -151,6 +157,7 @@ public class Location extends Sistema {
                 l.setCodigoLocation(r.getString("codigoLocation")); // quitar despues
                 l.setCodigoLocationUSA(Integer.parseInt(r.getString("codigoLocationUSA")));
                 l.setPrioridad(Integer.parseInt(r.getString("prioridad")));
+                l.setLocationActivo(Integer.parseInt(r.getString("locationActivo")));
                 locations.add(l);
             }
             this.cerrarConexionBase();
@@ -218,6 +225,20 @@ public class Location extends Sistema {
      */
     public void setCodigoLocation(String codigoLocation) {
         this.codigoLocation = codigoLocation;
+    }
+
+    /**
+     * @return the locationActivo
+     */
+    public int getLocationActivo() {
+        return locationActivo;
+    }
+
+    /**
+     * @param locationActivo the locationActivo to set
+     */
+    public void setLocationActivo(int locationActivo) {
+        this.locationActivo = locationActivo;
     }
 
 }
