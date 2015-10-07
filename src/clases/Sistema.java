@@ -44,9 +44,9 @@ public class Sistema {
     private ResultSet resultado;
     private Statement sentencia;
     private Connection conexion;
-    public final static String servidor = "jdbc:mysql://localhost:3306/siapo";//10.8.40.99:3306/siapo
-    public final static String usu = "root";//hmcr_siapo
-    public final static String pass = "";//eamJpymB8nTmTVXd
+    public final static String servidor = "jdbc:mysql://10.8.40.99:3306/siapo";//10.8.40.99:3306/siapo
+    public final static String usu = "hmcr_siapo";//hmcr_siapo
+    public final static String pass = "eamJpymB8nTmTVXd";//eamJpymB8nTmTVXd
     public final static String años = "2013-2015";
     private String para, asunto, mensaje;
 
@@ -57,7 +57,7 @@ public class Sistema {
             setConexion(DriverManager.getConnection(servidor, usu, pass));//Crea la conexion
             setSentencia(getConexion().createStatement());
             String insertar = "INSERT INTO " + tabla + " VALUES (" + valores + ")";
-            System.out.println(insertar);
+//            System.out.println(insertar);
             getSentencia().executeUpdate(insertar);
             getSentencia().close();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | SQLException ex) {
@@ -81,7 +81,7 @@ public class Sistema {
             } else {
                 modificar = "UPDATE " + tabla + " SET " + campos + " WHERE " + condicion;
             }
-            System.out.println(modificar);
+//            System.out.println(modificar);
             setSentencia(getConexion().createStatement());
             getSentencia().executeUpdate(modificar);
             getSentencia().close();
@@ -105,7 +105,7 @@ public class Sistema {
             } else {
                 modificar = "DELETE FROM " + tabla + " WHERE " + condicion;
             }
-            System.out.println(modificar);
+//            System.out.println(modificar);
             setSentencia(getConexion().createStatement());
             getSentencia().executeUpdate(modificar);
             getSentencia().close();
@@ -130,7 +130,7 @@ public class Sistema {
             } else {
                 sql_str = "SELECT " + campo + " FROM " + tabla + " WHERE " + condicion;
             }
-            System.out.println(sql_str);
+//            System.out.println(sql_str);
             setSentencia(getConexion().createStatement());
             resultado = getSentencia().executeQuery(sql_str);
             resultado.next();
@@ -200,6 +200,13 @@ public class Sistema {
     public void soloLetras(KeyEvent evt) {
         char ch = evt.getKeyChar();
         if ((ch < 'a' || ch > 'z') && (ch < 'A' || ch > 'Z')) {
+            evt.consume();
+        }
+    }
+
+    public void soloLetrasNum(KeyEvent evt) {
+        char ch = evt.getKeyChar();
+        if ((ch < 'a' || ch > 'z') && (ch < 'A' || ch > 'Z') && (ch < '0' || ch > '9')&&(ch!=' ')) {
             evt.consume();
         }
     }

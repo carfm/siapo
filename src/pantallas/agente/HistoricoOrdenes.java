@@ -450,7 +450,7 @@ public class HistoricoOrdenes extends javax.swing.JFrame {
                     }
                     o.limpiarTabla(listaOrdenes);
                     if (this.mostrar.isSelected()) {                       
-                        o.llenarTablaOrdenes(listaOrdenes, userCRT, fechainicio, fechafin);
+                        o.llenarTablaOrdenes(listaOrdenes, userCRT, fechainicio, fechafin,1);
                     }                   
                 }
             }

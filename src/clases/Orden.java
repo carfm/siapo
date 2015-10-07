@@ -35,6 +35,7 @@ public class Orden extends Sistema {
     private String fecha;
     private String horaInicio;
     private String horaFin;
+    private int facility;
 
     public Orden(String specimen, boolean errorLab, String user, String codError, String nomError) {
         this.specimen = specimen;
@@ -51,14 +52,21 @@ public class Orden extends Sistema {
         return insertar("orden", s);
     }
 
-    public boolean actualizarOrden() { // para orden ya ingresada
+    public boolean actualizarOrden(int tabla) { // para orden ya ingresada
         boolean bien;
-        String campos = " codigolocation='" + codigoLocation + "',comentarioAgente='" + comentarioAgente + "'";
-        String condicion = " specimen = '" + specimen + "'";
-        bien = actualizar("orden", campos, condicion);
-        if (bien) {
-            bien = actualizar("procesa_audita", "tipoProcAud=" + getTipoOrden(), "specimen ='" + getSpecimen() + "' and user ='" + user + "'");
+        if (tabla == 1) {
+            String campos = " codigolocation='" + codigoLocation + "',comentarioAgente='" + comentarioAgente + "'";
+            String condicion = " specimen = '" + specimen + "'";
+            bien = actualizar("orden", campos, condicion);
+            if (bien) {
+                bien = actualizar("procesa_audita", "tipoProcAud=" + getTipoOrden(), "specimen ='" + getSpecimen() + "' and user ='" + user + "'");
+            }
+        } else {
+            bien = actualizar("callCenter", "tipoProcAud=" + getTipoOrden()
+                    + ",comentarioCallCenter='" + getComentarioCallCenter() + "',facility=" + getFacility(),
+                    "specimen ='" + getSpecimen() + "' and user ='" + user + "'");
         }
+
         return bien;
     }
 
@@ -350,28 +358,42 @@ public class Orden extends Sistema {
         }
     }
 
-    public void llenarTablaOrdenes(JTable listaOrdenes, String user, String fechaInicio, String fechaFin) {
+    public void llenarTablaOrdenes(JTable listaOrdenes, String user, String fechaInicio, String fechaFin, int tipo) {
         limpiarTabla(listaOrdenes);
         try {
             String periodo;
+            ResultSet r;
+            int columnas = 0;
             if (fechaInicio.equals("") && fechaFin.equals("")) {
                 periodo = "= curdate()";
             } else {
                 periodo = "between '" + fechaInicio + "' and '" + fechaFin + "'";
             }
-            ResultSet r = seleccionar("b.specimen,nombreLocation,"
-                    + "(SELECT CASE WHEN tipoProcAud =1 THEN 'Completa' WHEN tipoProcAud =2 THEN 'Regresada Incompleta' WHEN tipoProcAud =3 THEN 'Regresada sin hacer nada' END) AS nombreTipo,"
-                    + "horaInicio,horaFin,comentarioAgente",
-                    "procesa_audita a inner join orden b on a.specimen = b.specimen and tipoOperacion=1 and user = '" + user
-                    + "' inner join location c  on c.codigoLocation = b.codigoLocation",
-                    "  fecha " + periodo + " ORDER BY horaInicio desc");
+            if (tipo != 1) { // solo las de cs
+                r = seleccionar("idProCallCenter,b.specimen,nombreLocation,"
+                        + "(SELECT CASE WHEN tipoProcAud =6 THEN 'Resuelta' WHEN tipoProcAud = 7 THEN 'Pendiente' END) AS nombreTipo,"
+                        + "horaInicio,horaFin,comentarioCallCenter,facility",
+                        "callCenter a inner join orden b on a.specimen = b.specimen and user = '" + user
+                        + "' inner join location c  on c.codigoLocation = b.codigoLocation",
+                        "  fecha " + periodo + " ORDER BY idProCallCenter desc");
+                columnas = 7;
+            } else { // solo las de data entry
+                r = seleccionar("idProcAud,b.specimen,nombreLocation,"
+                        + "(SELECT CASE WHEN tipoProcAud =1 THEN 'Completa' WHEN tipoProcAud =2 THEN 'Regresada Incompleta' WHEN tipoProcAud =3 THEN 'Regresada sin hacer nada' END) AS nombreTipo,"
+                        + "horaInicio,horaFin,comentarioAgente",
+                        "procesa_audita a inner join orden b on a.specimen = b.specimen and tipoOperacion=1 and user = '" + user
+                        + "' inner join location c on c.codigoLocation = b.codigoLocation",
+                        "  fecha " + periodo + " ORDER BY idProcAud desc");
+                columnas = 6;
+            }
+
             r.beforeFirst();
             while (r.next()) {
                 // Se crea un array que será una de las filas de la tabla.
-                Object[] fila = new Object[6]; // Hay seis columnas en la tabla
+                Object[] fila = new Object[columnas]; // Depende de la tabla
                 // Se rellena cada posición del array con una de las columnas de la tabla en base de datos.
-                for (int i = 0; i < 6; i++) {
-                    fila[i] = r.getObject(i + 1); // El primer indice en rs es el 1, no el cero, por eso se suma 1.
+                for (int i = 0; i < columnas; i++) {
+                    fila[i] = r.getObject(i + 2); // El primer indice en rs es el 2, no el cero, por eso se suma 2.
                 }
                 // Se añade al modelo la fila completa.
                 ((DefaultTableModel) listaOrdenes.getModel()).addRow(fila);
@@ -472,7 +494,8 @@ public class Orden extends Sistema {
             bien = actualizar("procesa_audita", "horaFin=CURTIME()", "specimen = '" + specimen + "'and user='" + user + "' and tipoOperacion =1");
         } else {
             bien = actualizar("callcenter", "horaFin=CURTIME(),tipoProcAud=" + this.getTipoOrden()
-                    + ",comentarioCallCenter='" + this.getComentarioCallCenter() + "'", "specimen = '" + specimen + "'and user='" + user + "'"
+                    + ",comentarioCallCenter='" + this.getComentarioCallCenter() + "',facility=" + this.getFacility(),
+                    "specimen = '" + specimen + "'and user='" + user + "'"
             );
             this.setComentarioCallCenter("");
         }
@@ -763,5 +786,19 @@ public class Orden extends Sistema {
      */
     public void setComentarioCallCenter(String comentarioCallCenter) {
         this.comentarioCallCenter = comentarioCallCenter;
+    }
+
+    /**
+     * @return the facility
+     */
+    public int getFacility() {
+        return facility;
+    }
+
+    /**
+     * @param facility the facility to set
+     */
+    public void setFacility(int facility) {
+        this.facility = facility;
     }
 }

@@ -1512,7 +1512,7 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
                         } else {
                             o.setComentarioAgente(comentaAgente.getText());
                         }
-                        if (o.actualizarOrden()) {
+                        if (o.actualizarOrden(1)) {
                             JOptionPane.showMessageDialog(null, "Orden actualizada exitosamente",
                                     "Actualizar Orden", JOptionPane.INFORMATION_MESSAGE);
                             actualizarListaRegistro();
@@ -2102,7 +2102,7 @@ public final class RegistroDeOrdenesProcesadas extends javax.swing.JFrame implem
     }
 
     public void actualizarListaRegistro() {
-        ordenActual.llenarTablaOrdenes(listaOrdenes, u.getUser(), "", "");
+        ordenActual.llenarTablaOrdenes(listaOrdenes, u.getUser(), "", "",1);
         //listaOrdenes.repaint();
     }
 

@@ -22,6 +22,8 @@ import java.util.Hashtable;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.text.DefaultEditorKit;
 import pantallas.emergentes.Hilo;
 import pantallas.general.MenuPpal;
@@ -94,7 +96,7 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
         jLabel18 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
+        jLabel43 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         listaOrdenes = new javax.swing.JTable();
         cambiar = new javax.swing.JButton();
@@ -114,7 +116,7 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
         buscar_btn = new javax.swing.JToggleButton();
         listaLocations = new javax.swing.JFrame();
         jPanel15 = new javax.swing.JPanel();
-        jLabel21 = new javax.swing.JLabel();
+        jLabel44 = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
@@ -141,6 +143,36 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
         jDialogAceptar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel32 = new javax.swing.JLabel();
+        listaCallCenter = new javax.swing.JFrame("LowerRightFrame");
+        jPanel19 = new javax.swing.JPanel();
+        jPanel20 = new javax.swing.JPanel();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
+        jPanel21 = new javax.swing.JPanel();
+        jLabel42 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tablaCallCenter = new javax.swing.JTable();
+        cambiar1 = new javax.swing.JButton();
+        borrar1 = new javax.swing.JButton();
+        jPanel22 = new javax.swing.JPanel();
+        jLabel39 = new javax.swing.JLabel();
+        jLabel40 = new javax.swing.JLabel();
+        cb_tipoOrden1 = new javax.swing.JComboBox();
+        comentaCallCenter = new javax.swing.JTextField();
+        jLabel41 = new javax.swing.JLabel();
+        spec1 = new javax.swing.JTextField();
+        jLabel46 = new javax.swing.JLabel();
+        txtIco = new javax.swing.JTextField();
+        buscar1 = new javax.swing.JTextField();
+        buscar_btn1 = new javax.swing.JToggleButton();
+        jDialogCallCenter = new javax.swing.JDialog();
+        textfieldComentario = new javax.swing.JTextField();
+        jLabel35 = new javax.swing.JLabel();
+        JDialogCallCenterCancelar = new javax.swing.JButton();
+        jDialogCallCenterAceptar = new javax.swing.JButton();
+        textfieldIco = new javax.swing.JTextField();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel45 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -150,6 +182,8 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
         comentario = new javax.swing.JTextField();
         nombreLocation = new javax.swing.JComboBox();
         specimen = new javax.swing.JLabel();
+        facility = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
@@ -247,21 +281,21 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
         jPanel11.setBackground(new java.awt.Color(94, 112, 144));
         jPanel11.setForeground(new java.awt.Color(94, 112, 144));
 
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setText("Universidad de El Salvador ©Copyright 2013 ");
+        jLabel43.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel43.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel43.setText("Universidad de El Salvador ©Copyright "+Sistema.años);
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel43, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel14)
+                .addComponent(jLabel43)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -472,21 +506,21 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
         jPanel15.setBackground(new java.awt.Color(94, 112, 144));
         jPanel15.setForeground(new java.awt.Color(94, 112, 144));
 
-        jLabel21.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel21.setText("Universidad de El Salvador ©Copyright 2013 ");
+        jLabel44.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel44.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel44.setText("Universidad de El Salvador ©Copyright "+Sistema.años);
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel44, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel21)
+                .addComponent(jLabel44)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -792,6 +826,350 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
                     .addContainerGap(25, Short.MAX_VALUE)))
         );
 
+        listaCallCenter.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        listaCallCenter.setTitle("Lista de Ordenes Procesadas");
+        listaCallCenter.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        listaCallCenter.setResizable(false);
+        listaCallCenter.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                listaCallCenterWindowClosing(evt);
+            }
+        });
+
+        jPanel19.setBackground(new java.awt.Color(60, 117, 207));
+
+        jPanel20.setBackground(new java.awt.Color(47, 63, 79));
+
+        jLabel33.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
+        jPanel20.setLayout(jPanel20Layout);
+        jPanel20Layout.setHorizontalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel20Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel33, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel20Layout.setVerticalGroup(
+            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel20Layout.createSequentialGroup()
+                .addContainerGap(30, Short.MAX_VALUE)
+                .addComponent(jLabel33))
+        );
+
+        jLabel34.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel34.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel34.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel34.setText("Ordenes Procesadas en call center");
+
+        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
+        jPanel19.setLayout(jPanel19Layout);
+        jPanel19Layout.setHorizontalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel19Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel34, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel19Layout.setVerticalGroup(
+            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel19Layout.createSequentialGroup()
+                .addComponent(jPanel20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel34)
+                .addContainerGap())
+        );
+
+        jPanel21.setBackground(new java.awt.Color(94, 112, 144));
+        jPanel21.setForeground(new java.awt.Color(94, 112, 144));
+
+        jLabel42.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel42.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel42.setText("Universidad de El Salvador ©Copyright "+Sistema.años);
+
+        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
+        jPanel21.setLayout(jPanel21Layout);
+        jPanel21Layout.setHorizontalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel42, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel21Layout.setVerticalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel21Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel42)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        tablaCallCenter.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Specimen", "Location", "Tipo", "Inicio", "Fin", "Comentario", "ICO"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaCallCenter.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaCallCenterMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(tablaCallCenter);
+        if (tablaCallCenter.getColumnModel().getColumnCount() > 0) {
+            tablaCallCenter.getColumnModel().getColumn(0).setPreferredWidth(65);
+            tablaCallCenter.getColumnModel().getColumn(1).setPreferredWidth(160);
+            tablaCallCenter.getColumnModel().getColumn(2).setPreferredWidth(70);
+            tablaCallCenter.getColumnModel().getColumn(3).setPreferredWidth(56);
+            tablaCallCenter.getColumnModel().getColumn(4).setPreferredWidth(56);
+            tablaCallCenter.getColumnModel().getColumn(5).setPreferredWidth(400);
+            tablaCallCenter.getColumnModel().getColumn(6).setPreferredWidth(50);
+        }
+
+        cambiar1.setText("Cambiar Orden");
+        cambiar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cambiar1ActionPerformed(evt);
+            }
+        });
+
+        borrar1.setText("Borrar Orden");
+        borrar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                borrar1ActionPerformed(evt);
+            }
+        });
+
+        jPanel22.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos de la Orden", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 18))); // NOI18N
+        jPanel22.setToolTipText("");
+        jPanel22.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel22.setName(""); // NOI18N
+
+        jLabel39.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel39.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel39.setText("Tipo De Orden:");
+
+        jLabel40.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel40.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel40.setText("Comentario:");
+
+        cb_tipoOrden1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Resuelta", "Pendiente" }));
+        cb_tipoOrden1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_tipoOrden1ActionPerformed(evt);
+            }
+        });
+
+        jLabel41.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel41.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel41.setText("Specimen:");
+
+        spec1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                spec1MouseClicked(evt);
+            }
+        });
+
+        jLabel46.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel46.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel46.setText("ICO:");
+
+        txtIco.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtIcoMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
+        jPanel22.setLayout(jPanel22Layout);
+        jPanel22Layout.setHorizontalGroup(
+            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel22Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel40, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel22Layout.createSequentialGroup()
+                        .addComponent(spec1, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel39)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cb_tipoOrden1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel46, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtIco, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(193, 193, 193))
+                    .addGroup(jPanel22Layout.createSequentialGroup()
+                        .addComponent(comentaCallCenter)
+                        .addContainerGap())))
+        );
+        jPanel22Layout.setVerticalGroup(
+            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel22Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel39)
+                    .addComponent(cb_tipoOrden1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel41)
+                    .addComponent(spec1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel46)
+                        .addComponent(txtIco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel40, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comentaCallCenter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(13, Short.MAX_VALUE))
+        );
+
+        buscar1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buscar1MouseClicked(evt);
+            }
+        });
+
+        buscar_btn1.setText("Buscar");
+        buscar_btn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscar_btn1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout listaCallCenterLayout = new javax.swing.GroupLayout(listaCallCenter.getContentPane());
+        listaCallCenter.getContentPane().setLayout(listaCallCenterLayout);
+        listaCallCenterLayout.setHorizontalGroup(
+            listaCallCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel21, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(listaCallCenterLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(listaCallCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, listaCallCenterLayout.createSequentialGroup()
+                        .addComponent(buscar1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buscar_btn1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(148, 148, 148)
+                        .addComponent(cambiar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(borrar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        listaCallCenterLayout.setVerticalGroup(
+            listaCallCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(listaCallCenterLayout.createSequentialGroup()
+                .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(listaCallCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(borrar1)
+                    .addComponent(buscar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buscar_btn1)
+                    .addComponent(cambiar1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        jDialogCallCenter.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        jDialogCallCenter.setTitle("Ingrese razón de envio");
+        jDialogCallCenter.setModal(true);
+        jDialogCallCenter.setResizable(false);
+        jDialogCallCenter.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                jDialogCallCenterWindowClosing(evt);
+            }
+        });
+
+        textfieldComentario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textfieldComentarioKeyTyped(evt);
+            }
+        });
+
+        jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel35.setText("Por favor ingrese comentario e ICO de facility para orden pendiente");
+
+        JDialogCallCenterCancelar.setText("Cancelar");
+        JDialogCallCenterCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JDialogCallCenterCancelarActionPerformed(evt);
+            }
+        });
+
+        jDialogCallCenterAceptar.setText("Aceptar");
+        jDialogCallCenterAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jDialogCallCenterAceptarActionPerformed(evt);
+            }
+        });
+
+        jLabel21.setText("Comentario:");
+
+        jLabel45.setText("Facility ICO:");
+
+        javax.swing.GroupLayout jDialogCallCenterLayout = new javax.swing.GroupLayout(jDialogCallCenter.getContentPane());
+        jDialogCallCenter.getContentPane().setLayout(jDialogCallCenterLayout);
+        jDialogCallCenterLayout.setHorizontalGroup(
+            jDialogCallCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialogCallCenterLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jDialogCallCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jDialogCallCenterLayout.createSequentialGroup()
+                        .addGroup(jDialogCallCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel35, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jDialogCallCenterLayout.createSequentialGroup()
+                                .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textfieldComentario, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialogCallCenterLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jDialogCallCenterAceptar)
+                        .addGap(87, 87, 87)
+                        .addComponent(JDialogCallCenterCancelar)
+                        .addGap(51, 51, 51))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialogCallCenterLayout.createSequentialGroup()
+                        .addComponent(jLabel45, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textfieldIco, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+        );
+        jDialogCallCenterLayout.setVerticalGroup(
+            jDialogCallCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialogCallCenterLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel35)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jDialogCallCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textfieldComentario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel21))
+                .addGap(5, 5, 5)
+                .addGroup(jDialogCallCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textfieldIco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel45))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jDialogCallCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JDialogCallCenterCancelar)
+                    .addComponent(jDialogCallCenterAceptar))
+                .addContainerGap())
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registro y Gestión de Ordenes Procesadas - Registrar Ordenes - SIAPO");
         setResizable(false);
@@ -803,7 +1181,6 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
                 formWindowIconified(evt);
             }
         });
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Orden Actual", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 18))); // NOI18N
 
@@ -838,6 +1215,11 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
 
         specimen.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
+        facility.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel14.setText("Facility ICO");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -859,6 +1241,10 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(tipoOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(facility, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(comentario))
                 .addContainerGap())
@@ -867,12 +1253,14 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(specimen, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(specimen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel7)
                         .addComponent(jLabel9)
-                        .addComponent(tipoOrden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(tipoOrden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(facility, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
@@ -881,8 +1269,6 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
                     .addComponent(nombreLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 176, 972, -1));
 
         jPanel5.setBackground(new java.awt.Color(94, 112, 144));
         jPanel5.setForeground(new java.awt.Color(94, 112, 144));
@@ -895,7 +1281,7 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1023, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -904,8 +1290,6 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 644, 1023, -1));
 
         ingresarOrden.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         ingresarOrden.setText("Ingresar orden");
@@ -962,7 +1346,7 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
                 .addComponent(cancelarRegistro)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(listaProcesadas1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(167, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -976,8 +1360,6 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
                     .addComponent(listaProcesadas1))
                 .addContainerGap())
         );
-
-        getContentPane().add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 589, 1023, -1));
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Historial de orden", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 18))); // NOI18N
 
@@ -1024,8 +1406,6 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 304, 972, -1));
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Totales", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 18))); // NOI18N
 
@@ -1123,8 +1503,6 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
                 .addGap(20, 20, 20))
         );
 
-        getContentPane().add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 451, -1, -1));
-
         jPanel2.setBackground(new java.awt.Color(60, 117, 207));
 
         jPanel3.setBackground(new java.awt.Color(47, 63, 79));
@@ -1155,7 +1533,7 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 364, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 558, Short.MAX_VALUE)
                         .addComponent(jLabel16)))
                 .addContainerGap())
         );
@@ -1274,9 +1652,37 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
                 .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1023, -1));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
-        setBounds(0, 0, 1039, 720);
+        setBounds(0, 0, 1039, 727);
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -1327,7 +1733,7 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
     }//GEN-LAST:event_cancelarRegistroActionPerformed
 
     private void listaProcesadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaProcesadasActionPerformed
-        actualizarListaRegistro();
+        actualizarListaRegistro(1, listaOrdenes);
         listaDeOrdenes.setSize(800, 600);
         listaDeOrdenes.setLocationRelativeTo(null);
         listaDeOrdenes.setVisible(true);
@@ -1372,10 +1778,13 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
                 inicializar();
                 listaDeOrdenes.setSize(800, 600);
                 listaDeOrdenes.setLocationRelativeTo(null);
+                listaCallCenter.setSize(800, 600);
+                listaCallCenter.setLocationRelativeTo(null);
                 setSize(1024, 680);
                 setLocationRelativeTo(null);
                 this.ordenActual.setRazones(new ArrayList());
                 inicializarVentanaEmergente();
+                u.DNI(this.textfieldIco);
                 this.ventanaEmergente.agregarTexto("Se ha minimizado SIAPO."
                         + "\nHMCR Solutions", 3);
                 ventanaEmergente.start();
@@ -1415,14 +1824,20 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
         if (!a && b) {
             if (tipo > 0 && tipo != 3) {
                 if (tipo < 3) {
-                    this.jDialogComentario.setSize(340, 140);
-                    this.jDialogComentario.setLocationRelativeTo(null);
-                    this.jDialogComentario.setVisible(true);
+                    if (l.getLocationActivo() == 1) {
+                        this.jDialogComentario.setSize(340, 140);
+                        this.jDialogComentario.setLocationRelativeTo(null);
+                        this.jDialogComentario.setVisible(true);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No puede poner una orden de Call Center como "
+                                + this.tipoOrden.getSelectedItem().toString(), "Error", JOptionPane.ERROR_MESSAGE);
+                        this.tipoOrden.setSelectedIndex(3);
+                    }
+
                 } else {
-                    String comentarioCallCenter = JOptionPane.showInputDialog("Ingrese algun comentario para la orden pendiente");
-                    ordenActual.setComentarioCallCenter(comentarioCallCenter);
-                    this.comentario.setText(comentarioCallCenter);
-                    actualizarVentanaEmergente();
+                    this.jDialogCallCenter.setSize(350, 160);
+                    this.jDialogCallCenter.setLocationRelativeTo(null);
+                    this.jDialogCallCenter.setVisible(true);
                 }
             } else {
                 this.comentario.setText("");
@@ -1444,69 +1859,12 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
 
     private void formWindowIconified(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowIconified
         // TODO add your handling code here:
-        this.setVisible(false);
+        //this.setVisible(false);
     }//GEN-LAST:event_formWindowIconified
 
     private void borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarActionPerformed
         // TODO add your handling code here:
-        int t[];
-        t = listaOrdenes.getSelectedRows();
-        if (t.length > 1) {
-            JOptionPane.showMessageDialog(null, "Ha seleccionado varios specimen por favor solo seleccione uno", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            if (t.length == 1) {
-                if (listaOrdenes.getSelectedRow() != 0 || specimen.getText().isEmpty()) {
-                    // esto es para permitir que copie otra vez el num de specimen de primero
-                    if (listaOrdenes.getSelectedRow() == 0) {
-                        this.specAlmacenado = "00000000";
-                    }
-                    String sp = listaOrdenes.getValueAt(listaOrdenes.getSelectedRow(), 0).toString();
-                    int resulta = JOptionPane.showConfirmDialog(null, "¿Esta seguro?", "Eliminar registro de orden",
-                            JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-                    if (resulta == JOptionPane.YES_OPTION) {
-                        Orden o = new Orden();
-                        o.setSpecimen(sp);
-                        if (listaOrdenes.getValueAt(listaOrdenes.getSelectedRow(), 2).toString().equals("Completa")) {
-                            o.setTipoOrden(1);
-                        } else {
-                            if (listaOrdenes.getValueAt(listaOrdenes.getSelectedRow(), 2).toString().equals("Regresada Incompleta")) {
-                                o.setTipoOrden(2);
-                            } else {
-                                o.setTipoOrden(3);
-                            }
-                        }
-                        // comprobar si la orden contiene errores
-                        if (!o.contieneErrores()) {
-                            // comprobar si es una orden auditada
-                            if (!o.estaAuditada()) {
-                                o.borrarOrden(u.getUser(), 1);
-                                this.inicializarPortapapeles(false);
-                                JOptionPane.showMessageDialog(null, " Registro de orden borrado", "Eliminar registro de Orden", JOptionPane.INFORMATION_MESSAGE);
-                                actualizarListaRegistro();
-//                                this.listaDeOrdenes.repaint();
-//                                listaOrdenes.repaint();
-                                llenarTotales();
-                                trayIcon.setToolTip("PR:" + this.total.getText()
-                                        + " CO:" + this.completas.getText()
-                                        + " IN:" + this.incompletas.getText()
-                                        + " SN:" + this.nada.getText()
-                                        + " RS:" + this.resueltas.getText()
-                                        + " PN:" + this.pendientes.getText()
-                                );
-                            } else {
-                                JOptionPane.showMessageDialog(null, " La orden ya fue auditada asi que no puede ser eliminado el registro", "Error", JOptionPane.INFORMATION_MESSAGE);
-                            }
-                        } else {
-                            JOptionPane.showMessageDialog(null, " La orden contiene errores asi que no puede ser eliminado el registro", "Error", JOptionPane.INFORMATION_MESSAGE);
-                        }
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, " La orden que quiere borrar es la que se esta procesando actualmente", "Error", JOptionPane.INFORMATION_MESSAGE);
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Seleccione una orden primero", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
+        borrarOrden(listaOrdenes, 1);
 
     }//GEN-LAST:event_borrarActionPerformed
 
@@ -1535,7 +1893,7 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
                 } while (i < t.length);
                 JOptionPane.showMessageDialog(null, "Ordenes actualizadas exitosamente" + actualO,
                         "Actualizar Ordenes", JOptionPane.INFORMATION_MESSAGE);
-                actualizarListaRegistro();
+                actualizarListaRegistro(1, listaOrdenes);
                 llenarTotales();
                 trayIcon.setToolTip("PR:" + this.total.getText() + " CO:" + this.completas.getText() + " IN:" + this.incompletas.getText() + " SN:" + this.nada.getText());
             }
@@ -1578,10 +1936,10 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
                         } else {
                             o.setComentarioAgente(comentaAgente.getText());
                         }
-                        if (o.actualizarOrden()) {
+                        if (o.actualizarOrden(1)) {
                             JOptionPane.showMessageDialog(null, "Orden actualizada exitosamente",
                                     "Actualizar Orden", JOptionPane.INFORMATION_MESSAGE);
-                            actualizarListaRegistro();
+                            actualizarListaRegistro(1, listaOrdenes);
                             llenarTotales();
                             trayIcon.setToolTip("Orden actual: " + this.specAlmacenado + "\nPR:" + this.total.getText() + " CO:" + this.completas.getText() + " IN:" + this.incompletas.getText() + " SN:" + this.nada.getText());
                         } else {
@@ -1629,10 +1987,7 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
     }//GEN-LAST:event_listaOrdenesMouseClicked
 
     private void buscar_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscar_btnActionPerformed
-        Orden o = new Orden();
-        o.setSpecimen(this.buscar.getText());
-        o.encontrarOrden(listaOrdenes);
-        this.listaOrdenesMouseClicked(null);
+        buscarOrden(this.listaOrdenes, this.buscar);
     }//GEN-LAST:event_buscar_btnActionPerformed
 
     private void specMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_specMouseClicked
@@ -1755,8 +2110,122 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
 
     private void listaProcesadas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listaProcesadas1ActionPerformed
         // TODO add your handling code here:
-        
+        actualizarListaRegistro(2, tablaCallCenter);
+        listaCallCenter.setSize(800, 600);
+        listaCallCenter.setLocationRelativeTo(null);
+        listaCallCenter.setVisible(true);
     }//GEN-LAST:event_listaProcesadas1ActionPerformed
+
+    private void tablaCallCenterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCallCenterMouseClicked
+        // TODO add your handling code here:
+        //locations.setSelectedItem(tablaCallCenter.getValueAt(tablaCallCenter.getSelectedRow(), 1).toString());
+        spec1.setText(tablaCallCenter.getValueAt(tablaCallCenter.getSelectedRow(), 0).toString());
+        comentaCallCenter.setText(tablaCallCenter.getValueAt(tablaCallCenter.getSelectedRow(), 5).toString());
+        txtIco.setText(tablaCallCenter.getValueAt(tablaCallCenter.getSelectedRow(), 6).toString());
+        if (tablaCallCenter.getValueAt(tablaCallCenter.getSelectedRow(), 2).toString().equals("Resuelta")) {
+            cb_tipoOrden1.setSelectedIndex(0);
+        } else {
+            cb_tipoOrden1.setSelectedIndex(1);
+        }
+
+    }//GEN-LAST:event_tablaCallCenterMouseClicked
+
+    private void listaCallCenterWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_listaCallCenterWindowClosing
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listaCallCenterWindowClosing
+
+    private void borrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrar1ActionPerformed
+        // TODO add your handling code here:
+        borrarOrden(tablaCallCenter, 2);
+    }//GEN-LAST:event_borrar1ActionPerformed
+
+    private void cambiar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiar1ActionPerformed
+        // TODO add your handling code here:
+        Orden o = new Orden();
+        int t[];
+        t = tablaCallCenter.getSelectedRows();
+        if (t.length == 1) {
+            o.setSpecimen(tablaCallCenter.getValueAt(tablaCallCenter.getSelectedRow(), 0).toString());
+            if (specimen.getText().equals(o.getSpecimen())) {
+                JOptionPane.showMessageDialog(null, " La orden que quiere actualizar es la que se esta procesando actualmente", "Error", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                o.setTipoOrden(cb_tipoOrden1.getSelectedIndex() + 6);
+                o.setUser(u.getUser());
+                o.setComentarioCallCenter(comentaCallCenter.getText());
+                o.setFacility(Integer.parseInt(txtIco.getText()));
+                if (o.actualizarOrden(2)) {
+                    JOptionPane.showMessageDialog(null, "Orden actualizada exitosamente",
+                            "Actualizar Orden", JOptionPane.INFORMATION_MESSAGE);
+                    actualizarListaRegistro(2, tablaCallCenter);
+                    llenarTotales();
+                    trayIcon.setToolTip("PR:" + this.total.getText()
+                            + " CO:" + this.completas.getText()
+                            + " IN:" + this.incompletas.getText()
+                            + " SN:" + this.nada.getText()
+                            + " RS:" + this.resueltas.getText()
+                            + " PN:" + this.pendientes.getText()
+                    );
+                } else {
+                    JOptionPane.showMessageDialog(null, "No se pudo actualizar la orden",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No ha seleccionado ninguna orden", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_cambiar1ActionPerformed
+
+    private void buscar_btn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscar_btn1ActionPerformed
+        // TODO add your handling code here:
+        buscarOrden(this.tablaCallCenter, this.buscar1);
+    }//GEN-LAST:event_buscar_btn1ActionPerformed
+
+    private void buscar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buscar1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buscar1MouseClicked
+
+    private void spec1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_spec1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_spec1MouseClicked
+
+    private void cb_tipoOrden1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_tipoOrden1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cb_tipoOrden1ActionPerformed
+
+    private void JDialogCallCenterCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JDialogCallCenterCancelarActionPerformed
+        // TODO add your handling code here:
+        this.textfieldComentario.setText("");
+        this.textfieldIco.setText("");
+        this.tipoOrden.setSelectedIndex(3);
+        this.jDialogCallCenter.setVisible(false);
+    }//GEN-LAST:event_JDialogCallCenterCancelarActionPerformed
+
+    private void jDialogCallCenterAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDialogCallCenterAceptarActionPerformed
+        // TODO add your handling code here:
+        String comentarioCallCenter = this.textfieldComentario.getText();
+        String ico = this.textfieldIco.getText();
+        this.textfieldComentario.setText("");
+        this.textfieldIco.setText("");
+        ordenActual.setComentarioCallCenter(comentarioCallCenter);
+        ordenActual.setFacility(Integer.parseInt(ico));
+        this.comentario.setText(comentarioCallCenter);
+        this.facility.setText(ico);
+        actualizarVentanaEmergente();
+        this.jDialogCallCenter.setVisible(false);
+    }//GEN-LAST:event_jDialogCallCenterAceptarActionPerformed
+
+    private void jDialogCallCenterWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_jDialogCallCenterWindowClosing
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jDialogCallCenterWindowClosing
+
+    private void textfieldComentarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textfieldComentarioKeyTyped
+        // TODO add your handling code here:
+        u.soloLetrasNum(evt);
+    }//GEN-LAST:event_textfieldComentarioKeyTyped
+
+    private void txtIcoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtIcoMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIcoMouseClicked
 
     public Action getAccion(Action[] acciones, String nombreAccion) {
         Hashtable<Object, Action> acc = new Hashtable<>();
@@ -1882,8 +2351,8 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
             ActionListener abrirLista = new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    actualizarListaRegistro();
-                    listaDeOrdenes.setVisible(true);
+                    actualizarListaRegistro(2, tablaCallCenter);
+                    listaCallCenter.setVisible(true);
                 }
             };
             //Aquí se crea un popup menu  
@@ -1896,7 +2365,7 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
             MenuItem b = new MenuItem("Cambiar Location");
             MenuItem d = new MenuItem("Activar/Detener Automatización");
             MenuItem a = new MenuItem("Mostrar/Ocultar Información de Orden");
-            MenuItem lis = new MenuItem("Lista de ordenes");
+            MenuItem lis = new MenuItem("Lista de ordenes CS");
             MenuItem defaultItem = new MenuItem("Salir de la aplicación");
             //Se le asigna al item del popup el listener para salir de la app  
             defaultItem.addActionListener(exitListener);
@@ -1957,25 +2426,35 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton JDialogCallCenterCancelar;
     private javax.swing.JButton JDialogCancelarRazon;
     private javax.swing.JButton aceptar;
     private javax.swing.JButton agregar;
     private javax.swing.JButton borrar;
+    private javax.swing.JButton borrar1;
     private javax.swing.JTextField buscar;
+    private javax.swing.JTextField buscar1;
     private javax.swing.JToggleButton buscar_btn;
+    private javax.swing.JToggleButton buscar_btn1;
     private javax.swing.JButton cambiar;
+    private javax.swing.JButton cambiar1;
     private javax.swing.JButton cancelarRegistro;
     private javax.swing.JComboBox cb_tipoOrden;
+    private javax.swing.JComboBox cb_tipoOrden1;
     private javax.swing.JTextField comentaAgente;
+    private javax.swing.JTextField comentaCallCenter;
     private javax.swing.JTextField comentario;
     private javax.swing.JLabel completas;
     private javax.swing.JMenuItem copiar;
     private javax.swing.JMenuItem cortar;
     private javax.swing.JButton definirLocation;
+    private javax.swing.JLabel facility;
     private javax.swing.JTable historial;
     private javax.swing.JLabel incompletas;
     private javax.swing.JButton ingresarOrden;
     private javax.swing.JButton jDialogAceptar;
+    private javax.swing.JDialog jDialogCallCenter;
+    private javax.swing.JButton jDialogCallCenterAceptar;
     private javax.swing.JDialog jDialogComentario;
     private javax.swing.JTextField jDialogRazon;
     private javax.swing.JButton jDialogTerminar;
@@ -2006,9 +2485,20 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -2024,7 +2514,11 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel20;
+    private javax.swing.JPanel jPanel21;
+    private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -2037,6 +2531,8 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JFrame listaCallCenter;
     private javax.swing.JFrame listaDeOrdenes;
     private javax.swing.JTable listaLocation;
     private javax.swing.JFrame listaLocations;
@@ -2053,9 +2549,14 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
     private javax.swing.JButton registro;
     private javax.swing.JLabel resueltas;
     private javax.swing.JTextField spec;
+    private javax.swing.JTextField spec1;
     private javax.swing.JLabel specimen;
+    private javax.swing.JTable tablaCallCenter;
+    private javax.swing.JTextField textfieldComentario;
+    private javax.swing.JTextField textfieldIco;
     private javax.swing.JComboBox tipoOrden;
     private javax.swing.JLabel total;
+    private javax.swing.JTextField txtIco;
     // End of variables declaration//GEN-END:variables
 
     @Override
@@ -2158,9 +2659,11 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
                 + " RS:" + this.resueltas.getText()
                 + " PN:" + this.pendientes.getText()
         );
-        if (this.listaDeOrdenes.isVisible()) {
-            actualizarListaRegistro();
-
+        if (this.listaDeOrdenes.isVisible() && l.getLocationActivo() == 1) {
+            actualizarListaRegistro(1, listaOrdenes);
+        }
+        if (listaCallCenter.isVisible() && l.getLocationActivo() == 3) {
+            actualizarListaRegistro(2, tablaCallCenter);
         }
     }
 
@@ -2184,9 +2687,8 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
         }
     }
 
-    public void actualizarListaRegistro() {
-        ordenActual.llenarTablaOrdenes(listaOrdenes, u.getUser(), "", "");
-        //listaOrdenes.repaint();
+    public void actualizarListaRegistro(int tabla, JTable t) {
+        ordenActual.llenarTablaOrdenes(t, u.getUser(), "", "", tabla);
     }
 
     private void llenarTotales() {
@@ -2219,6 +2721,7 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
 
     public boolean actualizarOrden() {
         this.ordenActual.setComentarioAgente(comentario.getText());
+        this.ordenActual.setComentarioCallCenter(comentario.getText());
         //this.ordenActual.setCodigoLocation(l.getCodigoLocation());
         if (l.getLocationActivo() == 1) {
             ordenActual.setTipoOrden(tipoOrden.getSelectedIndex() + 1);
@@ -2254,10 +2757,12 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
             ventanaEmergente.cambiarColor(3);
             texto = texto + "\nMANDADA POR: " + ordenActual.getComentarioAgente();
         } else {
-            if (tipoOrden.getSelectedIndex() == 4) {
+            if (tipoOrden.getSelectedIndex() == 3 || tipoOrden.getSelectedIndex() == 0) {//completa o resuelta
                 ventanaEmergente.cambiarColor(1);
             } else {
                 ventanaEmergente.cambiarColor(5);
+                texto = texto + "\nCOMENTARIO: " + ordenActual.getComentarioCallCenter()
+                        + "\nFACILITY ICO: " + ordenActual.getFacility();
             }
         }
         this.ventanaEmergente.agregarTexto(texto, 3);
@@ -2305,5 +2810,82 @@ public final class RegistroDeOrdenesProcesadasCallCenter extends javax.swing.JFr
             actualizarVentanaEmergente();
         }
         return ingresado;
+    }
+
+    public void borrarOrden(JTable table, int tabla) {
+        int t[];
+        t = table.getSelectedRows();
+        if (t.length > 1) {
+            JOptionPane.showMessageDialog(null, "Ha seleccionado varios specimen por favor solo seleccione uno", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            if (t.length == 1) {
+                if (table.getSelectedRow() != 0 || specimen.getText().isEmpty()) {
+                    // esto es para permitir que copie otra vez el num de specimen de primero
+                    if (table.getSelectedRow() == 0) {
+                        this.specAlmacenado = "00000000";
+                    }
+                    String sp = table.getValueAt(table.getSelectedRow(), 0).toString();
+                    int resulta = JOptionPane.showConfirmDialog(null, "¿Esta seguro?", "Eliminar registro de orden",
+                            JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                    if (resulta == JOptionPane.YES_OPTION) {
+                        Orden o = new Orden();
+                        o.setSpecimen(sp);
+                        if (table.getValueAt(table.getSelectedRow(), 2).toString().equals("Completa")) {
+                            o.setTipoOrden(1);
+                        } else {
+                            if (table.getValueAt(table.getSelectedRow(), 2).toString().equals("Regresada Incompleta")) {
+                                o.setTipoOrden(2);
+                            } else {
+                                if (table.getValueAt(table.getSelectedRow(), 2).toString().equals("Regresada sin hacer nada")) {
+                                    o.setTipoOrden(3);
+                                } else {
+                                    if (table.getValueAt(table.getSelectedRow(), 2).toString().equals("Resuelta")) {
+                                        o.setTipoOrden(6);
+                                    } else {
+
+                                        o.setTipoOrden(7);
+                                    }
+                                }
+                            }
+                        }
+                        // comprobar si la orden contiene errores
+                        if (!o.contieneErrores()) {
+                            // comprobar si es una orden auditada
+                            if (!o.estaAuditada()) {
+                                o.borrarOrden(u.getUser(), tabla);
+                                this.inicializarPortapapeles(false);
+                                JOptionPane.showMessageDialog(null, " Registro de orden borrado", "Eliminar registro de Orden", JOptionPane.INFORMATION_MESSAGE);
+                                actualizarListaRegistro(tabla, table);
+//                                this.listaDeOrdenes.repaint();
+//                                listaOrdenes.repaint();
+                                llenarTotales();
+                                trayIcon.setToolTip("PR:" + this.total.getText()
+                                        + " CO:" + this.completas.getText()
+                                        + " IN:" + this.incompletas.getText()
+                                        + " SN:" + this.nada.getText()
+                                        + " RS:" + this.resueltas.getText()
+                                        + " PN:" + this.pendientes.getText()
+                                );
+                            } else {
+                                JOptionPane.showMessageDialog(null, " La orden ya fue auditada asi que no puede ser eliminado el registro", "Error", JOptionPane.INFORMATION_MESSAGE);
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, " La orden contiene errores asi que no puede ser eliminado el registro", "Error", JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, " La orden que quiere borrar es la que se esta procesando actualmente", "Error", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Seleccione una orden primero", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    public void buscarOrden(JTable table, JTextField texto) {
+        Orden o = new Orden();
+        o.setSpecimen(texto.getText());
+        o.encontrarOrden(table);
+        this.listaOrdenesMouseClicked(null);
     }
 }

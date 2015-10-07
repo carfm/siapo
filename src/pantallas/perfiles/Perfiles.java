@@ -1232,7 +1232,7 @@ public final class Perfiles extends javax.swing.JFrame {
         SimpleDateFormat variableFecha = new SimpleDateFormat("dd-MM-yyyy");
         String fechafin = u.fechaCorrecta(variableFecha.format(fin.getDate()));
         String fechainicio = u.fechaCorrecta(variableFecha.format(inicio.getDate()));
-        o.llenarTablaOrdenes(listaOrdenes, userCRT, fechainicio, fechafin);
+        o.llenarTablaOrdenes(listaOrdenes, userCRT, fechainicio, fechafin,1);
         listaDeOrdenes.setSize(800, 600);
         listaDeOrdenes.setLocationRelativeTo(null);
         listaDeOrdenes.setVisible(true);
